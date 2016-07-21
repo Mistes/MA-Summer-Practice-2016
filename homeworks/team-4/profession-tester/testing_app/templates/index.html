@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blog</title>
+        <link href="{{ url_for('static', filename='main.min.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="header">
+            <div class="content-wrap">
+                <h1 class="title-page vert-align">Blog</h1>
+                <a class="btn-header" href="{{ url_for('postPage') }}">
+                    <svg fill="#f6f6f6" height="70" viewBox="0 0 80 80" width="70" xmlns="http://www.w3.org/2000/svg"><path d="M61 37H43V19h-6v18H19v6h18v18h6V43h18"/></svg>
+                </a>
+            </div>
+        </header>
+        <section class="stream-blog">
+            <div class="content-wrap">
+                <ul class="list-blog">
+                    {% for entries in myAll %}
+                    <li class="article">
+                        <h3 class="name-article"><a href={{ entries.id }}>{{ entries.title }}</a></h3>
+                        <p class="date-post">Posted at {{entries.time}}</p>
+                        <p class="light-text">{{entries.text|safe}}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="content-wrap">
+                <p class="copy text-center vert-align">© 2016 Masters Academy</p>
+            </div>
+        </footer>
+    </body>
+</html>

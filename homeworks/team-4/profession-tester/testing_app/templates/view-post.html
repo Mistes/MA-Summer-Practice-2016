@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ViewPost</title>
+        <link href="{{ url_for('static', filename='main.min.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="header">
+            <div class="content-wrap">
+                <a class="btn-back" href="{{ url_for('show_entries') }}">
+                    <svg fill="#f6f6f6" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h48v48H0z" fill="none"/><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"/></svg>
+                </a>
+                <div class="vert-align">
+                    <h3 class="title-article-page">{{ post.title }}</h3>
+                    <p class="date-post">Posted at {{post.time}}</p>
+                </div>
+                <a class="btn-header btn-edit"  href="edit">
+                    <svg fill="#f6f6f6" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M6 34.5V42h7.5l22.13-22.13-7.5-7.5L6 34.5zm35.41-20.41c.78-.78.78-2.05 0-2.83l-4.67-4.67c-.78-.78-2.05-.78-2.83 0l-3.66 3.66 7.5 7.5 3.66-3.66z"/><path d="M0 0h48v48H0z" fill="none"/></svg>
+                </a>
+                <a class="btn-header remove-post"href="{{ url_for('delete',id = post.id) }}">
+                    <svg fill="#f6f6f6" height="70" viewBox="0 0 70 70" width="70" xmlns="http://www.w3.org/2000/svg"><path d="M45.96 20.504L35 31.464l-10.96-10.96-3.536 3.536L31.464 35l-10.96 10.96 3.536 3.536L35 38.536l10.96 10.96 3.536-3.536L38.536 35l10.96-10.96"/></svg>
+                </a>
+            </div>
+        </header>
+        <div class="article-description">
+            <div class="content-wrap">
+                <p class="light-text">{{ post.text }}</p>
+            </div>
+        </div>
+        <div class="wrap-comments">
+            <div class="content-wrap">
+                <h4 class="name-block">Comments</h4>
+                <button class="add-comment" type="submit", form="comm_form">
+                    <svg fill="#f6f6f6" height="80" viewBox="0 0 80 80" width="80" xmlns="http://www.w3.org/2000/svg"><path d="M61 37H43V19h-6v18H19v6h18v18h6V43h18"/></svg>
+                </button>
+                <form class="form-comment" method=post action="{{ url_for('add_comment', id = post.id) }}" id="comm_form">
+                    <label class="name-field">
+                        Name
+                        <input name="title" type="text">
+                    </label>
+                    <label class="name-field">
+                        Comment
+                        <textarea name="text" cols="30" rows="5"></textarea>
+                    </label>
+                </form>
+                <ul class="list-comments">
+                    {% for comment in post.comments.all() %}
+                    <li>
+                        <p class="name">{{comment.name}}</p>
+                        <p class="date-post">Posted at {{comment.time}}</p>
+                        <p class="comment-text">{{comment.text}}</p>
+                        <a class="delete-btn" href = "{{url_for('delete_comment', id = post.id, comment_id = comment.id)}}" >Delete</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="content-wrap">
+                <p class="copy text-center vert-align">© 2016 Masters Academy</p>
+            </div>
+        </footer>
+    </body>
+</html>
