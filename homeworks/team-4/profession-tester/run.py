@@ -1,5 +1,4 @@
-from testing_app import app
-from testing_app import db
+from professional_tester import app
 
 if __name__ =="__main__":
     app.run()

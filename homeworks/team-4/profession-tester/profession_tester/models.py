@@ -1,8 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required
-from testing_app import db
-from datetime import datetime
-from sqlalchemy.dialects.postgresql import JSON
+from profession_tester import db
 
 class Tests(db.Model):  #     for text data base
     id = db.Column(db.Integer, db.Sequence('test_seq'), primary_key=True)
@@ -33,6 +30,3 @@ class Answers(db.Model):
     def __init__(self, answer_body, profession_enum):
         self.answer_body = answer_body
         self.profession_enum = profession_enum
-
-        def __repr__(self):
-            return '<Hehe>' % self.answer
