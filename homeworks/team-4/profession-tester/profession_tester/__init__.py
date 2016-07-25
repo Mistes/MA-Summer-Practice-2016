@@ -8,4 +8,4 @@ app.debug =True
 
 db = SQLAlchemy(app)
 
-import profession_tester.models
+import profession_tester.models, profession_tester.views
