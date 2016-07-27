@@ -1,7 +1,9 @@
 from flask import json, jsonify
 from profession_tester import app, models, db
+from flask_security import SQLAlchemyUserDatastore
 
-Tests = models.Tests					
+Tests = models.Tests
+
 
 def jsonify_test(my_test):
 	tmp_answers = []
@@ -24,6 +26,11 @@ def jsonify_test(my_test):
 		'questions': tmp_questions
 	}
 					
+@app.before_first_request
+def create_user():
+    db.create_all()
+    db.session.commit()
+
 
 @app.route('/')
 def hello():
