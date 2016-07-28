@@ -1,4 +1,4 @@
-from flask import json, jsonify
+from flask import json, jsonify, render_template
 from profession_tester import app, models, db
 from flask_security import SQLAlchemyUserDatastore
 
@@ -33,8 +33,8 @@ def create_user():
 
 
 @app.route('/')
-def hello():
-	return 'Hello, World!'
+def index():
+    return render_template('index.html')
 
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
