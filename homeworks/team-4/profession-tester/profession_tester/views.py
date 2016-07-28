@@ -5,6 +5,7 @@ from flask_security import SQLAlchemyUserDatastore
 Tests = models.Tests
 Questions = models.Questions
 Answers = models.Answers
+Primaries = models.PrimaryTests
 
 test = {
 	'name': 'Test 3',
@@ -40,7 +41,19 @@ def jsonify_test(my_test):
 		'type': my_test.type,
 		'questions': tmp_questions
 	}
-					
+def json_primarytests(my_test):
+	tmp_answers = []
+	tmp_questions = []
+	for q in my_test.questions:
+		tmp_questions.append({
+			'name': q.question_body,
+			'normal_test_id': tmp_answers
+		})
+	return {
+		'id': my_test.id,
+		'name': my_test.name,
+		'normal_test_id': my_test.normal_id,
+	}
 @app.before_first_request
 def create_user():
     db.create_all()
@@ -53,7 +66,7 @@ def index():
 
 @app.route('/save-test/<int:is_primary>', methods = ['GET', 'POST'])
 def save_test(is_primary):
-	#test = get_this_stuff_somehow()	
+	#test = get_this_stuff_somehow()
 
 	form = Tests(test['name'], test['type'])
 	for q in test['questions']:
@@ -63,9 +76,14 @@ def save_test(is_primary):
 		form.questions.append(tmp)
 	db.session.add(form)
 	db.session.commit()
-	
+
 	return 'OK'
-	
+
+
+@app.route('/admin')
+def admain():
+	test = Primaries.query.all()
+	return json.dumps(json_primarytests(test),ensure_ascii=False)
 
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
@@ -79,13 +97,16 @@ def get_all_tests():
 
 	return json.dumps(test, ensure_ascii=False)
 
+	return json.dumps({'tests': formatted_tests}, ensure_ascii=False)
+	#return jsonify({'tests': formatted_tests})
+#return json.dumps({'tests': formatted_tests}, ensure_ascii=False)
 @app.route('/tests/<int:id>', methods = ['GET'])
 def get_test(id):
 	test = Tests.query.get_or_404(id)
-	return jsonify(jsonify_test(test))
+	return json.dumps(jsonify_test(test),ensure_ascii=False)
 	
 
 @app.route('/tests/request-test/<name>/<int:type>', methods = ['GET', 'POST'])
 def get_next_test(name, type):
 	test = Tests.query.filter_by(name = name, type = type).first()
-	return jsonify(jsonify_test(test))
+	return json.dumps(jsonify_test(test),ensure_ascii=False)
