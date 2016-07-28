@@ -3,7 +3,22 @@ from profession_tester import app, models, db
 from flask_security import SQLAlchemyUserDatastore
 
 Tests = models.Tests
+Questions = models.Questions
+Answers = models.Answers
 
+test = {
+	'name': 'Test 3',
+	'type': 1,
+	'questions': [ {
+			'body': 'Question 1',
+			'answers': [ {
+					'body': 'Answer 1',
+					'key': 2
+				}
+			]
+		}
+	]
+}
 
 def jsonify_test(my_test):
 	tmp_answers = []
@@ -12,7 +27,7 @@ def jsonify_test(my_test):
 		for a in q.answers:
 			tmp_answers.append({
 				'body': a.answer_body,
-				'profession': a.profession_enum
+				'profession': a.category_enum
 			})
 		tmp_questions.append({
 			'body': q.question_body,
@@ -36,6 +51,22 @@ def create_user():
 def index():
     return render_template('index.html')
 
+@app.route('/save-test/<int:is_primary>', methods = ['GET', 'POST'])
+def save_test(is_primary):
+	#test = get_this_stuff_somehow()	
+
+	form = Tests(test['name'], test['type'])
+	for q in test['questions']:
+		tmp = Questions(q['body'])
+		for a in q['answers']:
+			tmp.answers.append(Answers(a['body'], a['key']))
+		form.questions.append(tmp)
+	db.session.add(form)
+	db.session.commit()
+	
+	return 'OK'
+	
+
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
 	tests = Tests.query.all()
@@ -46,7 +77,7 @@ def get_all_tests():
 	for t in tests:
 		formatted_tests.append(jsonify_test(t))
 
-	return jsonify({'tests': formatted_tests})
+	return json.dumps(test, ensure_ascii=False)
 
 @app.route('/tests/<int:id>', methods = ['GET'])
 def get_test(id):
