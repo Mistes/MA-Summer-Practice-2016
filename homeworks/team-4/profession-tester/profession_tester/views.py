@@ -95,7 +95,7 @@ def get_all_tests():
 	for t in tests:
 		formatted_tests.append(jsonify_test(t))
 
-	return json.dumps(test, ensure_ascii=False)
+	#return json.dumps(test, ensure_ascii=False)
 
 	return json.dumps({'tests': formatted_tests}, ensure_ascii=False)
 	#return jsonify({'tests': formatted_tests})
