@@ -6,6 +6,9 @@ Tests = models.Tests
 Questions = models.Questions
 Answers = models.Answers
 Primaries = models.PrimaryTests
+Categories = models.Categories
+SubCategories = models.SubCategories
+
 
 test = {
 	'name': 'Test 3',
@@ -28,7 +31,7 @@ def jsonify_test(my_test):
 		for a in q.answers:
 			tmp_answers.append({
 				'body': a.answer_body,
-				'profession': a.category_enum
+				'key': a.category_enum
 			})
 		tmp_questions.append({
 			'body': q.question_body,
@@ -41,19 +44,37 @@ def jsonify_test(my_test):
 		'type': my_test.type,
 		'questions': tmp_questions
 	}
-def json_primarytests(my_test):
-	tmp_answers = []
-	tmp_questions = []
-	for q in my_test.questions:
-		tmp_questions.append({
-			'name': q.question_body,
-			'normal_test_id': tmp_answers
+
+@app.route('/primaries', methods = ['GET'])
+def json_primarytests():
+	primary_tests = Primaries.query.all()
+	formatted_list = []
+	for t in primary_tests:
+		formatted_list.append({
+			'name': t.names,
+			'test_id': t.test_id
 		})
-	return {
-		'id': my_test.id,
-		'name': my_test.name,
-		'normal_test_id': my_test.normal_id,
-	}
+	return json.dumps({'primary_tests': formatted_list}, ensure_ascii = False)
+
+@app.route('/get-keys', methods = ['GET'])
+def get_keys():
+	keys = Categories.query.all()
+	formatted_list = []
+	tmp_subcats = []
+	for k in keys:
+		for subk in k.subcats:
+			tmp_subcats.append({
+				'name': subk.name,
+				'category_enum': subk.category_enum
+			})
+		formatted_list.append({
+			'name': k.name,
+			'category_enum': k.category_enum,
+			'subcats': tmp_subcats
+		})
+	tmp_subcats = []
+	return json.dumps({'keys': formatted_list}, ensure_ascii = False)
+
 @app.before_first_request
 def create_user():
     db.create_all()
