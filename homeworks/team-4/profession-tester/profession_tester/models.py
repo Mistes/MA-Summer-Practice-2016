@@ -57,11 +57,13 @@ class SubCategories(db.Model):
     id = db.Column(db.Integer, db.Sequence('subcat_seq'), primary_key=True)
     name = db.Column(db.String(200), unique=True)
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    text = db.Column(db.String(2000),unique=False)
     category_enum = db.Column(db.Integer)
 
-    def __init__(self, name, category_enum):
+    def __init__(self, name, category_enum, text):
         self.name = name
         self.category_enum = category_enum
+        self.text = text
 
 
 roles_users = db.Table('roles_users',
