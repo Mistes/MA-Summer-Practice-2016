@@ -37,10 +37,12 @@ class Answers(db.Model):
     answer_body = db.Column(db.String(1000), unique=False)
     quest_id = db.Column(db.Integer, db.ForeignKey('questions.id'))
     category_enum = db.Column(db.Integer,  unique=False)
+    podcategory_enum = db.Column(db.Integer,  unique=False)
 
-    def __init__(self, answer_body, category_enum):
+    def __init__(self, answer_body, category_enum, podcategory_enum):
         self.answer_body = answer_body
         self.category_enum = category_enum
+        self.podcategory_enum = podcategory_enum
 
 class Categories(db.Model):
     id = db.Column(db.Integer, db.Sequence('cat_seq'), primary_key=True)

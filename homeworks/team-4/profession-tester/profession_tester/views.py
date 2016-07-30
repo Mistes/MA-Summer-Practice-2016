@@ -31,7 +31,8 @@ def jsonify_test(my_test):
 		for a in q.answers:
 			tmp_answers.append({
 				'body': a.answer_body,
-				'key': a.category_enum
+				'key': a.category_enum,
+				'subkey': a.podcategory_enum
 			})
 		tmp_questions.append({
 			'body': q.question_body,
@@ -65,6 +66,7 @@ def get_keys():
 		for subk in k.subcats:
 			tmp_subcats.append({
 				'name': subk.name,
+				'text': subk.text,
 				'category_enum': subk.category_enum
 			})
 		formatted_list.append({
