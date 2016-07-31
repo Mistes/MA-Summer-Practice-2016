@@ -113,15 +113,18 @@ def create_user():
 def index():
     return render_template('index.html')
 
-@app.route('/save-test/<int:is_primary>', methods = ['GET', 'POST'])#123
+@app.route('/save-test', methods = ['GET', 'POST'])#123
 def save_test(is_primary):
 	#test = get_this_stuff_somehow()
 
-	form = Tests(test['name'], test['type'])
+	form = Tests(test['name'], test['type'], test['is_primary'])
 	for q in test['questions']:
 		tmp = Questions(q['body'])
 		for a in q['answers']:
-			tmp.answers.append(Answers(a['body'], a['key']))
+			if test['is_primary']:
+				tmp.answers.append(Answers(a['body'], a['key'], -1))
+			else:
+				tmp.answers.append(Answers(a['body'], -1, a['key']))
 		form.questions.append(tmp)
 	db.session.add(form)
 	db.session.commit()

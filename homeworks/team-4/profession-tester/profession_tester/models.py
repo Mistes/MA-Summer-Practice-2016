@@ -19,7 +19,7 @@ class Tests(db.Model):  #     for text data base
     isprimary = db.Column(db.Boolean)#12312
     questions = db.relationship('Questions', backref = 'tests', lazy = 'dynamic')
 
-    def __init__(self, name, type,isprimary):
+    def __init__(self, name, type, isprimary):
         self.name = name
         self.type = type
         self.isprimary = isprimary
