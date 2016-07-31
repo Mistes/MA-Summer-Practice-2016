@@ -45,8 +45,8 @@ def jsonify_test(my_test):
 		'questions': tmp_questions
 	}
 
-@app.route('/primaries', methods = ['GET'])
-def json_primarytests():
+@app.route('/get-primaries', methods = ['GET'])
+def get_primarytests():
 	primary_tests = Primaries.query.all()
 	formatted_list = []
 	for t in primary_tests:
