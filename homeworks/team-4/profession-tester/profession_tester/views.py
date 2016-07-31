@@ -102,6 +102,8 @@ def save_test(is_primary):
 
 	return 'OK'
 
+@app.route
+
 
 @app.route('/admin')
 def admain():
