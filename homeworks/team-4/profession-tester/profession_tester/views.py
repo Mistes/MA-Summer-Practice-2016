@@ -37,9 +37,9 @@ category = {
 }
 
 def jsonify_test(my_test):
-	tmp_answers = []
 	tmp_questions = []
-	for q in my_test.questions:
+	for q in my_test.questions:		
+		tmp_answers = []
 		for a in q.answers:
 			if my_test.isprimary: 
 				tmp_answers.append({
@@ -55,7 +55,6 @@ def jsonify_test(my_test):
 			'body': q.question_body,
 			'answers': tmp_answers
 		})
-		tmp_answers = []
 	return {
 		'id': my_test.id,
 		'name': my_test.name,
@@ -89,8 +88,8 @@ def get_primarytests():
 def get_keys():
 	keys = Categories.query.all()
 	formatted_list = []
-	tmp_subcats = []
-	for k in keys:
+	for k in keys:	
+		tmp_subcats = []
 		for subk in k.subcats:
 			tmp_subcats.append({
 				'name': subk.name,
@@ -102,7 +101,6 @@ def get_keys():
 			'category_enum': k.category_enum,
 			'subcats': tmp_subcats
 		})
-		tmp_subcats = []
 	return json.dumps({'keys': formatted_list}, ensure_ascii = False)
 
 @app.before_first_request
@@ -142,8 +140,6 @@ def get_all_tests():
 	tests = Tests.query.all()
 
 	formatted_tests = []
-	tmp_answers = []
-	tmp_questions = []
 	for t in tests:
 		formatted_tests.append(jsonify_test(t))
 
