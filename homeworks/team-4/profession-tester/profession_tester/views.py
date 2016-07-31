@@ -24,16 +24,33 @@ test = {
 	]
 }
 
+category = {
+	'name': 'Engineer',
+	'category_enum': 42,
+	'subcats': [
+		{
+			'name': 'Engineer-mechanic',
+			'category_enum': 43,
+			'text': 'You were born for this!'
+		}
+	]
+}
+
 def jsonify_test(my_test):
 	tmp_answers = []
 	tmp_questions = []
 	for q in my_test.questions:
 		for a in q.answers:
-			tmp_answers.append({
-				'body': a.answer_body,
-				'key': a.category_enum,
-				'subkey': a.podcategory_enum
-			})
+			if my_test.isprimary: 
+				tmp_answers.append({
+					'body': a.answer_body,
+					'key': a.category_enum
+				})
+			else:
+				tmp_answers.append({
+					'body': a.answer_body,
+					'key': a.podcategory_enum
+				})
 		tmp_questions.append({
 			'body': q.question_body,
 			'answers': tmp_answers
@@ -43,17 +60,28 @@ def jsonify_test(my_test):
 		'id': my_test.id,
 		'name': my_test.name,
 		'type': my_test.type,
+		'is_primary': my_test.isprimary,
 		'questions': tmp_questions
 	}
+@app.route('/save-new-category', methods = ['GET', 'POST'])
+def save_new_category():
+	#category = get_this_stuff_somehow()
+	
+	form = Categories(category['name'], category['category_enum'])
+	for s in category['subcats']:
+		form.subcats.append(SubCategories(s['name'], s['category_enum'], s['text']))
+	db.session.add(form)
+	db.session.commit()
+	return 'OK'
 
 @app.route('/get-primaries', methods = ['GET'])
 def get_primarytests():
-	primary_tests = Primaries.query.all()
+	primary_tests = Tests.query.filter_by(isprimary = True).all()
 	formatted_list = []
 	for t in primary_tests:
 		formatted_list.append({
-			'name': t.names,
-			'test_id': t.test_id
+			'name': t.name,
+			'test_id': t.id
 		})
 	return json.dumps({'primary_tests': formatted_list}, ensure_ascii = False)
 
@@ -74,7 +102,7 @@ def get_keys():
 			'category_enum': k.category_enum,
 			'subcats': tmp_subcats
 		})
-	tmp_subcats = []
+		tmp_subcats = []
 	return json.dumps({'keys': formatted_list}, ensure_ascii = False)
 
 @app.before_first_request
@@ -107,8 +135,7 @@ def save_test(is_primary):
 
 @app.route('/admin')
 def admain():
-	test = Primaries.query.all()
-	return json.dumps(json_primarytests(test),ensure_ascii=False)
+	return json.dumps(get_primarytests(),ensure_ascii=False)
 
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
