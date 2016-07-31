@@ -87,7 +87,7 @@ def create_user():
 def index():
     return render_template('index.html')
 
-@app.route('/save-test/<int:is_primary>', methods = ['GET', 'POST'])
+@app.route('/save-test/<int:is_primary>', methods = ['GET', 'POST'])#123
 def save_test(is_primary):
 	#test = get_this_stuff_somehow()
 
@@ -101,6 +101,8 @@ def save_test(is_primary):
 	db.session.commit()
 
 	return 'OK'
+
+@app.route
 
 
 @app.route('/admin')
