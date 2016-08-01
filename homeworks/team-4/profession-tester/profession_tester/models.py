@@ -14,7 +14,7 @@ class PrimaryTests(db.Model):
 
 class Tests(db.Model):  #     for text data base
     id = db.Column(db.Integer, db.Sequence('test_seq'), primary_key=True)
-    name = db.Column(db.String(20), unique=True)
+    name = db.Column(db.String(20), unique=False)
     type = db.Column(db.Integer, unique=False)
     isprimary = db.Column(db.Boolean)#12312
     questions = db.relationship('Questions', backref = 'tests', lazy = 'dynamic')

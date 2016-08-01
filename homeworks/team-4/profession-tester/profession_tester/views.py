@@ -1,6 +1,6 @@
 from flask import json, jsonify, render_template
 from profession_tester import app, models, db
-from flask_security import SQLAlchemyUserDatastore
+from flask_security import SQLAlchemyUserDatastore,login_required
 
 Tests = models.Tests
 Questions = models.Questions
@@ -92,7 +92,6 @@ def get_keys():
 		for subk in k.subcats:
 			tmp_subcats.append({
 				'name': subk.name,
-				'text': subk.text,
 				'category_enum': subk.category_enum
 			})
 		formatted_list.append({
@@ -139,8 +138,9 @@ def save_test():
 
 
 @app.route('/admin')
-def admain():
-	return json.dumps(get_primarytests(),ensure_ascii=False)
+@login_required
+def admin():
+	return 'hello world!'
 
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
