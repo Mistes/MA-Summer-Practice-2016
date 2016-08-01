@@ -49,12 +49,11 @@ class Answers(db.Model):
 class Categories(db.Model):
     id = db.Column(db.Integer, db.Sequence('cat_seq'), primary_key=True)
     name = db.Column(db.String(200), unique=True)
-    category_enum = db.Column(db.Integer)
+    category_enum = db.Column(db.Integer, db.Sequence('cat_enum_seq'))
     subcats = db.relationship('SubCategories', backref='categories', lazy='dynamic')
 
-    def __init__(self, name, category_enum):
+    def __init__(self, name):
         self.name = name
-        self.category_enum = category_enum
 
 
 class SubCategories(db.Model):
@@ -62,11 +61,10 @@ class SubCategories(db.Model):
     name = db.Column(db.String(200), unique=True)
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     text = db.Column(db.String(2000),unique=False)
-    category_enum = db.Column(db.Integer)
+    category_enum = db.Column(db.Integer, db.Sequence('cat_enum_seq'))
 
-    def __init__(self, name, category_enum, text):
+    def __init__(self, name, text):
         self.name = name
-        self.category_enum = category_enum
         self.text = text
 
 

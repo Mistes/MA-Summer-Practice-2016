@@ -13,6 +13,7 @@ SubCategories = models.SubCategories
 test = {
 	'name': 'Test 3',
 	'type': 1,
+	'is_primary': True,
 	'questions': [ {
 			'body': 'Question 1',
 			'answers': [ {
@@ -26,11 +27,9 @@ test = {
 
 category = {
 	'name': 'Engineer',
-	'category_enum': 42,
 	'subcats': [
 		{
 			'name': 'Engineer-mechanic',
-			'category_enum': 43,
 			'text': 'You were born for this!'
 		}
 	]
@@ -66,9 +65,9 @@ def jsonify_test(my_test):
 def save_new_category():
 	#category = get_this_stuff_somehow()
 	
-	form = Categories(category['name'], category['category_enum'])
+	form = Categories(category['name'])
 	for s in category['subcats']:
-		form.subcats.append(SubCategories(s['name'], s['category_enum'], s['text']))
+		form.subcats.append(SubCategories(s['name'], s['text']))
 	db.session.add(form)
 	db.session.commit()
 	return 'OK'
@@ -103,6 +102,8 @@ def get_keys():
 		})
 	return json.dumps({'keys': formatted_list}, ensure_ascii = False)
 
+
+
 @app.before_first_request
 def create_user():
     db.create_all()
@@ -114,7 +115,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/save-test', methods = ['GET', 'POST'])#123
-def save_test(is_primary):
+def save_test():
 	#test = get_this_stuff_somehow()
 
 	form = Tests(test['name'], test['type'], test['is_primary'])
