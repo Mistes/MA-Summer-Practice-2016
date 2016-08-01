@@ -102,7 +102,10 @@ def get_keys():
 		})
 	return json.dumps({'keys': formatted_list}, ensure_ascii = False)
 
-
+@app.route('/get-congrats/<int:enum>', methods = ['GET'])
+def get_congrats(enum):
+	key = SubCategories.query.filter_by(category_enum = enum).first()
+	return key.text
 
 @app.before_first_request
 def create_user():
