@@ -11,11 +11,16 @@ xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
 function myFunction(arr) {
-    var out = "",
-        i;
+    var out = "";
 
-    for(i = 0; i < arr.length; i++) {
-        out += '<h3>' + arr[i].questions[i].body + '</h3>';
+    for(a = 0; a < arr.length; a++) {
+        for (b = 0; b < arr[a].questions.length; b++) {
+            out += '<h3>' + arr[a].questions[b].body + '</h3>';
+            for (c = 0; c < arr[a].questions[b].answers.length; c++) {
+                out += '<li><input type="radio" name="ccc">' + arr[a].questions[b].answers[c].body + '</li>';
+            }
+        }
     }
+
     document.getElementById("list-questions").innerHTML = out;
 }
