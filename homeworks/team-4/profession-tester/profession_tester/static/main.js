@@ -18,4 +18,4 @@ function myFunction(arr) {
         out += '<h3>' + arr[i].questions[i].body + '</h3>';
     }
     document.getElementById("list-questions").innerHTML = out;
-};
+}
