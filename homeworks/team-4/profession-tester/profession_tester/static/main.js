@@ -13,14 +13,15 @@ xmlhttp.send();
 function myFunction(arr) {
     var out = "";
 
+
     for(a = 0; a < arr.length; a++) {
         for (b = 0; b < arr[a].questions.length; b++) {
-            out += '<h3>' + arr[a].questions[b].body + '</h3>';
+            out +='<li class="question"><form><h3>' + arr[a].questions[b].body + '</h3><ul>' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++) {
-                out += '<li><input type="radio" name="ccc">' + arr[a].questions[b].answers[c].body + '</li>';
+                out += '<li class="answer"><label><input type="radio" name="answer">' + arr[a].questions[b].answers[c].body + '</label></li>';
             }
+            out +='</ul></form></li>';
         }
     }
-
     document.getElementById("list-questions").innerHTML = out;
 }
