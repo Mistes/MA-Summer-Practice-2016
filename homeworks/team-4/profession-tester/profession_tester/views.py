@@ -1,6 +1,7 @@
-from flask import json, jsonify, render_template
+from flask import json, jsonify, render_template, request
 from profession_tester import app, models, db
 from flask_security import SQLAlchemyUserDatastore,login_required
+
 
 Tests = models.Tests
 Questions = models.Questions
@@ -11,28 +12,29 @@ SubCategories = models.SubCategories
 
 
 test = {
-	'name': 'Test 3',
-	'type': 1,
-	'is_primary': True,
-	'questions': [ {
-			'body': 'Question 1',
-			'answers': [ {
-					'body': 'Answer 1',
-					'key': 2
+	"name": "Test 3",
+	"type": 1,
+	"is_primary": "False",
+	"questions": [ {
+			"body": "Question 1",
+			"answers": [ {
+					"body": "Answer 1",
+					"key": 2
 				}
 			]
 		}
 	]
 }
 
+
 category = {
-	'name': 'Engineer',
-	'subcats': [
-		{
-			'name': 'Engineer-mechanic',
-			'text': 'You were born for this!'
-		}
-	]
+ "name": "E!ngineer",
+ "subcats": [
+  {
+      "name": "Engi!neer-mechanic",
+   "text": "Eng!!were born for this!"
+  }
+ ]
 }
 
 def jsonify_test(my_test):
@@ -64,7 +66,7 @@ def jsonify_test(my_test):
 @app.route('/save-new-category', methods = ['GET', 'POST'])
 def save_new_category():
 	#category = get_this_stuff_somehow()
-	
+	category = request.json
 	form = Categories(category['name'])
 	for s in category['subcats']:
 		form.subcats.append(SubCategories(s['name'], s['text']))
@@ -119,12 +121,12 @@ def index():
 @app.route('/save-test', methods = ['GET', 'POST'])#123
 def save_test():
 	#test = get_this_stuff_somehow()
-
+	test = request.json
 	form = Tests(test['name'], test['type'], test['is_primary'])
 	for q in test['questions']:
 		tmp = Questions(q['body'])
 		for a in q['answers']:
-			if test['is_primary']:
+			if test['is_primary']=="True":
 				tmp.answers.append(Answers(a['body'], a['key'], -1))
 			else:
 				tmp.answers.append(Answers(a['body'], -1, a['key']))
@@ -137,10 +139,10 @@ def save_test():
 @app.route
 
 
-@app.route('/admin')
+@app.route('/admin', methods = ['GET', 'POST'])
 @login_required
 def admin():
-	return 'hello world!'
+	return render_template('adminka.html')
 
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
@@ -158,7 +160,9 @@ def get_all_tests():
 @app.route('/tests/<int:id>', methods = ['GET'])
 def get_test(id):
 	test = Tests.query.get_or_404(id)
+#	return jsonify(jsonify_test(test))
 	return json.dumps(jsonify_test(test),ensure_ascii=False)
+
 	
 
 @app.route('/tests/request-test/<name>/<int:type>', methods = ['GET', 'POST'])
