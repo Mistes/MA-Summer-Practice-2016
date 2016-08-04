@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ProfTest</title>
+</head>
+<body>
+ 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	 <script type="text/javascript" src="{{ url_for('static', filename='adminka.js')}}"></script> 
+
+	<!-- <form id="form" action="" method="post">
+Name: <input type="text" name="name"><br>
+Age: <input type="text" name="email"><br>
+FavColor: <input type="text" name="favc"><br>
+<input id="submit" type="button" name="submit" value="submit">
+</form> -->
+
+
+
+	<form id="form" action="" method="post" enctype='application/json'>
+		<p>
+			<label>Название категории</label><Br>
+			<input type="text" name="category[name]" placeholder="Введите название категории.">
+		</p>
+
+		<p>
+			<label>Название подкатегории</label><Br>
+			<input type="text" name="category[subcats][name]" placeholder="Введите название подкатегории.">
+		</p>
+
+		<p>
+			<label>Итоги тестирования</label><Br>
+			<textarea type="text" name="category[subcats][text]" placeholder="Введите тоги тестирования."></textarea>
+		</p>
+
+		<input id="submit" type="submit" name="submit" value="Add">
+	</form>
+
+</body>
+</html>
