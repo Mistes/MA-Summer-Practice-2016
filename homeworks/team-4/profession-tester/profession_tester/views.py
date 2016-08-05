@@ -159,11 +159,19 @@ def get_all_tests():
 #return json.dumps({'tests': formatted_tests}, ensure_ascii=False)
 @app.route('/tests/<int:id>', methods = ['GET'])
 def get_test(id):
-	test = Tests.query.get_or_404(id)
+	
 #	return jsonify(jsonify_test(test))
 	return json.dumps(jsonify_test(test),ensure_ascii=False)
 
-	
+@app.route('/delete-test/<int:id>', methods = ['GET'])
+def delete_test(id):
+	test = Tests.query.get_or_404(id)
+	for q in test.questions:
+		Answers.query.filter_by(quest_id = q.id).delete()
+	Questions.query.filter_by(test_id = test.id).delete()
+	db.session.delete(test)
+	db.session.commit()
+	return 'OK'
 
 @app.route('/tests/request-test/<name>/<int:type>', methods = ['GET', 'POST'])
 def get_next_test(name, type):
