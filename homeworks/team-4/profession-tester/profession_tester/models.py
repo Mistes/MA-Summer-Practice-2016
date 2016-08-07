@@ -17,7 +17,7 @@ class Tests(db.Model):  #     for text data base
     name = db.Column(db.String(20), unique=False)
     type = db.Column(db.Integer, unique=False)
     isprimary = db.Column(db.Boolean)#12312
-    questions = db.relationship('Questions', backref = 'tests', lazy = 'dynamic')
+    questions = db.relationship('Questions', backref = 'tests', lazy = 'dynamic', cascade='save-update')
 
     def __init__(self, name, type, isprimary):
         self.name = name
@@ -28,7 +28,7 @@ class Questions(db.Model):
     id = db.Column(db.Integer, db.Sequence('quests_seq'), primary_key = True)
     question_body = db.Column(db.String(1000), unique=False)
     test_id = db.Column(db.Integer, db.ForeignKey('tests.id'))
-    answers = db.relationship('Answers', backref='questions', lazy='dynamic')
+    answers = db.relationship('Answers', backref='questions', lazy='dynamic', cascade='save-update')
 
     def __init__(self, question_body):
         self.question_body = question_body
@@ -50,7 +50,7 @@ class Categories(db.Model):
     id = db.Column(db.Integer, db.Sequence('cat_seq'), primary_key=True)
     name = db.Column(db.String(200), unique=True)
     category_enum = db.Column(db.Integer, db.Sequence('cat_enum_seq'))
-    subcats = db.relationship('SubCategories', backref='categories', lazy='dynamic')
+    subcats = db.relationship('SubCategories', backref='categories', lazy='dynamic', cascade='save-update')
 
     def __init__(self, name):
         self.name = name

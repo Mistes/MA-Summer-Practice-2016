@@ -1,5 +1,6 @@
 from flask import json, jsonify, render_template, request
 from profession_tester import app, models, db
+from sqlalchemy import exists
 from flask_security import SQLAlchemyUserDatastore,login_required
 
 
@@ -28,13 +29,19 @@ test = {
 
 
 category = {
- "name": "E!ngineer",
- "subcats": [
-  {
-      "name": "Engi!neer-mechanic",
-   "text": "Eng!!were born for this!"
-  }
- ]
+	"name": u"Дизайн",
+	"subcats": [
+		{
+  			"name": u"Дизайн інтер’єру",
+  			"text": u"Найкраще для тебе підійде спеціальність «Комп’ютерний дизайн інтер’єру та меблів»! \
+					\
+				Твоя ідеальна професія може бути пов’язана з комп’ютерним дизайном інтер’єру і меблів. Ти креативний, вмієш приймати нестандартні рішення, маєш чудово розвинену фантазію, уяву, образне мислення, володієш гарною інтуїцією та відчуттям стилю, мрієш зробити все, що тебе оточує, кращим. \
+				В майбутньому ти можеш стати як Вернер Пантон, якого вважають революціонером в області дизайну інтер’єру та меблів. Пантон багато експериментував і стверджував, що меблі не обов'язково повинні мати традиційну форму. Його знамениті проекти стільців – Tivoli, Bachelor і Cone – вважалися свого часу найбільш незвичайними стільцями в світі. Вернер вважав, що стільці повинні бути не тільки зручні, але і цікаві. Найзнаменитіший стілець дизайнера – Panton Chair був зроблений з єдиного шматка формованого пластика. Крім стільців, дизайнер придумав більш 25 різних форм для ламп. \
+				Також Пантон займався дизайном текстилю та інтер'єрів, створивши інтер'єри для видавничих будинків «Spiegel» і «Gruner & Jahr» в Гамбурзі, а також для готелю «Astoria» в Тронхеймі. \
+				Цікавий факт! Модель крісла CONE CHAIR, перевернутий конус, була настільки футуристичною і шокуючою для свого часу, що, коли одного разу її виставили у вітрині магазину виробника в Нью-Йорку, виник справжній переполох. Поліції довелося наводити порядок, щоб відновити дорожній рух навпроти шоурума. \
+				Дану професію ти можеш опанувати обравши навчання у ЧДБК за освітньою програмою «Комп’ютерний дизайн інтер’єру та меблів»."
+		}
+	]
 }
 
 def jsonify_test(my_test):
@@ -65,12 +72,14 @@ def jsonify_test(my_test):
 	}
 @app.route('/save-new-category', methods = ['GET', 'POST'])
 def save_new_category():
-	#category = get_this_stuff_somehow()
 	category = request.json
-	form = Categories(category['name'])
+	if Categories.query.filter_by(name = category['name']).count():
+		form = Categories.query.filter_by(name = category['name']).first()
+		form.name = category['name']
+	else:
+		form = Categories(category['name'])
 	for s in category['subcats']:
 		form.subcats.append(SubCategories(s['name'], s['text']))
-	db.session.add(form)
 	db.session.commit()
 	return ' "OK" '
 
@@ -120,7 +129,6 @@ def index():
 
 @app.route('/save-test', methods = ['GET', 'POST'])#123
 def save_test():
-	#test = get_this_stuff_somehow()
 	test = request.json
 	form = Tests(test['name'], test['type'], test['is_primary'])
 	for q in test['questions']:
@@ -142,7 +150,7 @@ def save_test():
 @app.route('/admin', methods = ['GET', 'POST'])
 @login_required
 def admin():
-	return render_template('adminka.html')
+	return render_template('admin.html')
 
 @app.route('/tests', methods = ['GET'])
 def get_all_tests():
@@ -159,8 +167,7 @@ def get_all_tests():
 #return json.dumps({'tests': formatted_tests}, ensure_ascii=False)
 @app.route('/tests/<int:id>', methods = ['GET'])
 def get_test(id):
-	
-#	return jsonify(jsonify_test(test))
+	test = Tests.query.get_or_404(id)
 	return json.dumps(jsonify_test(test),ensure_ascii=False)
 
 @app.route('/delete-test/<int:id>', methods = ['GET'])
