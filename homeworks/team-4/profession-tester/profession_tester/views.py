@@ -72,7 +72,7 @@ def save_new_category():
 		form.subcats.append(SubCategories(s['name'], s['text']))
 	db.session.add(form)
 	db.session.commit()
-	return 'OK'
+	return ' "OK" '
 
 @app.route('/get-primaries', methods = ['GET'])
 def get_primarytests():
