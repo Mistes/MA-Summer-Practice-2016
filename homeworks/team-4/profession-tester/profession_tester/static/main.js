@@ -18,8 +18,8 @@ function myFunction(arr) {
     for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
         for (b = 0; b < arr[a].questions.length; b++) {
-            numQuestions = '1' + '/' + arr[a].questions.length;
-            out +='<li class="question"><form><h3>' + arr[a].questions[b].body + '</h3><ul>' ;
+            numQuestions = '(' + '1' + '/' + arr[a].questions.length + ')';
+            out +='<li class="question"><form><h3 class="title-question">' + arr[a].questions[b].body + '</h3><ul>' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++) {
                 out += '<li class="answer"><label><input type="radio" name="answer" value="'+ arr[a].questions[b].answers[c].key +'">' + arr[a].questions[b].answers[c].body + '</label></li>';
             }

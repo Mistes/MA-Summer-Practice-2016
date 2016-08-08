@@ -5,12 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Test</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
     </head>
     <body>
         <header class="header">
             <div class="content-wrap">
-                <p class="title-page" id="num-questions"></p>
+                <p class="title-page vert-align" id="num-questions"></p>
                 <h2 class="title-page vert-align" id="name-test"></h2>
             </div>
         </header>
@@ -19,8 +20,8 @@
                 <ul id="list-questions">
 
                 </ul>
-                <button id="btn-back">Назад</button>
-                <button id="btn-next">Далі</button>
+                <button class="" id="btn-back">Назад</button>
+                <button class="" id="btn-next">Далі</button>
             </div>
         </section>
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
