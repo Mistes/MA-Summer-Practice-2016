@@ -4,7 +4,7 @@ if(localStorage.part){
    /* if(localStorage.isprimary == false){
         testid = 'get-congrats/' + Number(localStorage.part)
         function congrats() {
-            myArr = xmlhttp.responseText;
+            myArr = xmlhttp.responseText; /
             document.getElementById("list-questions").innerHTML =myArr;
 
 

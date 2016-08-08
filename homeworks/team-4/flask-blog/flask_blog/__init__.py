@@ -11,7 +11,7 @@ app.debug =True
 db = SQLAlchemy(app)
 
 import flask_blog.views, flask_blog.models
-                                              # Setup Flask-Security
+                                            #  # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
 security = Security(app, user_datastore)
 
