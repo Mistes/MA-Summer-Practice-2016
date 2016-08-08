@@ -1,0 +1,224 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+ 
+  	<meta charset="utf-8">
+  	<style type="text/css">
+  	.form-add-main-test,
+  	.form-add-special-test  {
+    	display: none;  
+	}
+  	.active{
+        display: inline-block;
+    }
+    .active + .form-add-main-test,
+    .active + .form-add-special-test  {
+    	display: block;
+  	}
+
+
+  </style>
+
+</head>
+
+<body>
+	<button type="button" class="button-add-main-test">Создать основной тест</button>
+		
+		<form class="form-add-main-test" action="" method="post" enctype='application/json'>
+
+				<p>
+					<label>Название вашего теста</label><Br>
+					<input type="text" name="name" placeholder="Введите название вашего теста." autofocus>
+				</p>
+
+				
+
+ 				<fieldset>
+					<legend>Вопрос 1</legend>
+					
+					<input type="text" name="name" placeholder="Введите первый вопрос">
+					
+					<p>
+						<label>Ответ 1
+							<input type="text" name="name" placeholder="Введите первый ответ">
+								<select name="category" id="list-category">
+
+								</select><Br>
+						</label><Br>
+					</p>
+
+					<p>
+						<label>Ответ 2
+							<input type="text" name="name" placeholder="Введите первый ответ">
+								<select name="category" id="list-category">
+
+								</select><Br>
+						</label><Br>
+					</p>
+
+					<p>
+						<label>Ответ 3
+							<input type="text" name="name" placeholder="Введите первый ответ">
+								<select name="category" id="list-category">
+									
+								</select><Br>
+						</label><Br>
+					</p>
+
+					<p>
+						<button type="button">добавить ответ</button>
+					</p>
+				</fieldset>
+
+				<p>
+					<button type="button">добавить вопрос</button>
+				</p>
+
+				<button type="submit">Сохранить</button>
+		</form>
+
+	<button type="button" class="button-add-special-test">Создать специальный тест</button>
+
+		<form class="form-add-special-test" action="" method="post" enctype='application/json'>
+
+				<p>
+					<select name="category" id="list-category">
+						
+					</select><Br>
+				</p>
+
+				<p>
+					<label>Название вашего теста</label><Br>
+					<input type="text" name="name" placeholder="Введите название вашего теста.">
+				</p>
+
+				
+
+ 				<fieldset>
+					<legend>Вопрос 1</legend>
+					
+					<input type="text" name="name" placeholder="Введите первый вопрос">
+					
+					<p>
+						<label>Ответ 1
+							<input type="text" name="name" placeholder="Введите первый ответ">
+								<select name="category" id="list-subcats">
+									
+								</select><Br>
+						</label><Br>
+					</p>
+
+					<p>
+						<label>Ответ 2
+							<input type="text" name="name" placeholder="Введите первый ответ">
+								<select name="category" id="list-category">
+									
+								</select><Br>
+						</label><Br>
+					</p>
+
+					<p>
+						<label>Ответ 3
+							<input type="text" name="name" placeholder="Введите первый ответ">
+								<select name="category" id="list-category">
+										
+								</select><Br>
+						</label><Br>
+					</p>
+
+					<p>
+						<button type="button">добавить ответ</button>
+					</p>
+				</fieldset>
+
+				<p>
+					<button type="button">добавить вопрос</button>
+				</p>
+
+				<button type="submit">Сохранить</button><Br>
+		</form>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}">
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 				
+
+<!--
+
+			<form id="form" action="" method="post" enctype='application/json'>	
+				
+
+				<p>
+					<label>Название вашего теста</label><Br>
+					<input type="text" name="name" placeholder="Введите название вашего теста.">
+				</p>
+
+				<p>
+					<label>Название количество вопросов</label><Br>
+					<input type="text" name="name" placeholder="Введите количество вопросов.">
+				</p>
+
+				<fieldset>
+					<legend>Вопрос 1</legend>
+					
+					<input type="text" name="name" placeholder="Введите первый вопрос">
+					
+
+					<p>
+						<label>Ответ 1</label><Br>
+						<input type="text" name="name" placeholder="Введите первый ответ">
+					</p>
+
+					<p>
+						<label>Ответ 2</label><Br>
+						<input type="text" name="name" placeholder="Введите второй ответ">
+					</p>
+
+					<p>
+						<label>Ответ 3</label><Br>
+						<input type="text" name="name" placeholder="Введите третий ответ">
+					</p>
+
+					<p>
+						<button type="button">добавить ответ</button>
+					</p>
+				</fieldset>
+
+				<p>
+					<button type="button">добавить вопрос</button>
+				</p>
+
+				<button type="submit">Сохранить</button>
+
+			</form>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}">
+	</script>
+	</body>
+</html> -->
