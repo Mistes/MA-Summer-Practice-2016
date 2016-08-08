@@ -1,7 +1,7 @@
     $(document).ready(function() {
 
-        // click on button submit
-        $("#submit").on('click', function(e){
+        
+        $("#submit").on('click', function(e){ //Send form category,subcat,text
             // send ajax
             $.ajax({
                 url: '/save-new-category', // url where to submit the request
@@ -28,4 +28,36 @@
         return false;
 
      });
+
+
+
+        var i = 1;   // Adding add on fields subcats and text
+
+        $("#add-category").on('click', function(){
+            var a = $(this).data("prototype");
+
+            var re = /\%number\%/g;  //increase index number
+            
+            var a = a.replace(re, i); 
+            
+            i++;
+
+            
+           $( this ).before(a);
+
+            console.log(a);
+            return false;
+        });
+
+
+
     });
+
+
+    function addCategory() {              
+    window.location.assign("/add-category") //add-category output
+}
+
+    function addNewTest() {
+    window.location.assign("/add-new-test") // add-new-test output
+}
