@@ -8,11 +8,20 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
     </head>
     <body>
+        <header class="header">
+            <div class="content-wrap">
+                <p class="title-page" id="num-questions"></p>
+                <h2 class="title-page vert-align" id="name-test"></h2>
+            </div>
+        </header>
         <section class="test">
-            <ul id="list-questions">
+            <div class="content-wrap">
+                <ul id="list-questions">
 
-            </ul>
-            <button id="next">Далее</button>
+                </ul>
+                <button id="btn-back">Назад</button>
+                <button id="btn-next">Далі</button>
+            </div>
         </section>
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
     </body>
