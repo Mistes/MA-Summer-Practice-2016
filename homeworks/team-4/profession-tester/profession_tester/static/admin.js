@@ -1,7 +1,7 @@
     $(document).ready(function() {
 
-        // click on button submit
-        $("#submit").on('click', function(e){
+        
+        $("#submit").on('click', function(e){ //Send form category,subcat,text
             // send ajax
             $.ajax({
                 url: '/save-new-category', // url where to submit the request
@@ -28,4 +28,92 @@
         return false;
 
      });
+
+
+
+        var i = 1;   // Adding add on fields subcats and text
+
+        $("#add-category").on('click', function(){
+            var a = $(this).data("prototype");
+
+            var re = /\%number\%/g;  //increase index number
+            
+            var a = a.replace(re, i); 
+            
+            i++;
+
+            
+           $( this ).before(a);
+
+            console.log(a);
+            return false;
+        });
+
+        $(function(){
+        var s = $(".button-add-main-test");
+        s.click(function(event) {
+            event.preventDefault()
+            s.not(this).removeClass("active");
+            $(this).toggleClass("active");
+            });
+        });
+
+        $(function(){
+        var s = $(".button-add-special-test");
+        s.click(function(event) {
+            event.preventDefault()
+            s.not(this).removeClass("active");
+            $(this).toggleClass("active");
+            });
+        });
+
     });
+
+
+    function addCategory() {              
+    window.location.assign("/add-category") //add-category output
+}
+
+    function addNewTest() {
+    window.location.assign("/add-new-test") // add-new-test output
+}
+
+
+var xmlhttp = new XMLHttpRequest();          // conclusion categorys
+var url = 'http://127.0.0.1:5000/get-keys';
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myArr = [JSON.parse(xmlhttp.responseText)];
+        categoryFunction(myArr);
+        subFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function categoryFunction(arr) {          
+    var out = "";
+
+    for(a = 0; a < arr.length; a++) {
+        for (b = 0; b < arr[a].keys.length; b++) {
+            out += '<option>' + arr[a].keys[b].name + '</option>';
+            
+        }
+    }
+    var listSelect = document.getElementsByClassName("list-category");
+    listSelect.innerHTML = out;
+}
+function subFunction(arr) {               //// conclusion subcats
+    var out = "";
+
+    for(a = 0; a < arr.length; a++) {
+        for (b = 0; b < arr[a].keys.length; b++) {
+            for(c = 0; c < arr[a].keys[b].subcats.length; c++) {
+                out += '<option>' + arr[a].keys[b].subcats[c].name + '</option>'
+            }
+            
+        }
+    }
+    document.getElementById("list-subcats").innerHTML = out;
+}
