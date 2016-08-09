@@ -37,6 +37,7 @@
             var x = document.querySelectorAll("li.question");
             x[numBlock].classList.add("find");
             x[numHide].classList.add("hide");
+            x[numHide].classList.remove("find");
             numBlock++;
             numHide++;
         }
