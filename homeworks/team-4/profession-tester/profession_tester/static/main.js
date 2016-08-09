@@ -1,20 +1,26 @@
 var xmlhttp = new XMLHttpRequest();
-var ids = [];
+
+if(localStorage.ids){
+var ids = JSON.parse(localStorage.getItem("ids"));
+}
+else var ids = [];
 counter = 0;
 if(localStorage.part){
    if(localStorage.isprimary == 2){
-       window.location.href = '/congratulate';
+       window.location.href = '/congrats';
    }
 
  testid ="tests/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
 var url = 'http://127.0.0.1:5000/' + testid;
+
 function wipedata(){
         localStorage.removeItem("ids");
         localStorage.removeItem("tempanalog");
         localStorage.removeItem("numberOfQuestions");
         }
+
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         myArr = [JSON.parse(xmlhttp.responseText)];
@@ -28,7 +34,6 @@ xmlhttp.send();
 
 function myFunction(arr) {
 
-    var out = "";
     var out = "",
         numQuestions = "",
         nameTest = "";
@@ -58,11 +63,12 @@ function clickCounter() {
  $('li[my-data]').removeClass("hide");
 
      counter++;
- var myvalue = $('input[type=radio][name=answer]:checked').val();
+  myvalue = $('input[type=radio][name=answer]:checked').val();
 
  if ($('input[name=answer]:checked').length > 0) {
     arr = myArr;
     if(typeof(Storage) !== "undefined") {
+
         if (localStorage.numberOfQuestions ) {
 
             if(Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions)!==0){
@@ -73,6 +79,11 @@ function clickCounter() {
             localStorage.setItem("ids", JSON.stringify(ids));
 
             $('input[type=radio][name=answer]').prop('checked', false);
+            }
+            if(Number(localStorage.tempanalog)==1){
+                ids[localStorage.tempanalog] = myvalue;
+                localStorage.setItem("ids", JSON.stringify(ids));
+                sorting();
             }
 
 
@@ -140,12 +151,19 @@ harr.sort().reverse();
         location.reload();
     }
     else {
-    localStorage.removeItem("ids");
-    ids[localStorage.tempanalog] = "";
-    localStorage.setItem("ids", JSON.stringify(ids));
-    partTwo();
+
+        ids = [];
+        ids[localStorage.tempanalog] = myvalue;
+        localStorage.numberOfQuestions = 1;
 
     }
+
+}
+function backbutton(){
+
+            localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)+1;
+            localStorage.tempanalog = Number(localStorage.tempanalog)+1;
+            alert("not ended");
 
 }
 
