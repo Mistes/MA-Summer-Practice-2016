@@ -1,5 +1,7 @@
 var xmlhttp = new XMLHttpRequest();
-
+var numBlock = 1;
+var numHide = 0;
+localStorage.removeItem("supervalue");
 if(localStorage.ids){
 var ids = JSON.parse(localStorage.getItem("ids"));
 }
@@ -13,7 +15,7 @@ if(localStorage.part){
  testid ="tests/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
-var url = 'http://127.0.0.1:5000/' + testid;
+var url = '/' + testid;
 
 function wipedata(){
         localStorage.removeItem("ids");
@@ -51,7 +53,7 @@ function myFunction(arr) {
         }
 
     }
-
+    prime = arr[0].is_primary;
     document.getElementById("num-questions").innerHTML = numQuestions;
     document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
@@ -59,15 +61,37 @@ function myFunction(arr) {
 
 function clickCounter() {
 
+
+
+var tanalog = localStorage.getItem('tempanalog');
   myvalue = $('input[type=radio][name=answer]:checked').val();
 
  if ($('input[name=answer]:checked').length > 0) {
+      var x = document.querySelectorAll("li.question");
+            x[numBlock].classList.add("find");
+            x[numHide].classList.add("hide");
+            x[numHide].classList.remove("find");
+            numBlock++;
+            numHide++;
     arr = myArr;
+
     if(typeof(Storage) !== "undefined") {
+        if(localStorage.supervalue){
+            wipedata();
+            localStorage.part = myvalue;
+            if (prime){
+            localStorage.isprimary = 1;}
+            else {localStorage.isprimary = 2;}
+            location.reload();
+
+
+
+
+    }
 
         if (localStorage.numberOfQuestions ) {
 
-            if(Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions)!==0){
+             if(Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions)!==0){
             localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)-1;
             localStorage.tempanalog = Number(localStorage.tempanalog)-1;
 
@@ -75,13 +99,18 @@ function clickCounter() {
             localStorage.setItem("ids", JSON.stringify(ids));
 
             $('input[type=radio][name=answer]').prop('checked', false);
-            } else {
-                sorting();
-            }
+                }
+
+
+                    else {
+                        localStorage.tempanalog = Number(localStorage.tempanalog)-1;
+                        $('input[type=radio][name=answer]').prop('checked', false);
+                        sorting();
+                          }
 
 
 
-        } else {
+        } else if (!localStorage.supervalue){
 
             localStorage.numberOfQuestions = (arr[0].questions.length)-3;
             localStorage.tempanalog = (arr[0].questions.length)-2;
@@ -95,10 +124,6 @@ function clickCounter() {
     }
 }
  else alert("Спочатку вибери свою відповідь");
-}
-function partTwo() {
-    sorting();
-    localStorage.numberOfQuestions = 0;
 }
 
 
@@ -135,16 +160,17 @@ harr.sort().reverse();
         wipedata();
         location.reload();
     } else {
-        ids = [];
-        ids[localStorage.tempanalog] = myvalue;
+
         localStorage.numberOfQuestions = 1;
+        localStorage.supervalue = 1;
+
     }
+
 }
 function backbutton(){
+    if(localStorage.numberOfQuestions && (localStorage.numberOfQuestions!=(arr[0].questions.length)-2)){
     localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)+1;
     localStorage.tempanalog = Number(localStorage.tempanalog)+1;
-    alert("not ended");
+    }
 }
 
-  //  document.getElementById("name-test").innerHTML = nameTest;
-  // document.getElementById("num-questions").innerHTML = numQuestions;

@@ -21,25 +21,16 @@
 
                 </ul>
                 <div class="navend">
-                    <button class="little-btn btn-white" onclick="" id="back">Назад</button>
-                    <button class="little-btn btn-red" onclick="clickCounter(); aaa()" id="next">Далі</button>
+                    <button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>
+                    <button class="little-btn btn-red" onclick="clickCounter(); " id="next">Далі</button>
                 </div>
             </div>
         </section>
-        <script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
         <div id="result"></div>
     </body>
     <script>
-        var numBlock = 1;
-        var numHide = 0;
-        function aaa() {
-            var x = document.querySelectorAll("li.question");
-            x[numBlock].classList.add("find");
-            x[numHide].classList.add("hide");
-            x[numHide].classList.remove("find");
-            numBlock++;
-            numHide++;
-        }
+
     </script>
 </html>
