@@ -1,7 +1,8 @@
-from flask import json, jsonify, render_template, request
+from flask import json, jsonify, render_template, request, send_from_directory
 from profession_tester import app, models, db
 from sqlalchemy import exists
 from flask_security import SQLAlchemyUserDatastore,login_required
+import os
 
 
 Tests = models.Tests
@@ -70,6 +71,21 @@ def jsonify_test(my_test):
 		'is_primary': my_test.isprimary,
 		'questions': tmp_questions
 	}
+
+@app.route('/get-image/<int:enum>', methods = ['GET'])
+def get_image(enum):
+	uploads = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
+	return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename=str(enum)+'.jpg')
+
+@app.route('/save-image/<int:enum>', methods = ['GET', 'POST'])
+def save_image(enum):
+	file = request.files['file']
+	if file and allowed_file(file.filename):
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+		return 'OK'
+	return 'NOT OK'
+
 @app.route('/save-new-category', methods = ['GET', 'POST'])
 def save_new_category():
 	category = request.json
