@@ -55,7 +55,7 @@ function myFunction(arr) {
 
 
     document.getElementById("list-questions").innerHTML = out;
-};
+}
 
 
 function clickCounter() {
@@ -79,18 +79,9 @@ function clickCounter() {
             localStorage.setItem("ids", JSON.stringify(ids));
 
             $('input[type=radio][name=answer]').prop('checked', false);
-            }
-            if(Number(localStorage.tempanalog)==1){
-                ids[localStorage.tempanalog] = myvalue;
-                localStorage.setItem("ids", JSON.stringify(ids));
+            } else {
                 sorting();
             }
-
-
-
-                else {
-                sorting();
-                }
 
 
 
@@ -108,13 +99,11 @@ function clickCounter() {
 
     }
 }
-else alert("Спочатку вибери свою відповідь");
+ else alert("Спочатку вибери свою відповідь");
 }
 function partTwo() {
-sorting();
-localStorage.numberOfQuestions = 0;
-
-
+    sorting();
+    localStorage.numberOfQuestions = 0;
 }
 
 function sorting() {
@@ -149,22 +138,16 @@ harr.sort().reverse();
             else {localStorage.isprimary = 2;}
         wipedata();
         location.reload();
-    }
-    else {
-
+    } else {
         ids = [];
         ids[localStorage.tempanalog] = myvalue;
         localStorage.numberOfQuestions = 1;
-
     }
-
 }
 function backbutton(){
-
-            localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)+1;
-            localStorage.tempanalog = Number(localStorage.tempanalog)+1;
-            alert("not ended");
-
+    localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)+1;
+    localStorage.tempanalog = Number(localStorage.tempanalog)+1;
+    alert("not ended");
 }
 
   //  document.getElementById("name-test").innerHTML = nameTest;
