@@ -42,7 +42,14 @@ function myFunction(arr) {
 
     for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
-        for (b = 0; b < arr[a].questions.length; b++) {
+	var n = 1;
+	numQuestions = 'Всього питань: ' + arr[a].questions.length;
+	out +='<li class="question hide find"><form><h3 class="title-question">' + n + '. ' + arr[a].questions[0].body + '</h3><ul class="list-answers">' ;
+	for (c = 0; c < arr[a].questions[0].answers.length; c++) {
+	    out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[0].answers[c].key+'">' + arr[a].questions[0].answers[c].body  + '</label></li>';
+	}
+	out +='</ul></form></li>';
+        for (b = 1; b < arr[a].questions.length; b++) {
             var n = b+1;
             numQuestions = 'Всього питань: ' + arr[a].questions.length;
             out +='<li class="question hide"><form><h3 class="title-question">' + n + '. ' + arr[a].questions[b].body + '</h3><ul class="list-answers">' ;
