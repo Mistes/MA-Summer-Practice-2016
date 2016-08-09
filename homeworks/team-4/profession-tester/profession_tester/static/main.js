@@ -1,22 +1,16 @@
 var xmlhttp = new XMLHttpRequest();
 var ids = [];
+counter = 0;
 if(localStorage.part){
-   /* if(localStorage.isprimary == false){
-        testid = 'get-congrats/' + Number(localStorage.part)
-        function congrats() {
-            myArr = xmlhttp.responseText; /
-            document.getElementById("list-questions").innerHTML =myArr;
+   if(localStorage.isprimary == 2){
+       window.location.href = '/congratulate';
+   }
 
-
-
-        }
-    }
-    else testid ="tests/" + Number(localStorage.part);*/
+ testid ="tests/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
 var url = 'http://127.0.0.1:5000/' + testid;
 function wipedata(){
-        localStorage.thisvar = ".this()";
         localStorage.removeItem("ids");
         localStorage.removeItem("tempanalog");
         localStorage.removeItem("numberOfQuestions");
@@ -43,39 +37,34 @@ function myFunction(arr) {
         nameTest += arr[a].name;
         for (b = 0; b < arr[a].questions.length; b++) {
             numQuestions = '(' + '1' + '/' + arr[a].questions.length + ')';
-            out +='<li class="question"><form><h3 class="title-question">' + arr[a].questions[b].body + '</h3><ul>' ;
+            out +='<li class="question  my-data= "'+b+'"><form><h3 class="title-question">' + arr[a].questions[b].body + '</h3><ul>' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++) {
-                out += '<li class="answer"><label><input type="radio"  name="answer" value="'+  arr[a].questions[b].answers[c].key+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
-                out += '<li class="answer"><label><input type="radio" name="answer" value="'+ arr[a].questions[b].answers[c].key +'">' + arr[a].questions[b].answers[c].body + '</label></li>';
+                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[b].answers[c].key+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
             }
             out +='</ul></form></li>';
         }
 
     }
-    localStorage.isprimary = arr[0].is_primary;
+    prime = arr[0].is_primary;
+    $("#0").removeClass("hide");
+
+
     document.getElementById("list-questions").innerHTML = out;
 };
 
-$(document).ready(function() {
-var firstQuest = $("li.question:first");
-
-	$("li.question").addClass("hide");
-  firstQuest.removeClass("hide");
-	$("#next").click(function () {
-  	firstQuest.addClass("hide");
-    $('input[type=radio][name=answer]:checked').val();
-    $('input[type=radio][name=answer]').prop('checked', false);
-    $("li.question:first").next().next().removeClass("hide");
-  });
-});
 
 function clickCounter() {
+
+ $('li[my-data]').removeClass("hide");
+
+     counter++;
  var myvalue = $('input[type=radio][name=answer]:checked').val();
-if($('input[type=radio][name=answer]:checked')){
+
+ if ($('input[name=answer]:checked').length > 0) {
     arr = myArr;
     if(typeof(Storage) !== "undefined") {
         if (localStorage.numberOfQuestions ) {
-            localStorage.thisvar = (".this()") + localStorage.thisvar;
+
             if(Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions)!==0){
             localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)-1;
             localStorage.tempanalog = Number(localStorage.tempanalog)-1;
@@ -95,7 +84,7 @@ if($('input[type=radio][name=answer]:checked')){
 
 
         } else {
-            localStorage.thisvar = ".this()";
+
             localStorage.numberOfQuestions = (arr[0].questions.length)-3;
             localStorage.tempanalog = (arr[0].questions.length)-2;
 
@@ -144,7 +133,11 @@ harr.sort().reverse();
     var second =  arr2.getKeyByValue(harr[1]);
     if (first != second){
         localStorage.part = first;
+        if (prime){
+            localStorage.isprimary = 1;}
+            else {localStorage.isprimary = 2;}
         wipedata();
+        location.reload();
     }
     else {
     localStorage.removeItem("ids");
@@ -156,6 +149,5 @@ harr.sort().reverse();
 
 }
 
-    document.getElementById("name-test").innerHTML = nameTest;
-    document.getElementById("num-questions").innerHTML = numQuestions;
-}
+  //  document.getElementById("name-test").innerHTML = nameTest;
+  // document.getElementById("num-questions").innerHTML = numQuestions;
