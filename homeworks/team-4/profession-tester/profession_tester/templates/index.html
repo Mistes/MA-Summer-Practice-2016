@@ -21,8 +21,8 @@
 
                 </ul>
                 <div class="navend">
-                    <button class="little-btn btn-white" onclick="clickCounter()" id="back">Назад</button>
-                    <button class="little-btn btn-red" onclick="clickCounter()" id="next">Далі</button>
+                    <button class="little-btn btn-white" onclick="" id="back">Назад</button>
+                    <button class="little-btn btn-red" onclick="clickCounter(); aaa()" id="next">Далі</button>
                 </div>
             </div>
         </section>
@@ -30,4 +30,15 @@
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
         <div id="result"></div>
     </body>
+    <script>
+        var numBlock = 1;
+        var numHide = 0;
+        function aaa() {
+            var x = document.querySelectorAll("li.question");
+            x[numBlock].classList.add("find");
+            x[numHide].classList.add("hide");
+            numBlock++;
+            numHide++;
+        }
+    </script>
 </html>
