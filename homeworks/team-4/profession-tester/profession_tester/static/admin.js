@@ -97,13 +97,14 @@ function categoryFunction(arr) {
 
     for(a = 0; a < arr.length; a++) {
         for (b = 0; b < arr[a].keys.length; b++) {
-            out += '<option>' + arr[a].keys[b].name + '</option>';
-            
+             out += '<option>' + arr[a].keys[b].name + '</option>'     
         }
     }
-    var listSelect = document.getElementsByClassName("list-category");
-    listSelect.innerHTML = out;
+
+    var listCategory = document.getElementsByClassName('list-category').innerHTML = out;
+    $('.list-category').append('<option>' + listCategory + '</option>');
 }
+
 function subFunction(arr) {               //// conclusion subcats
     var out = "";
 
@@ -112,8 +113,9 @@ function subFunction(arr) {               //// conclusion subcats
             for(c = 0; c < arr[a].keys[b].subcats.length; c++) {
                 out += '<option>' + arr[a].keys[b].subcats[c].name + '</option>'
             }
-            
         }
     }
-    document.getElementById("list-subcats").innerHTML = out;
+    var listSubcats = document.getElementsByName('list-subcats').innerHTML = out;
+    $('.list-subcats').append('<option>' + listSubcats + '</option>');
+
 }
