@@ -41,10 +41,11 @@ function myFunction(arr) {
     for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
         for (b = 0; b < arr[a].questions.length; b++) {
-            numQuestions = '(' + '1' + '/' + arr[a].questions.length + ')';
-            out +='<li class="question  my-data= "'+b+'"><form><h3 class="title-question">' + arr[a].questions[b].body + '</h3><ul>' ;
+            var n = b+1;
+            numQuestions = 'Всього питань: ' + arr[a].questions.length;
+            out +='<li class="question  my-data= "'+b+'"><form><h3 style="font: 600 45px Open Sans; color: #333" class="title-question">' + n + '. ' + arr[a].questions[b].body + '</h3><ul style="padding-top: 60px">' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++) {
-                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[b].answers[c].key+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
+                out += '<li class="answer"><label style="font: 400 24px/45px Open Sans; color: #333; vertical-align: middle;"><input style="width: 25px; height: 25px; margin-right: 25px; vertical-align: middle;" type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[b].answers[c].key+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
             }
             out +='</ul></form></li>';
         }
@@ -53,10 +54,10 @@ function myFunction(arr) {
     prime = arr[0].is_primary;
     $("#0").removeClass("hide");
 
-
+    document.getElementById("num-questions").innerHTML = numQuestions;
+    document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
 }
-
 
 function clickCounter() {
 
