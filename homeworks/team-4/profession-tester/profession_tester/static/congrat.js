@@ -17,6 +17,6 @@ xmlhttp.send();
 
 function resetbutton(){
      localStorage.clear();
-     window.location.replace('/');
-     location.reload();
+      window.location.assign("/");
+
 }
