@@ -8,7 +8,7 @@ var url = '/' + testid;
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         myArr = xmlhttp.responseText;
-     document.getElementById("cong").innerHTML = myArr;
+     document.getElementById("text-cong").innerHTML = myArr;
 
     }
 };
