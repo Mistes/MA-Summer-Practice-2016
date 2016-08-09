@@ -200,3 +200,16 @@ def delete_test(id):
 def get_next_test(name, type):
 	test = Tests.query.filter_by(name = name, type = type).first()
 	return json.dumps(jsonify_test(test),ensure_ascii=False)
+
+@app.route('/congrats', methods = ['GET', 'POST'])
+def congrats():
+	return render_template('congrats.html')
+
+@app.route('/add-category', methods = ['GET', 'POST'])
+def addcat():
+	return render_template('add-category.html')
+
+@app.route('/add-new-test', methods = ['GET', 'POST'])
+def addtest():
+	return render_template('add-new-test.html')
+
