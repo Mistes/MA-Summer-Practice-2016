@@ -1,3 +1,4 @@
+
 var xmlhttp = new XMLHttpRequest();
 var numBlock = 1;
 var numHide = 0;
