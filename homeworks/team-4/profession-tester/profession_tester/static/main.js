@@ -1,7 +1,5 @@
 
 var xmlhttp = new XMLHttpRequest();
-var numBlock = 1;
-var numHide = 0;
 localStorage.removeItem("supervalue");
 if(localStorage.ids){
 var ids = JSON.parse(localStorage.getItem("ids"));
@@ -12,7 +10,7 @@ if(localStorage.part){
    if(localStorage.isprimary == 2){
        window.location.href = '/congrats';
    }
-                                                                       //todo! back button, congrats local storage numblock and hide     78 stroka ushipka!    laga 6 question!
+        //todo! back button, congrats local storage numblock and hide     78 stroka ushipka!    laga 6 question!    kartinki
  testid ="tests/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
@@ -22,6 +20,8 @@ function wipedata(){
         localStorage.removeItem("ids");
         localStorage.removeItem("tempanalog");
         localStorage.removeItem("numberOfQuestions");
+        localStorage.removeItem("numBlock");
+        localStorage.removeItem("numHide");
         }
 
 xmlhttp.onreadystatechange = function() {
@@ -67,7 +67,15 @@ function myFunction(arr) {
     document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
 }
+if(localStorage.numBlock){
+var numBlock = localStorage.numBlock;
+var numHide = localStorage.numHide;
 
+}
+else {
+    var numBlock = 1;
+    var numHide = 0;
+}
 function clickCounter() {
 
 
@@ -84,6 +92,8 @@ var tanalog = localStorage.getItem('tempanalog');
      x[numHide].classList.remove("find");
      numBlock++;
      numHide++;
+     localStorage.numBlock = numBlock;
+     localStorage.numHide = numHide;
          }
  }
     arr = myArr;
