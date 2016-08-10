@@ -1,13 +1,13 @@
 
 var xmlhttp = new XMLHttpRequest();
+var nameTest;
 localStorage.removeItem("supervalue");
 counter = 0;
 if(localStorage.part){
    if(localStorage.isprimary == 2){
        window.location.href = '/congrats';
    }
-        //todo! back button, congrats local storage numblock and hide     78 stroka ushipka!    laga 6 question!    kartinki
- testid ="tests/" + Number(localStorage.part);
+ testid ="request-test/" + nameTest+ "/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
 var url = '/' + testid;
@@ -37,7 +37,7 @@ function myFunction(arr)
 
 
     var out = "",
-        numQuestions = "",
+        numQuestions = "";
         nameTest = "";
         for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
@@ -191,7 +191,7 @@ harr.sort().reverse();
 
         localStorage.numberOfQuestions = 1;
         localStorage.supervalue = 1;
-        lastquestion();
+        lastquestion(arr2, harr[0]);
 
 
     }
@@ -229,22 +229,16 @@ function backbutton(){
                      localStorage.idsfun = increment;
                  }
 
-function lastquestion() {
+function lastquestion(encounters, max_encounters) {
 
-        var out = "",
-        numQuestions = "",
-        nameTest = "",
-            tests = myArr[0];
-        nameTest += myArr[a].name;
-    var b = tests.questions.length-1;
-    var n = b + 1;
-        numQuestions = 'Всього питань: ' + tests.questions.length;
-        questionforall = tests.questions.length;
-        out += '<li class="question"><form><h3 class="title-question">' + n + '. ' + tests.questions[b].body + '</h3><ul>';
-        for (c = 0; c < tests.questions[b].answers.length; c++) {
+        var nameTest = myArr[0].name, n = myArr[0].questions.length;
+        var last_question = myArr[0].questions[n-1];
+        var numQuestions = 'Всього питань: ' + n,
+        out = '<li class="question"><form><h3 class="title-question">' + n + '. ' + last_question.body + '</h3><ul>';
+        for (c = 0; c < last_question.answers.length; c++) {
 
-            if(tests.questions[b].answers[c].key1 == first ) {
-                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="' + tests.questions[b].answers[c].key1 + '">' + tests.questions[b].answers[c].body + '</label></li>';
+            if(encounters[last_question.answers[c].key1] == max_encounters ) {
+                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="' + last_question.answers[c].key1 + '">' + last_question.answers[c].body + '</label></li>';
             }
 
         }
