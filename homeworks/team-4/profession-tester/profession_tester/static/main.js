@@ -92,12 +92,17 @@ function clickCounter() {
 
 var tanalog = localStorage.getItem('tempanalog');
      myvalue = $('input[type=radio][name=answer]:checked').val();
-    if(!typeof Number){
+
+    if(!localStorage.isprimary == 1)
+    {
         firstvalue = myvalue[0];
         secondvalue = myvalue[2];
-    }else {firstvalue = myvalue;
-        	alert(typeof secondvalue);
-            secondvalue = null;
+    }
+   else
+    {
+        firstvalue = myvalue;
+      //  alert(typeof secondvalue == "undefined");
+        secondvalue = null;
     }
 
 
