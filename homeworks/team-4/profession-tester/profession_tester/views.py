@@ -14,14 +14,126 @@ SubCategories = models.SubCategories
 
 
 test = {
-	"name": "Test 3",
-	"type": 1,
+	"name": "Main test",
+	"type": 2,
 	"is_primary": "False",
 	"questions": [ {
-			"body": "Question 1",
+			"body": "Однією з моїх найкращих рис характеру є:",
 			"answers": [ {
-					"body": "Answer 1",
-					"key": 2
+					"body": "креативність, життєрадісність",
+					"key": 127
+				},
+				{
+					"body": "організаторські здібності",
+					"key": 129
+				},
+				{
+					"body": "ретельність та уважність",
+					"key": 128
+				},
+				{
+					"body": "комунікабельність",
+					"key": 130
+				}
+			]
+		},
+		{
+			"body": "За якими критеріями Ви б обирали свою майбутню роботу?",
+			"answers": [ {
+					"body": "Рівень заробітку",
+					"key": 128
+				},
+				{
+					"body": "Можливість кар'єрного росту",
+					"key": 130
+				},
+				{
+					"body": "Можливість для креативу, відсутність рутини",
+					"key": 127
+				},
+				{
+					"body": "Репутація компанії, дружній колектив",
+					"key": 129
+				}
+			]
+		},
+		{
+			"body": "На що б ви витратили свою першу зарплату?",
+			"answers": [ {
+					"body": "На вечірку з друзями",
+					"key": 127
+				},
+				{
+					"body": "Віддам батькам",
+					"key": 128
+				},
+				{
+					"body": "Оновлю гардероб",
+					"key": 129
+				},
+				{
+					"body": "Відкладу на власну справу",
+					"key": 130
+				}
+			]
+		},
+		{
+			"body": "Що б Ви хотіли придбати найперше якби у Вас була достатня кількість грошей:",
+			"answers": [ {
+					"body": "брендовий одяг",
+					"key": 127
+				},
+				{
+					"body": "квартиру",
+					"key": 128
+				},
+				{
+					"body": "невеликий бізнес",
+					"key": 129
+				},
+				{
+					"body": "навколосвітню подорож",
+					"key": 130
+				}
+			]
+		},
+		{
+			"body": "Найбільших успіхів Ви досягаєте, коли:",
+			"answers": [ {
+					"body": "Працюю з людьми, які мені подобаються",
+					"key": 130
+				},
+				{
+					"body": "У мене цікава робота",
+					"key": 129
+				},
+				{
+					"body": "Мої зусилля добре винагороджуються",
+					"key": 128
+				},
+				{
+					"body": "Робота приносить користь суспільству",
+					"key": 127
+				}
+			]
+		},
+		{
+			"body": "Яку б країну Ви хотіли б відвідати в першу чергу:",
+			"answers": [ {
+					"body": "США",
+					"key": 127
+				},
+				{
+					"body": "Італію",
+					"key": 129
+				},
+				{
+					"body": "Тайланд",
+					"key": 130
+				},
+				{
+					"body": "Китай",
+					"key": 128
 				}
 			]
 		}
@@ -50,10 +162,11 @@ def jsonify_test(my_test):
 	for q in my_test.questions:		
 		tmp_answers = []
 		for a in q.answers:
-			if my_test.isprimary: 
+			if my_test.isprimary:
 				tmp_answers.append({
 					'body': a.answer_body,
-					'key': a.category_enum
+					'key1': a.category_enum,
+					'key2': a.second_category_enum
 				})
 			else:
 				tmp_answers.append({
@@ -145,15 +258,15 @@ def index():
 
 @app.route('/save-test', methods = ['GET', 'POST'])#123
 def save_test():
-	test = request.json
+	#test = request.json
 	form = Tests(test['name'], test['type'], test['is_primary'])
 	for q in test['questions']:
 		tmp = Questions(q['body'])
 		for a in q['answers']:
 			if test['is_primary']=="True":
-				tmp.answers.append(Answers(a['body'], a['key'], -1))
+				tmp.answers.append(Answers(a['body'], a['key1'], a['key2'], -1))
 			else:
-				tmp.answers.append(Answers(a['body'], -1, a['key']))
+				tmp.answers.append(Answers(a['body'], -1, -1, a['key']))
 		form.questions.append(tmp)
 	db.session.add(form)
 	db.session.commit()
