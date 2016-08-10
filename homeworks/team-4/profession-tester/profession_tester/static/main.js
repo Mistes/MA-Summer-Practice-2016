@@ -1,13 +1,14 @@
 
 var xmlhttp = new XMLHttpRequest();
-var nameTest;
+if (localStorage.nameTest){
+var nameTest = localStorage.nameTest;}
 localStorage.removeItem("supervalue");
 counter = 0;
 if(localStorage.part){
    if(localStorage.isprimary == 2){
        window.location.href = '/congrats';
    }
- testid ="request-test/" + nameTest+ "/" + Number(localStorage.part);
+ testid ="tests/request-test/" + nameTest+ "/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
 var url = '/' + testid;
@@ -41,6 +42,7 @@ function myFunction(arr)
         nameTest = "";
         for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
+            localStorage.nameTest = nameTest;
          var keyvar;
         for (b = 0; b < arr[a].questions.length-1; b++) {
             var n = b+1;
