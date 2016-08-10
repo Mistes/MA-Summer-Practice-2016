@@ -1,9 +1,6 @@
+
 var xmlhttp = new XMLHttpRequest();
 localStorage.removeItem("supervalue");
-if(localStorage.ids){
-var ids = JSON.parse(localStorage.getItem("ids"));
-}
-else var ids = [];
 counter = 0;
 if(localStorage.part){
    if(localStorage.isprimary == 2){
@@ -21,6 +18,7 @@ function wipedata(){
         localStorage.removeItem("numberOfQuestions");
         localStorage.removeItem("numBlock");
         localStorage.removeItem("numHide");
+        localStorage.removeItem("idsfun");
         }
 
 xmlhttp.onreadystatechange = function() {
@@ -34,37 +32,41 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
-function myFunction(arr) {
+function myFunction(arr)
+{
+
 
     var out = "",
         numQuestions = "",
         nameTest = "";
-
-    for(a = 0; a < arr.length; a++) {
+        for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
-	var n = 1;
-	numQuestions = 'Всього питань: ' + arr[a].questions.length;
-        questionforall =arr[a].questions.length;
-	out +='<li class="question hide find"><form><h3 class="title-question">' + n + '. ' + arr[a].questions[0].body + '</h3><ul class="list-answers">' ;
-	for (c = 0; c < arr[a].questions[0].answers.length; c++) {
-	    out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[0].answers[c].key+'">' + arr[a].questions[0].answers[c].body  + '</label></li>';
-	}
-	out +='</ul></form></li>';
-        for (b = 1; b < arr[a].questions.length; b++) {
+         var keyvar;
+        for (b = 0; b < arr[a].questions.length-1; b++) {
             var n = b+1;
             numQuestions = 'Всього питань: ' + arr[a].questions.length;
-            out +='<li class="question hide"><form><h3 class="title-question">' + n + '. ' + arr[a].questions[b].body + '</h3><ul class="list-answers">' ;
-            for (c = 0; c < arr[a].questions[b].answers.length; c++) {
-                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[b].answers[c].key+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
+            questionforall =arr[a].questions.length;
+            out +='<li class="question hide"><form><h3 class="title-question">' + n + '. '  + arr[a].questions[b].body + '</h3><ul>' ;
+            for (c = 0; c < arr[a].questions[b].answers.length; c++)
+            {
+                if(arr[a].questions[b].answers[c].key2 !== null || arr[a].questions[b].answers[c].key2 !==","){
+                     keyvar = [arr[a].questions[b].answers[c].key1,arr[a].questions[b].answers[c].key2];
+                }
+                else keyvar = [arr[a].questions[b].answers[c].key1];
+                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+keyvar+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
             }
             out +='</ul></form></li>';
         }
 
+
+
     }
+
     prime = arr[0].is_primary;
     document.getElementById("num-questions").innerHTML = numQuestions;
     document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
+     $("#list-questions").find(".hide").first().addClass("find");
 }
 if(localStorage.numBlock){
 var numBlock = localStorage.numBlock;
@@ -79,75 +81,76 @@ function clickCounter() {
 
 
 
-var tanalog = localStorage.getItem('tempanalog');
-  myvalue = $('input[type=radio][name=answer]:checked').val();
 
+var tanalog = localStorage.getItem('tempanalog');
+     myvalue = $('input[type=radio][name=answer]:checked').val();
+     firstvalue = myvalue[0];
+     secondvalue = myvalue[2];
  if ($('input[name=answer]:checked').length > 0) {
      var x = document.querySelectorAll("li.question");
-     if (numBlock < questionforall) {
+     if (numBlock < questionforall-1) {
 
-     x[numBlock].classList.add("find");
-     x[numHide].classList.add("hide");
-     x[numHide].classList.remove("find");
-     numBlock++;
-     numHide++;
-     localStorage.numBlock = numBlock;
-     localStorage.numHide = numHide;
+         x[numBlock].classList.add("find");
+         x[numHide].classList.add("hide");
+         x[numHide].classList.remove("find");
+         numBlock++;
+         numHide++;
+         localStorage.numBlock = numBlock;
+         localStorage.numHide = numHide;
+     }
+
+     arr = myArr;
+
+     if (typeof(Storage) !== "undefined") {
+         if (localStorage.supervalue) {
+             wipedata();
+             localStorage.part = myvalue;
+             if (prime) {
+                 localStorage.isprimary = 1;
+             }
+             else {
+                 localStorage.isprimary = 2;
+             }
+             location.reload();
+
+
          }
+
+         if (localStorage.numberOfQuestions) {
+
+             if (Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions) !== 0) {
+                 localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions) - 1;
+                 localStorage.tempanalog = Number(localStorage.tempanalog) - 1;
+
+
+                 idsfun();
+
+
+                 $('input[type=radio][name=answer]').prop('checked', false);
+             }
+
+
+             else {
+                 localStorage.tempanalog = Number(localStorage.tempanalog) - 1;
+                 $('input[type=radio][name=answer]').prop('checked', false);
+                 sorting();
+             }
+
+
+         } else if (!localStorage.supervalue) {
+
+             localStorage.numberOfQuestions = (arr[0].questions.length) - 3;
+             localStorage.tempanalog = (arr[0].questions.length) - 2;
+             idsfun();
+
+
+             $('input[type=radio][name=answer]').prop('checked', false);
+         }
+     }
  }
-    arr = myArr;
+     else alert("Спочатку вибери свою відповідь");
 
-    if(typeof(Storage) !== "undefined") {
-        if(localStorage.supervalue){
-            wipedata();
-            localStorage.part = myvalue;
-            if (prime){
-            localStorage.isprimary = 1;}
-            else {localStorage.isprimary = 2;}
-            location.reload();
-
-
-
-
-    }
-
-        if (localStorage.numberOfQuestions ) {
-
-             if(Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions)!==0){
-            localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)-1;
-            localStorage.tempanalog = Number(localStorage.tempanalog)-1;
-
-            ids[localStorage.tempanalog] = myvalue;
-            localStorage.setItem("ids", JSON.stringify(ids));
-
-            $('input[type=radio][name=answer]').prop('checked', false);
-                }
-
-
-                    else {
-                        localStorage.tempanalog = Number(localStorage.tempanalog)-1;
-                        $('input[type=radio][name=answer]').prop('checked', false);
-                        sorting();
-                          }
-
-
-
-        } else if (!localStorage.supervalue){
-
-            localStorage.numberOfQuestions = (arr[0].questions.length)-3;
-            localStorage.tempanalog = (arr[0].questions.length)-2;
-
-
-            ids[localStorage.tempanalog] = myvalue;
-            localStorage.setItem("ids", JSON.stringify(ids));
-
-            $('input[type=radio][name=answer]').prop('checked', false);
-        }
-    }
-
- else alert("Спочатку вибери свою відповідь");
-}
-
+ }
 
 function sorting() {
 var stored = JSON.parse(localStorage.getItem("ids"));
@@ -172,8 +175,11 @@ harr.sort().reverse();
         }
     }
 };
-    var first =  arr2.getKeyByValue(harr[0]);
-    var second =  arr2.getKeyByValue(harr[1]);
+
+     first  =    arr2.getKeyByValue(harr[0]);
+     second =   arr2.getKeyByValue(harr[1]);
+
+
     if (first != second){
         localStorage.part = first;
         if (prime){
@@ -185,6 +191,8 @@ harr.sort().reverse();
 
         localStorage.numberOfQuestions = 1;
         localStorage.supervalue = 1;
+        lastquestion();
+
 
     }
 
@@ -204,3 +212,49 @@ function backbutton(){
 
     }
 }
+ function idsfun() {
+                        if(localStorage.ids){
+                            var ids = JSON.parse(localStorage.getItem("ids"));
+                                                                                }
+                        else var ids = [];
+                      if(localStorage.idsfun){
+                           increment = localStorage.idsfun;
+                      }
+                      else { increment = 0;}
+                     ids[increment]= firstvalue;
+                     increment++;
+                     ids[increment]= secondvalue;
+                     increment++;
+                     localStorage.setItem("ids", JSON.stringify(ids));
+                     localStorage.idsfun = increment;
+                 }
+
+function lastquestion() {
+
+        var out = "",
+        numQuestions = "",
+        nameTest = "",
+            tests = myArr[0];
+        nameTest += myArr[a].name;
+    var b = tests.questions.length-1;
+    var n = b + 1;
+        numQuestions = 'Всього питань: ' + tests.questions.length;
+        questionforall = tests.questions.length;
+        out += '<li class="question"><form><h3 class="title-question">' + n + '. ' + tests.questions[b].body + '</h3><ul>';
+        for (c = 0; c < tests.questions[b].answers.length; c++) {
+
+            if(tests.questions[b].answers[c].key1 == first ) {
+                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="' + tests.questions[b].answers[c].key1 + '">' + tests.questions[b].answers[c].body + '</label></li>';
+            }
+
+        }
+        out += '</ul></form></li>';
+
+    prime = myArr[0].is_primary;
+    document.getElementById("num-questions").innerHTML = numQuestions;
+    document.getElementById("name-test").innerHTML = nameTest;
+    document.getElementById("list-questions").innerHTML = out;
+}
+
+
+
