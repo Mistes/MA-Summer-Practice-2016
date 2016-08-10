@@ -1,13 +1,17 @@
 
 var xmlhttp = new XMLHttpRequest();
-var nameTest;
+
+if (localStorage.nameTest){
+    var nameTest = localStorage.nameTest;
+}
+
 localStorage.removeItem("supervalue");
 counter = 0;
 if(localStorage.part){
    if(localStorage.isprimary == 2){
        window.location.href = '/congrats';
    }
- testid ="request-test/" + nameTest+ "/" + Number(localStorage.part);
+ testid ="tests/request-test/" + nameTest+ "/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
 var url = '/' + testid;
@@ -41,6 +45,7 @@ function myFunction(arr)
         nameTest = "";
         for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
+        localStorage.nameTest = nameTest;
          var keyvar;
         for (b = 0; b < arr[a].questions.length-1; b++) {
             var n = b+1;
@@ -49,10 +54,10 @@ function myFunction(arr)
             out +='<li class="question hide"><form><h3 class="title-question">' + n + '. '  + arr[a].questions[b].body + '</h3><ul>' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++)
             {
-                if(arr[a].questions[b].answers[c].key2 !== null || arr[a].questions[b].answers[c].key2 !==","){
+                if(typeof arr[a].questions[b].answers[c].key2 !== "undefined"){
                      keyvar = [arr[a].questions[b].answers[c].key1,arr[a].questions[b].answers[c].key2];
                 }
-                else keyvar = [arr[a].questions[b].answers[c].key1];
+                else keyvar = arr[a].questions[b].answers[c].key;
                 out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+keyvar+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
             }
             out +='</ul></form></li>';
