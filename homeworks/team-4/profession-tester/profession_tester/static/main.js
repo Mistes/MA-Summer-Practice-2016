@@ -175,6 +175,29 @@ harr.sort().reverse();
 
 }
 function backbutton(){
+    if ($('input[name=answer]:checked').length > 0) {
+      var x = document.querySelectorAll("li.question");
+            x[numBlock].classList.add("find");
+            x[numHide].classList.add("hide");
+            x[numHide].classList.remove("find");
+            numBlock--;
+            numHide--;
+    arr = myArr;
+
+    if(typeof(Storage) !== "undefined") {
+        if(localStorage.supervalue){
+            wipedata();
+            localStorage.part = myvalue;
+            if (prime){
+            localStorage.isprimary = 1;}
+            else {localStorage.isprimary = 2;}
+            location.reload();
+
+
+
+
+    }
+
     if(localStorage.numberOfQuestions && (localStorage.numberOfQuestions!=(arr[0].questions.length)-2)){
     localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)+1;
     localStorage.tempanalog = Number(localStorage.tempanalog)+1;
