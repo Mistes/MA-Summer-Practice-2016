@@ -80,7 +80,7 @@
 
 
 var xmlhttp = new XMLHttpRequest();          // conclusion categorys
-var url = 'http://127.0.0.1:5000/get-keys';
+var url = '/get-keys';
 
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

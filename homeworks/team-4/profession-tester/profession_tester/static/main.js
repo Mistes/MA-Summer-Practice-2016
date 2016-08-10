@@ -1,6 +1,4 @@
 var xmlhttp = new XMLHttpRequest();
-var numBlock = 1;
-var numHide = 0;
 localStorage.removeItem("supervalue");
 if(localStorage.ids){
 var ids = JSON.parse(localStorage.getItem("ids"));
@@ -11,7 +9,7 @@ if(localStorage.part){
    if(localStorage.isprimary == 2){
        window.location.href = '/congrats';
    }
-
+        //todo! back button, congrats local storage numblock and hide     78 stroka ushipka!    laga 6 question!    kartinki
  testid ="tests/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
@@ -21,6 +19,8 @@ function wipedata(){
         localStorage.removeItem("ids");
         localStorage.removeItem("tempanalog");
         localStorage.removeItem("numberOfQuestions");
+        localStorage.removeItem("numBlock");
+        localStorage.removeItem("numHide");
         }
 
 xmlhttp.onreadystatechange = function() {
@@ -44,6 +44,7 @@ function myFunction(arr) {
         nameTest += arr[a].name;
 	var n = 1;
 	numQuestions = 'Всього питань: ' + arr[a].questions.length;
+        questionforall =arr[a].questions.length;
 	out +='<li class="question hide find"><form><h3 class="title-question">' + n + '. ' + arr[a].questions[0].body + '</h3><ul class="list-answers">' ;
 	for (c = 0; c < arr[a].questions[0].answers.length; c++) {
 	    out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+  arr[a].questions[0].answers[c].key+'">' + arr[a].questions[0].answers[c].body  + '</label></li>';
@@ -65,7 +66,15 @@ function myFunction(arr) {
     document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
 }
+if(localStorage.numBlock){
+var numBlock = localStorage.numBlock;
+var numHide = localStorage.numHide;
 
+}
+else {
+    var numBlock = 1;
+    var numHide = 0;
+}
 function clickCounter() {
 
 
@@ -74,12 +83,18 @@ var tanalog = localStorage.getItem('tempanalog');
   myvalue = $('input[type=radio][name=answer]:checked').val();
 
  if ($('input[name=answer]:checked').length > 0) {
-      var x = document.querySelectorAll("li.question");
-            x[numBlock].classList.add("find");
-            x[numHide].classList.add("hide");
-            x[numHide].classList.remove("find");
-            numBlock++;
-            numHide++;
+     var x = document.querySelectorAll("li.question");
+     if (numBlock < questionforall) {
+
+     x[numBlock].classList.add("find");
+     x[numHide].classList.add("hide");
+     x[numHide].classList.remove("find");
+     numBlock++;
+     numHide++;
+     localStorage.numBlock = numBlock;
+     localStorage.numHide = numHide;
+         }
+ }
     arr = myArr;
 
     if(typeof(Storage) !== "undefined") {
@@ -129,7 +144,7 @@ var tanalog = localStorage.getItem('tempanalog');
             $('input[type=radio][name=answer]').prop('checked', false);
         }
     }
-}
+
  else alert("Спочатку вибери свою відповідь");
 }
 
@@ -175,32 +190,17 @@ harr.sort().reverse();
 
 }
 function backbutton(){
-    if ($('input[name=answer]:checked').length > 0) {
-      var x = document.querySelectorAll("li.question");
-            x[numBlock].classList.add("find");
-            x[numHide].classList.add("hide");
-            x[numHide].classList.remove("find");
-            numBlock--;
-            numHide--;
-    arr = myArr;
+    if(localStorage.numberOfQuestions && (localStorage.numberOfQuestions!=(arr[0].questions.length)-2)) {
+        localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions) + 1;
+        localStorage.tempanalog = Number(localStorage.tempanalog) + 1;
+        numBlock - 1;
+        numHide - 1;
 
-    if(typeof(Storage) !== "undefined") {
-        if(localStorage.supervalue){
-            wipedata();
-            localStorage.part = myvalue;
-            if (prime){
-            localStorage.isprimary = 1;}
-            else {localStorage.isprimary = 2;}
-            location.reload();
+            var x = document.querySelectorAll("li.question");
+            x[numBlock].classList.add("hide");
+            x[numHide].classList.add("find");
+            x[numHide].classList.remove("hide");
 
 
-
-
-    }
-
-    if(localStorage.numberOfQuestions && (localStorage.numberOfQuestions!=(arr[0].questions.length)-2)){
-    localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions)+1;
-    localStorage.tempanalog = Number(localStorage.tempanalog)+1;
     }
 }
-
