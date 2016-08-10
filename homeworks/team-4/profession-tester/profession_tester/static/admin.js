@@ -1,4 +1,7 @@
-    $(document).ready(function() {
+
+
+
+jQuery(document).ready(function(){ 
 
         
         $("#submit").on('click', function(e){ //Send form category,subcat,text
@@ -29,22 +32,54 @@
 
      });
 
-
-
+  
         var i = 1;   // Adding add on fields subcats and text
 
         $("#add-category").on('click', function(){
             var a = $(this).data("prototype");
-
-            var re = /\%number\%/g;  //increase index number
-            
-            var a = a.replace(re, i); 
-            
-            i++;
-
-            
+            var re = /\%number\%/g;  //increase index number          
+            var a = a.replace(re, i);            
+            i++;   
            $( this ).before(a);
+            console.log(a);
+            return false;
+        });
 
+
+        var i = 1;                                  // Adding add on fields question and answers
+        $("#add-question").on('click', function(){
+            var a = $(this).data("prototype");
+            var re = /\%number\%/g;                 //increase index number
+            var a = $(a.replace(re, i));
+            i++;
+            $(this).before(a);
+            console.log(a);
+            console.log(dataKeys);
+            var categorySelector = $('.list-category',a);
+            console.log(categorySelector);
+            dataCategory(dataKeys,categorySelector);
+            return false;
+        });
+
+
+        var i = 1;                                  // Adding add special answer with subc
+        $('#add-special-answer').on('click', function(){
+            var a = $(this).data('prototype');
+            var re = /\%number\%/g;                 //increase index number
+            var a = a.replace(re, i);
+            i++;
+            $(this).before(a);
+            console.log(a);
+            return false;
+        });
+
+        var i = 1;                                  // Adding add on fields answer
+        $('#add-special-question').on('click', function(){
+            var a = $(this).data('prototype');
+            var re = /\%number\%/g;                 //increase index number
+            var a = a.replace(re, i);
+            i++;
+            $(this).before(a);
             console.log(a);
             return false;
         });
@@ -67,55 +102,54 @@
             });
         });
 
+            var i = 1;                                  // Adding add on fields answer
+            $('#add-answer').on('click', function(){
+            var a = $(this).data('prototype');
+            var re = /\%number\%/g;                 //increase index number
+            var a = $(a.replace(re, i));
+            i++;
+            $(this).before(a);
+            console.log(a);
+            console.log(dataKeys);
+            var categorySelector = $('.list-category',a);
+            console.log(categorySelector);
+            dataCategory(dataKeys,categorySelector);
+
+            return false;
+
+        });
+        
+
+var dataKeys = {};
+$.getJSON('/get-keys', function(data) {
+    dataKeys = data.keys;
+    dataCategory(dataKeys,$('.list-category'));
+
+});
+
+ $("#list-category").change(function () {
+        var end = this.value;
+        console.log(end);
+        console.log('');
     });
 
+var dataCategory = function(dataKeys, $select) {
+    $.each(dataKeys, function(index,value) {
+        var v = value.name;
+    $select.append('<option>' + v + '</option>');
+
+    });
+}
+
+
+});
 
     function addCategory() {              
-    window.location.assign("/add-category") //add-category output
+    window.location.replace("/add-category") //add-category output
 }
 
     function addNewTest() {
-    window.location.assign("/add-new-test") // add-new-test output
+    window.location.replace("/add-new-test") // add-new-test output
 }
 
 
-var xmlhttp = new XMLHttpRequest();          // conclusion categorys
-var url = '/get-keys';
-
-xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var myArr = [JSON.parse(xmlhttp.responseText)];
-        categoryFunction(myArr);
-        subFunction(myArr);
-    }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
-
-function categoryFunction(arr) {          
-    var out = "";
-
-    for(a = 0; a < arr.length; a++) {
-        for (b = 0; b < arr[a].keys.length; b++) {
-             out += '<option>' + arr[a].keys[b].name + '</option>'     
-        }
-    }
-
-    var listCategory = document.getElementsByClassName('list-category').innerHTML = out;
-    $('.list-category').append('<option>' + listCategory + '</option>');
-}
-
-function subFunction(arr) {               //// conclusion subcats
-    var out = "";
-
-    for(a = 0; a < arr.length; a++) {
-        for (b = 0; b < arr[a].keys.length; b++) {
-            for(c = 0; c < arr[a].keys[b].subcats.length; c++) {
-                out += '<option>' + arr[a].keys[b].subcats[c].name + '</option>'
-            }
-        }
-    }
-    var listSubcats = document.getElementsByName('list-subcats').innerHTML = out;
-    $('.list-subcats').append('<option>' + listSubcats + '</option>');
-
-}
