@@ -1,10 +1,15 @@
 
 var xmlhttp = new XMLHttpRequest();
+<<<<<<< HEAD
 
 if (localStorage.nameTest){
     var nameTest = localStorage.nameTest;
 }
 
+=======
+if (localStorage.nameTest){
+var nameTest = localStorage.nameTest;}
+>>>>>>> 8ce51d0e5aeb6c91f5cd9ff3c3d14ca9ba10c54f
 localStorage.removeItem("supervalue");
 counter = 0;
 if(localStorage.part){
@@ -45,7 +50,11 @@ function myFunction(arr)
         nameTest = "";
         for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
+<<<<<<< HEAD
         localStorage.nameTest = nameTest;
+=======
+            localStorage.nameTest = nameTest;
+>>>>>>> 8ce51d0e5aeb6c91f5cd9ff3c3d14ca9ba10c54f
          var keyvar;
         for (b = 0; b < arr[a].questions.length-1; b++) {
             var n = b+1;
@@ -53,11 +62,19 @@ function myFunction(arr)
             questionforall =arr[a].questions.length;
             out +='<li class="question hide"><form><h3 class="title-question">' + n + '. '  + arr[a].questions[b].body + '</h3><ul>' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++)
+<<<<<<< HEAD
             {
                 if(typeof arr[a].questions[b].answers[c].key2 !== "undefined"){
                      keyvar = [arr[a].questions[b].answers[c].key1,arr[a].questions[b].answers[c].key2];
                 }
                 else keyvar = arr[a].questions[b].answers[c].key;
+=======
+            {   if (typeof arr[a].questions[b].answers[c].key2 !== "undefined")
+                {
+                     keyvar = [arr[a].questions[b].answers[c].key1,arr[a].questions[b].answers[c].key2];
+                }
+                else{ keyvar = [arr[a].questions[b].answers[c].key];}
+>>>>>>> 8ce51d0e5aeb6c91f5cd9ff3c3d14ca9ba10c54f
                 out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+keyvar+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
             }
             out +='</ul></form></li>';
@@ -89,8 +106,16 @@ function clickCounter() {
 
 var tanalog = localStorage.getItem('tempanalog');
      myvalue = $('input[type=radio][name=answer]:checked').val();
-     firstvalue = myvalue[0];
-     secondvalue = myvalue[2];
+    if(!typeof Number){
+        firstvalue = myvalue[0];
+        secondvalue = myvalue[2];
+    }else {firstvalue = myvalue;
+        	alert(typeof secondvalue);
+            secondvalue = null;
+    }
+
+
+
  if ($('input[name=answer]:checked').length > 0) {
      var x = document.querySelectorAll("li.question");
      if (numBlock < questionforall-1) {
@@ -218,18 +243,31 @@ function backbutton(){
     }
 }
  function idsfun() {
-                        if(localStorage.ids){
+                        if(localStorage.ids)
+                        {
                             var ids = JSON.parse(localStorage.getItem("ids"));
-                                                                                }
+                        }
                         else var ids = [];
-                      if(localStorage.idsfun){
+                      if(localStorage.idsfun)
+                      {
                            increment = localStorage.idsfun;
                       }
-                      else { increment = 0;}
+                      else
+                          {
+                              increment = 0;
+                          }
+                      if(secondvalue == null)
+                      {
+                          ids[increment]= firstvalue;
+                            increment++;
+                      }
+                      else
+                      {
                      ids[increment]= firstvalue;
                      increment++;
                      ids[increment]= secondvalue;
-                     increment++;
+                     increment++
+                      }
                      localStorage.setItem("ids", JSON.stringify(ids));
                      localStorage.idsfun = increment;
                  }
