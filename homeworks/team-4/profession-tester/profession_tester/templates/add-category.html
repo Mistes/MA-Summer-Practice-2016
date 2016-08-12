@@ -7,31 +7,28 @@
 	<title>ProfTest</title>
 </head>
 <body>
-
-
 	<form id="form" action="" method="post" enctype='application/json'>
-		<p>
-			<label>Название категории</label><Br>
-			<input type="text" name="name" placeholder="Введите название категории.">
-		</p>
+	
+		<label>Назва категорiї</label>
+		<input type="text" name="name" placeholder="Введiть назва категорiї.">
+			
+		<label>Назва пiдкатегорiї</label>
+		<input type="text" name="subcats[0][name]" placeholder="Введiть назву пiдкатегорiї.">
 
-		<p>
-			<label>Название подкатегории</label><Br>
-			<input type="text" name="subcats[0][name]" placeholder="Введите название подкатегории.">
-		</p>
+		<label>Заголовок привiтання</label><Br>
+		<input type="text" name="subcats[0][name]" placeholder="Введiть заголовок привiтання.">
 
-		<p>
-			<label>Итоги тестирования</label><Br>
-			<textarea type="text" name="subcats[0][text]" placeholder="Введите тоги тестирования."></textarea>
-		</p>
-
+		<label>Текст привiтання</label>
+		<textarea type="text" name="subcats[0][text]" placeholder="Введiть пiдсумок тестування."></textarea>
 		
-
 		<button id="add-category" type="submit" name="add-category" 
 		data-prototype="&lt;p&gt; &lt;label&gt;&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1087;&#1086;&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1080;&lt;/label&gt;&lt;Br&gt; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][name]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;&#1080;&#1090;&#1077; &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1087;&#1086;&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1080;.&quot;&gt; &lt;/p&gt; &lt;p&gt; &lt;label&gt;&#1048;&#1090;&#1086;&#1075;&#1080; &#1090;&#1077;&#1089;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;&lt;/label&gt;&lt;Br&gt; &lt;textarea type=&quot;text&quot; name=&quot;subcats[%number%][text]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;&#1080;&#1090;&#1077; &#1090;&#1086;&#1075;&#1080; &#1090;&#1077;&#1089;&#1090;&#1080;&#1088;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;.&quot;&gt;&lt;/textarea&gt; &lt;/p&gt;"
-		>Добавить категорию</button>
+		>Додати категорiю</button>
 
-		<button id="submit" type="submit" name="submit">Добавить тест</button>
+		<input type="file" name="pic" accept="image/*">
+
+		<button id="submit" type="submit" name="submit">Додати тест</button>
+
 	</form>
 
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
