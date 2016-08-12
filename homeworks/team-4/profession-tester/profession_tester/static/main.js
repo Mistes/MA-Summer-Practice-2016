@@ -1,38 +1,31 @@
-
+$(document).ready(function() {
+    onload();
+});
+function onload() {
+     if(localStorage.isprimary == 2){
+      congratpart();
+   }
+  else {mainpart();}
+ }
+function mainpart(){
 var xmlhttp = new XMLHttpRequest();
 if (localStorage.nameTest){
 var nameTest = localStorage.nameTest;}
-localStorage.removeItem("supervalue");
 counter = 0;
 if(localStorage.part){
-   if(localStorage.isprimary == 2){
-       window.location.href = '/congrats';
-   }
  testid ="tests/request-test/" + nameTest+ "/" + Number(localStorage.part);
 }
 else {testid = "tests/1";}
 var url = '/' + testid;
-
-function wipedata(){
-        localStorage.removeItem("ids");
-        localStorage.removeItem("tempanalog");
-        localStorage.removeItem("numberOfQuestions");
-        localStorage.removeItem("numBlock");
-        localStorage.removeItem("numHide");
-        localStorage.removeItem("idsfun");
-        }
-
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         myArr = [JSON.parse(xmlhttp.responseText)];
         myFunction(myArr);
-
-
     }
 };
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
-
+}
 function myFunction(arr)
 {
 
@@ -54,7 +47,8 @@ function myFunction(arr)
                 {
                      keyvar = [arr[a].questions[b].answers[c].key1,arr[a].questions[b].answers[c].key2];
                 }
-                else{ keyvar = [arr[a].questions[b].answers[c].key];}
+                else{ keyvar = [arr[a].questions[b].answers[c].key];
+                localStorage.removeItem("supervalue");}
                 out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="'+keyvar+'">' + arr[a].questions[b].answers[c].body  + '</label></li>';
             }
             out +='</ul></form></li>';
@@ -67,24 +61,32 @@ function myFunction(arr)
     prime = arr[0].is_primary;
     document.getElementById("num-questions").innerHTML = numQuestions;
     document.getElementById("name-test").innerHTML = nameTest;
-    document.getElementById("list-questions").innerHTML = out;
-     $("#list-questions").find(".hide").first().addClass("find");
+    if(!localStorage.lastquest){
+    document.getElementById("list-questions").innerHTML = out;}
+    else {  document.getElementById("list-questions").innerHTML = localStorage.lastquest;}
+     if(!localStorage.numHide)
+        {
+            $("#list-questions").find(".hide").eq(0).addClass("find");
+        }
+        else
+        {
+            $("#list-questions").find(".hide").eq(localStorage.numHide).addClass("find");
+        }
 }
-if(localStorage.numBlock){
-var numBlock = localStorage.numBlock;
-var numHide = localStorage.numHide;
+function clickCounter() {
+     var numBlock;
+     var numHide;
+     if(localStorage.numHide){
+numBlock = Number(localStorage.numHide)+1;
+numHide = localStorage.numHide;
 
 }
 else {
-    var numBlock = 1;
-    var numHide = 0;
+     localStorage.numHide = 0;
+numBlock = Number(localStorage.numHide)+1;
+numHide = localStorage.numHide;
 }
-function clickCounter() {
-
-
-
-
-var tanalog = localStorage.getItem('tempanalog');
+     var tanalog = localStorage.getItem('tempanalog');
      myvalue = $('input[type=radio][name=answer]:checked').val();
 
     if(!localStorage.isprimary == 1)
@@ -110,7 +112,6 @@ var tanalog = localStorage.getItem('tempanalog');
          x[numHide].classList.remove("find");
          numBlock++;
          numHide++;
-         localStorage.numBlock = numBlock;
          localStorage.numHide = numHide;
      }
 
@@ -119,15 +120,16 @@ var tanalog = localStorage.getItem('tempanalog');
      if (typeof(Storage) !== "undefined") {
          if (localStorage.supervalue) {
              wipedata();
-             localStorage.part = myvalue;
              if (prime) {
                  localStorage.isprimary = 1;
+                 localStorage.part = myvalue[0];
              }
              else {
                  localStorage.isprimary = 2;
+                 localStorage.part = myvalue;
              }
-             location.reload();
 
+                onload();
 
          }
 
@@ -148,6 +150,7 @@ var tanalog = localStorage.getItem('tempanalog');
              else {
                  localStorage.tempanalog = Number(localStorage.tempanalog) - 1;
                  $('input[type=radio][name=answer]').prop('checked', false);
+                 idsfun();
                  sorting();
              }
 
@@ -157,8 +160,6 @@ var tanalog = localStorage.getItem('tempanalog');
              localStorage.numberOfQuestions = (arr[0].questions.length) - 3;
              localStorage.tempanalog = (arr[0].questions.length) - 2;
              idsfun();
-
-
              $('input[type=radio][name=answer]').prop('checked', false);
          }
      }
@@ -193,6 +194,8 @@ harr.sort().reverse();
 
      first  =    arr2.getKeyByValue(harr[0]);
      second =   arr2.getKeyByValue(harr[1]);
+    console.log(arr);
+    console.log(harr);
 
 
     if (first != second){
@@ -201,7 +204,7 @@ harr.sort().reverse();
             localStorage.isprimary = 1;}
             else {localStorage.isprimary = 2;}
         wipedata();
-        location.reload();
+        onload();
     } else {
 
         localStorage.numberOfQuestions = 1;
@@ -258,25 +261,60 @@ function backbutton(){
                  }
 
 function lastquestion(encounters, max_encounters) {
-
+        localStorage.numHide = Number(localStorage.numHide)+1;
         var nameTest = myArr[0].name, n = myArr[0].questions.length;
         var last_question = myArr[0].questions[n-1];
-        var numQuestions = 'Всього питань: ' + n,
+        var numQuestions = 'Всього питань: ' + n;
         out = '<li class="question"><form><h3 class="title-question">' + n + '. ' + last_question.body + '</h3><ul class="list-answers">';
         for (c = 0; c < last_question.answers.length; c++) {
 
-            if(encounters[last_question.answers[c].key1] == max_encounters ) {
-                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="' + last_question.answers[c].key1 + '">' + last_question.answers[c].body + '</label></li>';
+            if (encounters[last_question.answers[c].key1] == max_encounters || encounters[last_question.answers[c].key]) {
+                if (typeof last_question.answers[c].key2 !== "undefined") {
+                    keyvar = [last_question.answers[c].key1, last_question.answers[c].key2];
+                }
+                else {
+                    keyvar = [last_question.answers[c].key];
+                }
+                out += '<li class="answer"><label><input type="radio"  name="answer" id = "radio1" value="' + keyvar + '">' + last_question.answers[c].body + '</label></li>';
             }
 
         }
         out += '</ul></form></li>';
-
+        localStorage.lastquest = out;
     prime = myArr[0].is_primary;
     document.getElementById("num-questions").innerHTML = numQuestions;
     document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
 }
+function wipedata(){
+        localStorage.removeItem("ids");
+        localStorage.removeItem("tempanalog");
+        localStorage.removeItem("numberOfQuestions");
+        localStorage.removeItem("numBlock");
+        localStorage.removeItem("numHide");
+        localStorage.removeItem("idsfun");
+        localStorage.removeItem("lastquest");
+         $("#text-cong").empty();
+         $("#list-questions").empty();
+        }
+function congratpart(){
+var xmlhttp = new XMLHttpRequest();
+ testid ="get-congrats/" + Number(localStorage.part);
+var url = '/' + testid;
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        myArr = xmlhttp.responseText;
+     document.getElementById("text-cong").innerHTML = myArr;
 
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+}
+function resetbutton(){
+     localStorage.clear();
+     wipedata();
+      onload();
 
+}
 

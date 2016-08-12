@@ -15,6 +15,7 @@
                 <h2 class="title-page vert-align" id="name-test"></h2>
             </div>
         </header>
+         <p id="text-cong">
         <section class="test">
             <div class="content-wrap">
                 <ul id="list-questions">
@@ -23,10 +24,11 @@
                 <div class="navend text-center">
                     <!--<button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>-->
                     <button class="little-btn btn-red" onclick="clickCounter(); " id="next">Далі</button>
+                    <button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>
                 </div>
             </div>
         </section>
-        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
         <div id="result"></div>
     </body>
