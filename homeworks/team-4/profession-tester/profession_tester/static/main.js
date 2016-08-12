@@ -48,7 +48,7 @@ function myFunction(arr)
             var n = b+1;
             numQuestions = 'Всього питань: ' + arr[a].questions.length;
             questionforall =arr[a].questions.length;
-            out +='<li class="question hide"><form><h3 class="title-question">' + n + '. '  + arr[a].questions[b].body + '</h3><ul>' ;
+            out +='<li class="question hide"><form><h3 class="title-question">' + n + '. '  + arr[a].questions[b].body + '</h3><ul class="list-answers">' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++)
             {   if (typeof arr[a].questions[b].answers[c].key2 !== "undefined")
                 {
@@ -262,7 +262,7 @@ function lastquestion(encounters, max_encounters) {
         var nameTest = myArr[0].name, n = myArr[0].questions.length;
         var last_question = myArr[0].questions[n-1];
         var numQuestions = 'Всього питань: ' + n,
-        out = '<li class="question"><form><h3 class="title-question">' + n + '. ' + last_question.body + '</h3><ul>';
+        out = '<li class="question"><form><h3 class="title-question">' + n + '. ' + last_question.body + '</h3><ul class="list-answers">';
         for (c = 0; c < last_question.answers.length; c++) {
 
             if(encounters[last_question.answers[c].key1] == max_encounters ) {
