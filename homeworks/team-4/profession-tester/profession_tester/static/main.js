@@ -31,7 +31,6 @@ function myFunction(arr)
 
 
     var out = "",
-        numQuestions = "";
         nameTest = "";
         for(a = 0; a < arr.length; a++) {
         nameTest += arr[a].name;
@@ -39,7 +38,6 @@ function myFunction(arr)
          var keyvar;
         for (b = 0; b < arr[a].questions.length-1; b++) {
             var n = b+1;
-            numQuestions = 'Всього питань: ' + arr[a].questions.length;
             questionforall =arr[a].questions.length;
             out +='<li class="question hide"><form><h3 class="title-question">' + n + '. '  + arr[a].questions[b].body + '</h3><ul class="list-answers">' ;
             for (c = 0; c < arr[a].questions[b].answers.length; c++)
@@ -59,7 +57,6 @@ function myFunction(arr)
     }
 
     prime = arr[0].is_primary;
-    document.getElementById("num-questions").innerHTML = numQuestions;
     document.getElementById("name-test").innerHTML = nameTest;
     if(!localStorage.lastquest){
     document.getElementById("list-questions").innerHTML = out;}
@@ -264,7 +261,6 @@ function lastquestion(encounters, max_encounters) {
         localStorage.numHide = Number(localStorage.numHide)+1;
         var nameTest = myArr[0].name, n = myArr[0].questions.length;
         var last_question = myArr[0].questions[n-1];
-        var numQuestions = 'Всього питань: ' + n;
         out = '<li class="question"><form><h3 class="title-question">' + n + '. ' + last_question.body + '</h3><ul class="list-answers">';
         for (c = 0; c < last_question.answers.length; c++) {
 
@@ -282,7 +278,6 @@ function lastquestion(encounters, max_encounters) {
         out += '</ul></form></li>';
         localStorage.lastquest = out;
     prime = myArr[0].is_primary;
-    document.getElementById("num-questions").innerHTML = numQuestions;
     document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
 }
