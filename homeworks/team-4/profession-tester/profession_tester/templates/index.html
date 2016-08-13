@@ -14,7 +14,6 @@
                 <h1 class="logo vert-align">
                     <img src="{{ url_for('static', filename='img/logo.png')}}" alt="">
                 </h1>
-                <h2 class="title-page vert-align" id="name-test"></h2>
                 <button class="btn-reset btn-red vert-align" onclick="resetbutton();" id="reset">Почати спочатку</button>
             </div>
         </header>
@@ -26,8 +25,8 @@
 
                     </ul>
                 </div>
-                <div class="navend text-center">
-                    <!--<button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>-->
+                <div class="navend text-center" id="buttons">
+                    <button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>
                     <button class="little-btn btn-red" onclick="clickCounter(); " id="next">Далі</button>
                     <!--<button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>-->
                 </div>

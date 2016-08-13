@@ -57,7 +57,6 @@ function myFunction(arr)
     }
 
     prime = arr[0].is_primary;
-    document.getElementById("name-test").innerHTML = nameTest;
     if(!localStorage.lastquest){
     document.getElementById("list-questions").innerHTML = out;}
     else {  document.getElementById("list-questions").innerHTML = localStorage.lastquest;}
@@ -278,7 +277,6 @@ function lastquestion(encounters, max_encounters) {
         out += '</ul></form></li>';
         localStorage.lastquest = out;
     prime = myArr[0].is_primary;
-    document.getElementById("name-test").innerHTML = nameTest;
     document.getElementById("list-questions").innerHTML = out;
 }
 function wipedata(){
@@ -293,6 +291,7 @@ function wipedata(){
          $("#list-questions").empty();
         }
 function congratpart(){
+    document.getElementById("buttons").classList.add("hide");
 var xmlhttp = new XMLHttpRequest();
  testid ="get-congrats/" + Number(localStorage.part);
 var url = '/' + testid;
@@ -307,9 +306,9 @@ xmlhttp.open("GET", url, true);
 xmlhttp.send();
 }
 function resetbutton(){
+    document.getElementById("buttons").classList.remove("hide");
      localStorage.clear();
      wipedata();
       onload();
-
 }
 
