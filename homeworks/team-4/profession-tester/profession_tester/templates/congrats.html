@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>ProfTest</title>
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-		<link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
-	</head>
-	<body>
-		<div class="content-wrap">
-
-			<p id="text-cong">
-
-			</p>
-			<button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>
-		</div>
-		<script type="text/javascript" src="{{ url_for('static', filename='congrat.js')}}"></script>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+    <script type="text/javascript">
+        $(function() {
+            $('#progressDiv').progressbar({
+                value: 57
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="progressDiv"></div>
+</body>
 </html>

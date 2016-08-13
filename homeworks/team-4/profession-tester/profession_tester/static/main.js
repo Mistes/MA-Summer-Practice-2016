@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    $(window).load(function() {        //loader here
+         $('#loader').hide();
+        // $('#list-questions').show();
+    });
     onload();
 });
 function onload() {
