@@ -5,28 +5,63 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Test</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
+        <!--<style>-->
+            <!--.loader {-->
+              <!--border: 16px solid #f3f3f3;-->
+              <!--border-radius: 50%;-->
+              <!--border-top: 16px solid #3498db;-->
+              <!--width: 120px;-->
+              <!--height: 120px;-->
+              <!-- -webkit-animation: spin 2s linear infinite;-->
+              <!--animation: spin 2s linear infinite;-->
+            <!--}-->
+            <!---->
+            <!--@-webkit-keyframes spin {-->
+              <!--0% { -webkit-transform: rotate(0deg); }-->
+              <!--100% { -webkit-transform: rotate(360deg); }-->
+            <!--}-->
+            <!---->
+            <!--@keyframes spin {-->
+              <!--0% { transform: rotate(0deg); }-->
+              <!--100% { transform: rotate(360deg); }-->
+            <!--}-->
+        <!--</style>-->
     </head>
     <body>
         <header class="header">
             <div class="content-wrap">
-                <p class="title-page vert-align" id="num-questions"></p>
-                <h2 class="title-page vert-align" id="name-test"></h2>
+                <h1 class="logo vert-align">
+                    <img src="{{ url_for('static', filename='img/logo.png')}}" alt="">
+                </h1>
+                <div class="vert-align">
+                    <div id="progressDiv"></div>
+                </div>
+                <div class="vert-align">
+                    <button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>
+                </div>
             </div>
         </header>
+        <!--<div class="loader" id = "loader"></div>-->
         <section class="test">
             <div class="content-wrap">
-                <ul id="list-questions">
+                <div class="height-box">
+                    <p id="text-cong">
+                    <ul id="list-questions">
 
-                </ul>
-                <div class="navend">
-                    <!--<button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>-->
+                    </ul>
+                </div>
+                <div class="navend text-center" id="buttons">
+                  {#  <button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>#}
                     <button class="little-btn btn-red" onclick="clickCounter(); " id="next">Далі</button>
                 </div>
             </div>
         </section>
-        <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
         <div id="result"></div>
     </body>
