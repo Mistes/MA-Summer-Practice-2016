@@ -1,4 +1,13 @@
 $(document).ready(function() {
+      $(function() {
+            $('#progressDiv').progressbar({
+                value: 21
+            });
+        });
+    $(window).load(function() {        //loader here
+         $('#loader').hide();
+        // $('#list-questions').show();
+    });
     onload();
 });
 function onload() {
