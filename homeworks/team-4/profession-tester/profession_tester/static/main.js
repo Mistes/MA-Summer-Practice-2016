@@ -307,8 +307,7 @@ xmlhttp.send();
 }
 function resetbutton(){
     document.getElementById("buttons").classList.remove("hide");
-     localStorage.clear();
-     wipedata();
-      onload();
+    localStorage.clear();
+    wipedata();
+    onload();
 }
-
