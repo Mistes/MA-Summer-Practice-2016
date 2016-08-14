@@ -293,7 +293,7 @@ xmlhttp.onreadystatechange = function() {
         document.getElementById("text-body").innerHTML = out2;
 
     }
-};
+};  //chages
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 }
