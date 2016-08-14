@@ -268,6 +268,7 @@ function wipedata(){
         localStorage.removeItem("idsfun");
         localStorage.removeItem("lastquest");
          $("#text-head").empty();
+         $("#text-img").empty();
          $("#text-body").empty();
          $("#list-questions").empty();
 
