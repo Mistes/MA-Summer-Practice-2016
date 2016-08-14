@@ -267,7 +267,8 @@ function wipedata(){
         localStorage.removeItem("numHide");
         localStorage.removeItem("idsfun");
         localStorage.removeItem("lastquest");
-         $("#text-cong").empty();
+         $("#text-head").empty();
+         $("#text-body").empty();
          $("#list-questions").empty();
 
         }
@@ -276,11 +277,19 @@ function congratpart(){
     document.getElementById("buttons").classList.add("hide");
 var xmlhttp = new XMLHttpRequest();
  testid ="get-congrats/" + Number(localStorage.part);
+    var imagesrc = "/get-image/" + Number(localStorage.part);
 var url = '/' + testid;
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        myArr = xmlhttp.responseText;
-     document.getElementById("text-cong").innerHTML = myArr;
+       var parsevar = [JSON.parse(xmlhttp.responseText)];
+        var out = "",
+            out2 = "";
+        out = parsevar[0].header;
+        out2 = parsevar[0].text;
+
+        document.getElementById("text-head").innerHTML = out;
+        document.getElementById("text-img").innerHTML = '<img src='+imagesrc+'>';
+        document.getElementById("text-body").innerHTML = out2;
 
     }
 };
