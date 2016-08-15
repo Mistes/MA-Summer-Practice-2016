@@ -42,7 +42,7 @@ class Answers(db.Model):
     second_category_enum = db.Column(db.Integer, unique = False)
     podcategory_enum = db.Column(db.Integer,  unique=False)
 
-    def __init__(self, answer_body, category_enum, podcategory_enum):
+    def __init__(self, answer_body, category_enum, second_category_enum, podcategory_enum):
         self.answer_body = answer_body
         self.category_enum = category_enum
         self.podcategory_enum = podcategory_enum
@@ -59,7 +59,7 @@ class Categories(db.Model):
 
 class SubCategories(db.Model):
     id = db.Column(db.Integer, db.Sequence('subcat_seq'), primary_key=True)
-    name = db.Column(db.String(200), unique=True)
+    name = db.Column(db.String(200))
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     text = db.Column(db.String(2000),unique=False)
     category_enum = db.Column(db.Integer, db.Sequence('cat_enum_seq'))

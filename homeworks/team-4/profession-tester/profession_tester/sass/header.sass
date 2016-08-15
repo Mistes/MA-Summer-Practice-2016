@@ -1,19 +1,35 @@
 .header
+  .vert-align
+    @media (max-width: 767px)
+      display: block
+    .btn-reset
+      @media (max-width: 767px)
+        display: block
+        margin: 15px auto 20px
+        float: none
   .content-wrap
     min-height: 110px
     border-bottom: 1px solid #a3a3a3
     padding: 0 75px
     @media (max-width: 991px)
       min-height: 80px
-      padding: 0 30px
+      padding: 0 30px 50px
   .logo
     width: 250px
     margin: 15px
     float: left
+    @media (max-width: 767px)
+      float: none
+      margin: 15px auto 0
     img
       width: 100%
   .progress-div
     width: 100%
+    @media (max-width: 991px)
+      position: absolute
+      width: 80%
+      left: 10%
+      bottom: 15px
     div
       border: none
     .ui-corner-all
