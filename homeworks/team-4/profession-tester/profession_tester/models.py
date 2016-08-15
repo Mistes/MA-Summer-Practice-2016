@@ -59,7 +59,7 @@ class Categories(db.Model):
 
 class SubCategories(db.Model):
     id = db.Column(db.Integer, db.Sequence('subcat_seq'), primary_key=True)
-    name = db.Column(db.String(200), unique=True)
+    name = db.Column(db.String(200))
     cat_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     text = db.Column(db.String(2000),unique=False)
     category_enum = db.Column(db.Integer, db.Sequence('cat_enum_seq'))
