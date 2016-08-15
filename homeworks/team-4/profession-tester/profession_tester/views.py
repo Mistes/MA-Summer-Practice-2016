@@ -202,9 +202,9 @@ def get_next_test(name, type):
 	test = Tests.query.filter_by(name = name, type = type).first()
 	return json.dumps(jsonify_test(test),ensure_ascii=False)
 
-@app.route('/congrats', methods = ['GET', 'POST'])
-def congrats():
-	return render_template('congrats.html')
+@app.route('/another', methods = ['GET', 'POST'])
+def another():
+	return render_template('another.html')
 
 @app.route('/add-category', methods = ['GET', 'POST'])
 def addcat():
