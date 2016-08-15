@@ -12,6 +12,17 @@ Primaries = models.PrimaryTests
 Categories = models.Categories
 SubCategories = models.SubCategories
 
+key = {
+    "name": "Engineer",
+    "subcats": [
+            {
+                "name": "Engineer-mechanic",
+                "header": "Congrats!",
+                "text": "You were born for this!"
+            }
+        ]
+}
+
 def jsonify_test(my_test):
 	tmp_questions = []
 	for q in my_test.questions:		
@@ -56,7 +67,7 @@ def save_image(enum):
 
 @app.route('/save-new-category', methods = ['GET', 'POST'])
 def save_new_category():
-	category = request.json
+	category = key#request.get_json()
 	if Categories.query.filter_by(name = category['name']).count():
 		form = Categories.query.filter_by(name = category['name']).first()
 		form.name = category['name']
@@ -113,7 +124,7 @@ def index():
 
 @app.route('/save-test', methods = ['GET', 'POST'])#123
 def save_test():
-	#test = request.json
+	test = request.json
 	form = Tests(test['name'], test['type'], test['is_primary'])
 	for q in test['questions']:
 		tmp = Questions(q['body'])
