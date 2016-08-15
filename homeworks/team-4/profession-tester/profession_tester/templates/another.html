@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Choose your test</title>
+	</head>
+	<body>
+    <section class="test">
+            <div class="content-wrap">
+                <div class="height-box">
+                    <ul id="list-questions">
+                    </ul>
+                </div>
+                <div class="navend text-center" id="buttons">
+                    <button class="little-btn btn-red" onclick="choosetest(); " id="choose">Обрати тест</button>
+                </div>
+            </div>
+        </section>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='another.js')}}">
+	</script>
+	</body>
+</html>
