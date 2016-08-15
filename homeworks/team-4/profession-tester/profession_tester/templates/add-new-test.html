@@ -6,11 +6,17 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style type="text/css">
+			#form-add-category {
+				display: none;
+			}
 			.active{
 				display: inline-block;
 			}
 			.active + #form-add-category {
 				display: block;
+			}
+			.category-display{
+		    	display: none;
 			}
 		</style>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -26,12 +32,14 @@
 		</header>
 		<section class="create-category">
 			<div class="content-wrap">
-				<input type="text" name="name" placeholder="Введiть назву вашого тесту" autofocus>
+				<input type="text" name="name" placeholder="Введiть назву вашого тесту">
 				<select name="type" class="list-category" id="list-category">
-					<option selected class="hide">Оберiть категорiю</option>
+					<option selected class="category-display">Оберiть категорiю</option>
 				</select>
+
+
 				<button type="button" class="button-add-category btn-white little-btn">Додати категорiю</button>
-				<form class="form-add-category hide" id="form-add-category" action="" method="post" enctype='application/json'>
+				<form class="form-add-category hide" id="form-add-category" method="post" enctype='application/json'>
 					<label class="middle-title">
 						Назва категорiї
 						<input type="text" name="name" placeholder="Введiть назва категорiї.">
