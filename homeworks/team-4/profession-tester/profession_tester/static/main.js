@@ -25,7 +25,10 @@ counter = 0;
 if(localStorage.part){
  testid ="tests/request-test/" + nameTest+ "/" + Number(localStorage.part);
 }
-else {testid = "tests/1";}
+else if (localStorage.primaryTestId){
+testid = "tests/" + Number(localStorage.primaryTestId);}
+else {
+testid = "tests/1";}
 var url = '/' + testid;
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -80,8 +83,10 @@ function myFunction(arr)
         }
 }
 function clickCounter() {
- if ($('input[name=answer]:checked').length > 0) {
-     myvalue = $('input[type=radio][name=answer]:checked').val();
+    var check = $('input[name=answer]:checked');
+    var radiofalse =  $('input[type=radio][name=answer]').prop('checked', false);
+ if (check.length > 0) {
+     myvalue = check.val();
      var tanalog = localStorage.getItem('tempanalog');
     if(!localStorage.isprimary == 1)
     {
@@ -91,7 +96,6 @@ function clickCounter() {
    else
     {
         firstvalue = myvalue;
-      //  alert(typeof secondvalue == "undefined");
         secondvalue = null;
     }
      showAndHideBlock();
@@ -115,21 +119,15 @@ function clickCounter() {
 
          if (localStorage.numberOfQuestions) {
 
-             if (Number(localStorage.numberOfQuestions && localStorage.numberOfQuestions) !== 0) {
+             if (Number(localStorage.numberOfQuestions) !== 0) {
                  localStorage.numberOfQuestions = Number(localStorage.numberOfQuestions) - 1;
-                 localStorage.tempanalog = Number(localStorage.tempanalog) - 1;
-
-
                  idsfun();
-
-
-                 $('input[type=radio][name=answer]').prop('checked', false);
+                 radiofalse;
              }
 
 
              else {
-                 localStorage.tempanalog = Number(localStorage.tempanalog) - 1;
-                 $('input[type=radio][name=answer]').prop('checked', false);
+                radiofalse;
                  idsfun();
                  sorting();
              }
@@ -138,9 +136,8 @@ function clickCounter() {
          } else if (!localStorage.supervalue) {
 
              localStorage.numberOfQuestions = (arr[0].questions.length) - 3;
-             localStorage.tempanalog = (arr[0].questions.length) - 2;
              idsfun();
-             $('input[type=radio][name=answer]').prop('checked', false);
+             radiofalse;
          }
      }
  }
@@ -293,7 +290,7 @@ xmlhttp.onreadystatechange = function() {
         document.getElementById("text-body").innerHTML = out2;
 
     }
-};
+};  //chages
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 }
@@ -301,7 +298,10 @@ function resetbutton(){
      $( "#progressDiv" ).progressbar( "option", "value", 0 );
      localStorage.removeItem("progressBar");
     document.getElementById("buttons").classList.remove("hide");
-    localStorage.clear();
+    localStorage.removeItem("supervalue");
+    localStorage.removeItem("nameTest");
+    localStorage.removeItem("part");
+    localStorage.removeItem("isprimary");
     wipedata();
     onload();
 }

@@ -2,13 +2,18 @@
   display: none
 .find
   display: block
+.big-text
+  font: 600 50px 'Open Sans'
+  @media (max-width: 991px)
+    font-size: 40px
 .content-wrap
   display: table
   width: 100%
-  max-width: 1200px
+  max-width: 1000px
   height: 100%
   margin: auto
   padding: 15px
+  position: relative
 .vert-align
   display: table-cell
   vertical-align: middle
@@ -17,6 +22,9 @@
 .little-btn
   width: 180px
   font: 600 24px/70px 'Open Sans'
+  @media (max-width: 991px)
+    font-size: 20px
+    line-height: 50px
 .little-btn, .btn-reset
   text-align: center
   border: none
@@ -46,4 +54,8 @@
   margin-left: 15px
   margin-right: 15px
 .height-box
-  min-height: 530px
+  min-height: 620px
+  @media (max-width: 1300px)
+    min-height: 530px
+  @media (max-width: 991px)
+    min-height: 300px
