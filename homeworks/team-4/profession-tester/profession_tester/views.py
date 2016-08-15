@@ -19,6 +19,11 @@ key = {
                 "name": "Engineer-mechanic",
                 "header": "Congrats!",
                 "text": "You were born for this!"
+            },
+	    {
+                "name": "Another Engineer-mechanic",
+                "header": "Congrats!",
+                "text": "You were born for this!"
             }
         ]
 }
@@ -67,6 +72,18 @@ def jsonify_test(my_test):
 		'is_primary': my_test.isprimary,
 		'questions': tmp_questions
 	}
+
+
+@app.route('/get-delete-list', methods = ['GET'])
+def get_delete_list():
+	tests = Tests.query.all()
+	formatted_list = []
+	for t in tests:
+		formatted_list.append({
+			'name': t.name,
+			'test_id': t.id
+		})
+	return json.dumps({'tests': formatted_list}, ensure_ascii = False)
 
 @app.route('/get-image/<int:enum>', methods = ['GET'])
 def get_image(enum):
