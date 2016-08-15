@@ -1,87 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<style type="text/css">
-		#form-add-category {
-			display: none;
-		}
-		.active{
-			display: inline-block;
-		}
-		.active + #form-add-category {
-			display: block;
-  	}
-
-
-  </style>
-
-</head>
-
-<body>
-	<label>Назва тесту</label>
-	<input type="text" name="name" placeholder="Введiть назву вашого тесту" autofocus>
-
-	<select name="questions[0]answers[0][body]" class="list-category" id="list-category">
-		<option disabled>Оберiть категорiю</option>
-	</select>
-	<button type="button" class="button-add-category">Додати категорiю</button>
-
-
-		<form id="form-add-category" action="" method="post" enctype='application/json'>
-	
-		<label>Назва категорiї</label><Br>
-		<input type="text" name="name" placeholder="Введiть назва категорiї."><Br>
-			
-		<label>Назва пiдкатегорiї</label><Br>
-		<input type="text" name="subcats[0][name]" placeholder="Введiть назву пiдкатегорiї."><Br>
-
-		<label>Заголовок привiтання</label><Br>
-		<input type="text" name="subcats[0][header]" placeholder="Введiть заголовок привiтання."><Br>
-
-		<label>Текст привiтання</label><Br>
-		<textarea type="text" name="subcats[0][text]" placeholder="Введiть пiдсумок тестування."></textarea><Br>
-		
-		<button id="add-category" type="submit" name="add-category" data-prototype="&lt;label&gt;&#1053;&#1072;&#1079;&#1074;&#1072; &#1087;i&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;i&#1111;&lt;/label&gt; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][name]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1085;&#1072;&#1079;&#1074;&#1091; &#1087;i&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;i&#1111;.&quot;&gt; &lt;label&gt;&#1047;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/label&gt;&lt;Br&gt; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][name]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1079;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;.&quot;&gt; &lt;label&gt;&#1058;&#1077;&#1082;&#1089;&#1090; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/label&gt; &lt;textarea type=&quot;text&quot; name=&quot;subcats[%number%][text]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;i&#1076;&#1089;&#1091;&#1084;&#1086;&#1082; &#1090;&#1077;&#1089;&#1090;&#1091;&#1074;&#1072;&#1085;&#1085;&#1103;.&quot;&gt;&lt;/textarea&gt;"
-		>Додати категорiю</button><Br>
-
-<!-- 		<input type="file" name="pic" accept="image/*"><Br>
- -->
-		<button id="submit-category" type="submit" name="submit">Зберегти</button><Br>
-
-	</form>
-
-    <form id id="form-add-test" action="" method="post" enctype='application/json'>
-	<fieldset>
-		<legend>Запитання</legend>
-					
-		<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
-					
-		<label>Вiдповiдь 
-			<input type="text" name="name" placeholder="Введiть першу вiдповiдь">
-				<select name="questions[0]answers[0][body]" class="list-subcats">
-
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style type="text/css">
+			#form-add-category {
+				display: none;
+			}
+			.active{
+				display: inline-block;
+			}
+			.active + #form-add-category {
+				display: block;
+			}
+			.category-display{
+				display: none;
+			}
+		</style>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
+	</head>
+	<body>
+		<header>
+			<div class="content-wrap">
+				<h2>Назва тесту</h2>
+			</div>
+		</header>
+		<section class="create-category">
+			<div class="content-wrap">
+				<input type="text" name="name" placeholder="Введiть назву вашого тесту" autofocus>
+				<select name="type" class="list-category" id="list-category">
+					<option selected class="category-display">Оберiть категорiю</option>
 				</select>
-		</label>
-
-	<button type="button" name="add-answer" class = "add-answer" data-prototype="&lt;label&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100; &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%]answers[%number%][body]&quot; class=&quot;list-category list-subcats&quot;&gt; &lt;/select&gt;&lt;Br&gt; &lt;/label&gt;">Додати вiдповiдь</button>
-	</fieldset>
-
-	<button type="button" name="add-question" class = "add-question" data-prototype="&lt;fieldset&gt; &lt;legend&gt;&#1047;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/legend&gt; &lt;input type=&quot;text&quot; name=&quot;questions[%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1077; &#1079;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&quot;&gt; &lt;label&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100; &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%]answers[%number%][body]&quot; class=&quot;list-subcats&quot;&gt; &lt;/select&gt; &lt;/label&gt; &lt;button type=&quot;button&quot; name=&quot;add-answer&quot; class = &quot;add-answer&quot; data-prototype=&quot;&amp;lt;label&amp;gt;&amp;#1042;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100; &amp;lt;input type=&amp;quot;text&amp;quot; name=&amp;quot;name&amp;quot; placeholder=&amp;quot;&amp;#1042;&amp;#1074;&amp;#1077;&amp;#1076;i&amp;#1090;&amp;#1100; &amp;#1087;&amp;#1077;&amp;#1088;&amp;#1096;&amp;#1091; &amp;#1074;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100;&amp;quot;&amp;gt; &amp;lt;select name=&amp;quot;questions[%number%]answers[%number%][body]&amp;quot; class=&amp;quot;list-category list-subcats&amp;quot;&amp;gt; &amp;lt;/select&amp;gt;&amp;lt;Br&amp;gt; &amp;lt;/label&amp;gt;&quot;&gt;&#1044;&#1086;&#1076;&#1072;&#1090;&#1080; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/button&gt; &lt;/fieldset&gt;">Додати запитання</button>
-</form>
-
-	<button type="submit-test" id="add-new-test">Зберегти</button>
-
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-<script src="{{ url_for('static', filename='jquery.serialize-object.min.js')}}"></script>
-
-<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}">
-</script>
-
-</body>
-
+				<button type="button" class="button-add-category btn-red">Додати категорiю</button>
+				<form id="form-add-category" action="" method="post" enctype='application/json'>
+					<label>Назва категорiї</label><Br>
+					<input type="text" name="name" placeholder="Введiть назва категорiї."><Br>
+					<label>Назва пiдкатегорiї</label><Br>
+					<input type="text" name="subcats[0][name]" placeholder="Введiть назву пiдкатегорiї."><Br>
+					<label>Заголовок привiтання</label><Br>
+					<input type="text" name="subcats[0][header]" placeholder="Введiть заголовок привiтання."><Br>
+					<label>Текст привiтання</label><Br>
+					<textarea type="text" name="subcats[0][text]" placeholder="Введiть пiдсумок тестування."></textarea><Br>
+					<button id="add-category" type="submit" name="add-category" data-prototype="&lt;label&gt;&#1053;&#1072;&#1079;&#1074;&#1072; &#1087;i&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;i&#1111;&lt;/label&gt; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][name]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1085;&#1072;&#1079;&#1074;&#1091; &#1087;i&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;i&#1111;.&quot;&gt; &lt;label&gt;&#1047;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/label&gt;&lt;Br&gt; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][name]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1079;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;.&quot;&gt; &lt;label&gt;&#1058;&#1077;&#1082;&#1089;&#1090; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/label&gt; &lt;textarea type=&quot;text&quot; name=&quot;subcats[%number%][text]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;i&#1076;&#1089;&#1091;&#1084;&#1086;&#1082; &#1090;&#1077;&#1089;&#1090;&#1091;&#1074;&#1072;&#1085;&#1085;&#1103;.&quot;&gt;&lt;/textarea&gt;"
+					>Додати категорiю</button><Br>
+					<!--<input type="file" name="pic" accept="image/*"><Br>-->
+					<button id="submit-category" type="submit" name="submit">Зберегти</button><Br>
+				</form>
+				<form id="form-add-test" method="post" enctype='application/json'>
+					<fieldset>
+						<legend>Запитання</legend>
+						<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
+						<label>Вiдповiдь
+							<input type="text" name="questions[0][answers][0][body]" placeholder="Введiть першу вiдповiдь">
+							<select name="questions[0][answers][0][key]" class="list-subcats"></select>
+						</label>
+						<button type="button" name="add-answer" class = "btn-red add-answer" data-prototype="&lt;label&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100; &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%]answers[%number%][body]&quot; class=&quot;list-category list-subcats&quot;&gt; &lt;/select&gt;&lt;Br&gt; &lt;/label&gt;">Додати вiдповiдь</button>
+					</fieldset>
+					<button type="button" name="add-question" class = "btn-red add-question" data-prototype="&lt;fieldset&gt; &lt;legend&gt;&#1047;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/legend&gt; &lt;input type=&quot;text&quot; name=&quot;questions[%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1077; &#1079;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&quot;&gt; &lt;label&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100; &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%]answers[%number%][body]&quot; class=&quot;list-subcats&quot;&gt; &lt;/select&gt; &lt;/label&gt; &lt;button type=&quot;button&quot; name=&quot;add-answer&quot; class = &quot;add-answer&quot; data-prototype=&quot;&amp;lt;label&amp;gt;&amp;#1042;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100; &amp;lt;input type=&amp;quot;text&amp;quot; name=&amp;quot;name&amp;quot; placeholder=&amp;quot;&amp;#1042;&amp;#1074;&amp;#1077;&amp;#1076;i&amp;#1090;&amp;#1100; &amp;#1087;&amp;#1077;&amp;#1088;&amp;#1096;&amp;#1091; &amp;#1074;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100;&amp;quot;&amp;gt; &amp;lt;select name=&amp;quot;questions[%number%]answers[%number%][body]&amp;quot; class=&amp;quot;list-category list-subcats&amp;quot;&amp;gt; &amp;lt;/select&amp;gt;&amp;lt;Br&amp;gt; &amp;lt;/label&amp;gt;&quot;&gt;&#1044;&#1086;&#1076;&#1072;&#1090;&#1080; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/button&gt; &lt;/fieldset&gt;">Додати запитання</button>
+				</form>
+				<button type="submit-test" id="add-new-test" class="btn-white">Зберегти</button>
+			</div>
+		</section>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="{{ url_for('static', filename='jquery.serialize-object.min.js')}}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}"></script>
+	</body>
 </html>
