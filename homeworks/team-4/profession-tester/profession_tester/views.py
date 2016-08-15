@@ -71,10 +71,14 @@ def save_new_category():
 	if Categories.query.filter_by(name = category['name']).count():
 		form = Categories.query.filter_by(name = category['name']).first()
 		form.name = category['name']
+		for s in category['subcats']:
+			form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+		
 	else:
 		form = Categories(category['name'])
-	for s in category['subcats']:
-		form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+		for s in category['subcats']:
+			form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+		db.session.add(form)
 	db.session.commit()
 	return ' "OK" '
 
