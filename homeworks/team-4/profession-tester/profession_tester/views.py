@@ -12,6 +12,34 @@ Primaries = models.PrimaryTests
 Categories = models.Categories
 SubCategories = models.SubCategories
 
+key = {
+    "name": "Engineer",
+    "subcats": [
+            {
+                "name": "Engineer-mechanic",
+                "header": "Congrats!",
+                "text": "You were born for this!"
+            }
+        ]
+}
+
+sample_test = {
+	"name": "Test test",
+	"is_primary": True,
+	"type": -1,
+	"questions": [
+		{
+			"body": "Question 1",
+			"answers":[
+				{
+					"body": "Answer 1",
+					"key": 1
+				}
+			]
+		}
+	]
+}
+
 def jsonify_test(my_test):
 	tmp_questions = []
 	for q in my_test.questions:		
@@ -56,14 +84,19 @@ def save_image(enum):
 
 @app.route('/save-new-category', methods = ['GET', 'POST'])
 def save_new_category():
-	category = request.json
+	category = request.get_json()
 	if Categories.query.filter_by(name = category['name']).count():
 		form = Categories.query.filter_by(name = category['name']).first()
 		form.name = category['name']
+		for s in category['subcats']:
+			if not SubCategories.query.filter_by(name = s['name']).count():
+				form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+		
 	else:
 		form = Categories(category['name'])
-	for s in category['subcats']:
-		form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+		for s in category['subcats']:
+			form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+		db.session.add(form)
 	db.session.commit()
 	return ' "OK" '
 
@@ -113,7 +146,7 @@ def index():
 
 @app.route('/save-test', methods = ['GET', 'POST'])#123
 def save_test():
-	#test = request.json
+	test = request.get_json()
 	form = Tests(test['name'], test['type'], test['is_primary'])
 	for q in test['questions']:
 		tmp = Questions(q['body'])
