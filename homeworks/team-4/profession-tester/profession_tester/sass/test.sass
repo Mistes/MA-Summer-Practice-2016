@@ -1,5 +1,5 @@
 .test
-  #list-questions
+  #list-questions, #list-tests
     padding: 50px 100px 10px
     @media (max-width: 1300px)
       padding: 20px 80px 10px
@@ -17,7 +17,7 @@
       min-height: 100px
   .list-answers
     min-height: 250px
-  .answer
+  .answer, .test-item
     label
       display: block
       font: 400 24px/30px Open Sans
@@ -36,3 +36,9 @@
     vertical-align: middle
     @media (max-width: 991px)
       margin-right: 10px
+  .btn-test
+    display: block
+    margin: auto
+    width: 235px
+    line-height: 30px
+    padding: 10px 20px

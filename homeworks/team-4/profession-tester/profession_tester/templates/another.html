@@ -5,19 +5,23 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Choose your test</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
 	</head>
 	<body>
-    <section class="test">
+        <div class="test choose-test">
             <div class="content-wrap">
                 <div class="height-box">
-                    <ul id="list-questions">
+                    <ul id="list-tests">
                     </ul>
                 </div>
                 <div class="navend text-center" id="buttons">
                     <button class="little-btn btn-red" onclick="choosetest(); " id="choose">Обрати тест</button>
                 </div>
             </div>
-        </section>
+        </div>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='another.js')}}">
 	</script>
