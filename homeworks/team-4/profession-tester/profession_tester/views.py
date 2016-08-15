@@ -23,6 +23,23 @@ key = {
         ]
 }
 
+sample_test = {
+	"name": "Test test",
+	"is_primary": True,
+	"type": -1,
+	"questions": [
+		{
+			"body": "Question 1",
+			"answers":[
+				{
+					"body": "Answer 1",
+					"key": 1
+				}
+			]
+		}
+	]
+}
+
 def jsonify_test(my_test):
 	tmp_questions = []
 	for q in my_test.questions:		
@@ -72,7 +89,8 @@ def save_new_category():
 		form = Categories.query.filter_by(name = category['name']).first()
 		form.name = category['name']
 		for s in category['subcats']:
-			form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
+			if not SubCategories.query.filter_by(name = s['name']).count():
+				form.subcats.append(SubCategories(s['name'], s['text'], s['header']))
 		
 	else:
 		form = Categories(category['name'])
