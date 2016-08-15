@@ -42,7 +42,7 @@ class Answers(db.Model):
     second_category_enum = db.Column(db.Integer, unique = False)
     podcategory_enum = db.Column(db.Integer,  unique=False)
 
-    def __init__(self, answer_body, category_enum, podcategory_enum):
+    def __init__(self, answer_body, category_enum, second_category_enum, podcategory_enum):
         self.answer_body = answer_body
         self.category_enum = category_enum
         self.podcategory_enum = podcategory_enum
