@@ -1,15 +1,18 @@
 $(document).ready(function(){   //Send json add category
-
     $('#submit-category').on('click',function(e) {
+
+
         $.ajax({
             url: '/save-new-category',
             type: 'POST',
+
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data : JSON.stringify($("#form-add-category").serializeObject()),
 
             success: function(result) {
-            console.log(JSON.stringify($("#form-add-category").serializeObject()));                
+                // return false;
+
             console.log('success');
 
             console.log(result);
@@ -33,8 +36,9 @@ $(document).ready(function(){   //Send json add category
 
             success: function(result) {
 //                 console.log(json);
-                console.log(JSON.stringify($("#form-add-test").serializeObject()));                
+                console.log($("#form-add-test").serializeObject());                
 
+                return false;
                 console.log('success');
 
                 console.log(result);
@@ -47,7 +51,7 @@ $(document).ready(function(){   //Send json add category
         });
     return false;
     });
-
+      $("#listed").chainedTo("#list-category");
     var i = 1;   // Adding add on fields subcats and text
 
     $("#add-category").on('click', function(){
@@ -56,7 +60,23 @@ $(document).ready(function(){   //Send json add category
         var a = a.replace(re, i);            
         i++;   
         $( this ).before(a);
-        console.log(a);
+        // console.log(a);
+        return false;
+    });
+
+    var i = 1;                               // Add answer
+    $('.add-answer').on('click', function(){
+        var a = $(this).data('prototype');
+        var re = /\%number\%/g;
+        var a = $(a.replace(re, i));
+        i++;
+        $(this).before(a);
+        // console.log(a);
+        // console.log(categoryKeys);
+        var categorySelect = $('.list-category', a);
+        // console.log(categorySelect);
+        dataCategory(categoryKeys,categorySelect);
+
         return false;
     });
 
@@ -68,22 +88,6 @@ $(document).ready(function(){   //Send json add category
         i++;
         $(this).before(a);
         var categorySelect = $('.list-category',a);
-        dataCategory(categoryKeys,categorySelect);
-
-        return false;
-    });
-
-    var i = 1;                               // Add answer
-    $('.add-answer').on('click', function(){
-        var a = $(this).data('prototype');
-        var re = /\%number\%/g;
-        var a = $(a.replace(re, i));
-        i++;
-        $(this).before(a);
-        console.log(a);
-        console.log(categoryKeys);
-        var categorySelect = $('.list-category', a);
-        console.log(categorySelect)
         dataCategory(categoryKeys,categorySelect);
 
         return false;
@@ -104,11 +108,14 @@ $(document).ready(function(){   //Send json add category
             var nameCategory = value.name;
             var categoryEnum = value.category_enum;
             var subCats = value.subcats;
+            console.log(nameCategory);
 
             $.each(subCats, function(index,value) {
             var subcatsEnum = value.category_enum;
             var nameSubcats = value.name;
-    $('.list-subcats').append('<option value="' + subcatsEnum +' ">' + nameSubcats + '</option>');
+
+    $('.list-subcats').append('<option value="' + subcatsEnum +' " class="' + categoryEnum +' ">' + nameSubcats + '</option>');
+
 
         });
    
@@ -137,7 +144,6 @@ $(document).ready(function(){   //Send json add category
             $(this).toggleClass('active');
         });
     });
-
 
 }); //end document.ready
 

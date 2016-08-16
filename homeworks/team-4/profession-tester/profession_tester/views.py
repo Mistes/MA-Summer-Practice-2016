@@ -231,3 +231,7 @@ def addcat():
 def addtest():
 	return render_template('add-new-test.html')
 
+@app.route('/testingthisshit', methods = ['GET', 'POST'])
+def shitt():
+	return render_template('congrats.html')
+

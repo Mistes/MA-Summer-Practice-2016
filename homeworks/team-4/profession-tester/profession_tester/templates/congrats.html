@@ -3,18 +3,32 @@
 <head>
     <meta charset="utf-8">
     <title>jQuery UI</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
-    <script type="text/javascript">
-        $(function() {
-            $('#progressDiv').progressbar({
-                value: 57
-            });
-        });
-    </script>
+     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.chained.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='shittest.js')}}"></script>
+
 </head>
 <body>
-    <div id="progressDiv"></div>
+   <select id="mark" name="mark">
+  <option value="">--</option>
+  <option value="bmw">BMW</option>
+  <option value="audi">Audi</option>
+</select>
+<select id="series" name="series">
+  <option value="">--</option>
+  <option value="series-3" class="bmw">3 series</option>
+  <option value="series-5" class="bmw">5 series</option>
+  <option value="series-6" class="bmw">6 series</option>
+  <option value="a3" class="audi">A3</option>
+  <option value="a4" class="audi">A4</option>
+  <option value="a5" class="audi">A5</option>
+</select>
+<select name="listok" id="listok">
+		<option value="3 ">Дизайн</option><option value="2 ">Маркетинг</option><option value="5 ">Програмісти</option><option value="4 ">Економіка/Облік</option><option value="6 ">Підприємництво</option><option value="7 ">Фінанси</option><option value="8 ">Комп</option></select>
+
+<select name="questions[0][answers][0][key]" id="list-subcats">
+
+				<option value="113 " class="3 ">Фото/відеодизайн</option><option value="115 " class="3 ">Графічний дизайн</option><option value="112 " class="3 ">Дизайн інтер’єру </option><option value="114 " class="3 ">Дизайн стилю</option><option value="116 " class="3 ">Веб-дизайн</option><option value="109 " class="2 ">Філ Шиллер</option><option value="108 " class="2 ">Девід Лорен</option><option value="111 " class="2 ">Алекс Богускі</option><option value="110 " class="2 ">Алан Малаллі</option><option value="102 " class="5 ">Лінус Торвальдс</option><option value="100 " class="5 ">Білл Гейтс</option><option value="101 " class="5 ">Сергій Брін</option><option value="103 " class="5 ">Марк Цукерберг</option><option value="119 " class="4 ">Артур Янг</option><option value="120 " class="4 ">Елвін Ернст</option><option value="117 " class="4 ">Френк Робінсон</option><option value="118 " class="4 ">Елізабет Арден</option><option value="124 " class="6 ">Сем Уолтон</option><option value="121 " class="6 ">Річард Бренсон</option><option value="122 " class="6 ">Пітер Лонг</option><option value="123 " class="6 ">Говард Шульц</option><option value="126 " class="7 ">Джон Паулсон</option><option value="127 " class="7 ">Джордж Сорос</option><option value="128 " class="7 ">Девід Ейнхорн</option><option value="125 " class="7 ">Ендрю Біл</option><option value="106 " class="8 ">Тім Бернерс-Лі</option><option value="104 " class="8 ">Стів Джобс</option><option value="107 " class="8 ">Джеррі Сандерс</option><option value="105 " class="8 ">Джей Глен Майнер</option><option value="113 " class="3 ">Фото/відеодизайн</option><option value="115 " class="3 ">Графічний дизайн</option><option value="112 " class="3 ">Дизайн інтер’єру </option><option value="114 " class="3 ">Дизайн стилю</option><option value="116 " class="3 ">Веб-дизайн</option><option value="109 " class="2 ">Філ Шиллер</option><option value="108 " class="2 ">Девід Лорен</option><option value="111 " class="2 ">Алекс Богускі</option><option value="110 " class="2 ">Алан Малаллі</option><option value="102 " class="5 ">Лінус Торвальдс</option><option value="100 " class="5 ">Білл Гейтс</option><option value="101 " class="5 ">Сергій Брін</option><option value="103 " class="5 ">Марк Цукерберг</option><option value="119 " class="4 ">Артур Янг</option><option value="120 " class="4 ">Елвін Ернст</option><option value="117 " class="4 ">Френк Робінсон</option><option value="118 " class="4 ">Елізабет Арден</option><option value="124 " class="6 ">Сем Уолтон</option><option value="121 " class="6 ">Річард Бренсон</option><option value="122 " class="6 ">Пітер Лонг</option><option value="123 " class="6 ">Говард Шульц</option><option value="126 " class="7 ">Джон Паулсон</option><option value="127 " class="7 ">Джордж Сорос</option><option value="128 " class="7 ">Девід Ейнхорн</option><option value="125 " class="7 ">Ендрю Біл</option><option value="106 " class="8 ">Тім Бернерс-Лі</option><option value="104 " class="8 ">Стів Джобс</option><option value="107 " class="8 ">Джеррі Сандерс</option><option value="105 " class="8 ">Джей Глен Майнер</option><option value="113 " class="3 ">Фото/відеодизайн</option><option value="115 " class="3 ">Графічний дизайн</option><option value="112 " class="3 ">Дизайн інтер’єру </option><option value="114 " class="3 ">Дизайн стилю</option><option value="116 " class="3 ">Веб-дизайн</option><option value="109 " class="2 ">Філ Шиллер</option><option value="108 " class="2 ">Девід Лорен</option><option value="111 " class="2 ">Алекс Богускі</option><option value="110 " class="2 ">Алан Малаллі</option><option value="102 " class="5 ">Лінус Торвальдс</option><option value="100 " class="5 ">Білл Гейтс</option><option value="101 " class="5 ">Сергій Брін</option><option value="103 " class="5 ">Марк Цукерберг</option><option value="119 " class="4 ">Артур Янг</option><option value="120 " class="4 ">Елвін Ернст</option><option value="117 " class="4 ">Френк Робінсон</option><option value="118 " class="4 ">Елізабет Арден</option><option value="124 " class="6 ">Сем Уолтон</option><option value="121 " class="6 ">Річард Бренсон</option><option value="122 " class="6 ">Пітер Лонг</option><option value="123 " class="6 ">Говард Шульц</option><option value="126 " class="7 ">Джон Паулсон</option><option value="127 " class="7 ">Джордж Сорос</option><option value="128 " class="7 ">Девід Ейнхорн</option><option value="125 " class="7 ">Ендрю Біл</option><option value="106 " class="8 ">Тім Бернерс-Лі</option><option value="104 " class="8 ">Стів Джобс</option><option value="107 " class="8 ">Джеррі Сандерс</option><option value="105 " class="8 ">Джей Глен Майнер</option></select>
+
 </body>
 </html>
