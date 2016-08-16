@@ -114,11 +114,7 @@ $(document).ready(function(){   //Send json add category
             var nameSubcats = value.name;
 
         });
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 9f2c2382edd97c818691feab972b2929e3967126
     $('.list-subcats').append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
 
     $select.append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');

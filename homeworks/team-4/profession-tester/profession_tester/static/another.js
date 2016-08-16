@@ -19,7 +19,7 @@ function myFunction(arr){
          }
             out +='</form>';
 
- document.getElementById("list-questions").innerHTML = out;
+ document.getElementById("list-tests").innerHTML = out;
 }
 
 function choosetest(){

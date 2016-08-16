@@ -28,7 +28,7 @@ if(localStorage.part){
 else if (localStorage.primaryTestId){
 testid = "tests/" + Number(localStorage.primaryTestId);}
 else {
-testid = "tests/1";}
+window.location.assign("/another");}
 var url = '/' + testid;
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -346,4 +346,8 @@ function showAndHideBlock() {
          numBlock++;
          localStorage.numHide = numHide;
      }
+}
+function changetest() {
+     window.location.assign("/another");
+
 }
