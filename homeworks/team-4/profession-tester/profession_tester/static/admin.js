@@ -108,10 +108,11 @@ $(document).ready(function(){   //Send json add category
             $.each(subCats, function(index,value) {
             var subcatsEnum = value.category_enum;
             var nameSubcats = value.name;
-    $('.list-subcats').append('<option value="' + subcatsEnum +' ">' + nameSubcats + '</option>');
 
         });
-   
+            
+    $('.list-subcats').append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
+
     $select.append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
     });
 
