@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ProfTest</title>
 		<style type="text/css">
 			#form-add-category {
 				display: none;
@@ -19,22 +20,24 @@
 		    	display: none;
 			}
 		</style>
+
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 		<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 		<link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
 	</head>
 	<body>
-		<header>
+		<header class="admin-header">
 			<div class="content-wrap">
 				<h2 class="big-text">Назва тесту</h2>
 			</div>
 		</header>
-		<section class="create-category">
+		<section class="create-category test-menu">
 			<div class="content-wrap">
+
 				<input type="text" name="name" placeholder="Введiть назву вашого тесту">
 				<select name="type" class="list-category" id="list-category">
-					<option selected class="category-display">Оберiть категорiю</option>
+					<option value="">--</option>
 				</select>
 				<button type="button" class="button-add-category btn-white little-btn">Додати категорiю</button>
 				<form class="form-add-category hide" id="form-add-category" method="post" enctype='application/json'>
@@ -64,9 +67,11 @@
 						<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
 						<label for="answer" class="middle-title find">Вiдповiдь</label>
 						<input id="answer" type="text" name="questions[0][answers][0][body]" placeholder="Введiть першу вiдповiдь">
-						<select name="questions[0][answers][0][key]" class="list-subcats"></select>
+						<select name="questions[0][answers][0][key]" class="list-category">
+							<option value="">--</option>
+						</select>
 						<input name="is_primary" type ="hidden" class="input-is-primary">
-						<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" data-prototype="&lt;label for=&quot;answer&quot; class=&quot;middle-title find&quot;&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/label&gt; &lt;input id=&quot;answer&quot; type=&quot;text&quot; name=&quot;questions[%number%][answers][%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%][answers][%number%][key]&quot; class=&quot;list-subcats&quot;&gt;&lt;/select&gt;">Додати вiдповiдь</button>
+						<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" data-prototype="&lt;label for=&quot;answer&quot; class=&quot;middle-title find&quot;&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/label&gt; &lt;input id=&quot;answer&quot; type=&quot;text&quot; name=&quot;questions[%number%][answers][%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%][answers][%number%][key]&quot; class=&quot;list-category list-subcats&quot;&gt; &lt;option value=&quot;&quot;&gt;--&lt;/option&gt; &lt;/select&gt;">Додати вiдповiдь</button>
 					</fieldset>
 					<button type="button" name="add-question" class = "btn-white little-btn add-question" data-prototype="&lt;fieldset&gt; &lt;legend class=&quot;middle-title&quot;&gt;&#1047;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/legend&gt; &lt;input type=&quot;text&quot; name=&quot;questions[%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1077; &#1079;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&quot;&gt; &lt;label for=&quot;answer&quot; class=&quot;middle-title find&quot;&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/label&gt; &lt;input id=&quot;answer&quot; type=&quot;text&quot; name=&quot;questions[%number%][answers][%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%][answers][%number%][key]&quot; class=&quot;list-subcats&quot;&gt;&lt;/select&gt; &lt;button type=&quot;button&quot; name=&quot;add-answer&quot; class = &quot;btn-white little-btn add-answer find&quot; data-prototype=&quot;&amp;lt;label for=&amp;quot;answer&amp;quot; class=&amp;quot;middle-title find&amp;quot;&amp;gt;&amp;#1042;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100;&amp;lt;/label&amp;gt; &amp;lt;input id=&amp;quot;answer&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;questions[%number%][answers][%number%][body]&amp;quot; placeholder=&amp;quot;&amp;#1042;&amp;#1074;&amp;#1077;&amp;#1076;i&amp;#1090;&amp;#1100; &amp;#1087;&amp;#1077;&amp;#1088;&amp;#1096;&amp;#1091; &amp;#1074;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100;&amp;quot;&amp;gt; &amp;lt;select name=&amp;quot;questions[%number%][answers][%number%][key]&amp;quot; class=&amp;quot;list-subcats&amp;quot;&amp;gt;&amp;lt;/select&amp;gt;&quot;&gt;&#1044;&#1086;&#1076;&#1072;&#1090;&#1080; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/button&gt; &lt;/fieldset&gt;">Додати запитання</button>
 				</form>
@@ -76,5 +81,6 @@
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="{{ url_for('static', filename='jquery.serialize-object.min.js')}}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}"></script>
+		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	</body>
 </html>
