@@ -37,9 +37,6 @@
                 <h1 class="logo vert-align">
                     <img src="{{ url_for('static', filename='img/logo.png')}}" alt="">
                 </h1>
-                <div class="vert-align progress-div">
-                    <div id="progressDiv"></div>
-                </div>
                 <div class="vert-align">
                     <button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>
                 </div>
@@ -48,6 +45,7 @@
         <!--<div class="loader" id = "loader"></div>-->
         <section class="test">
             <div class="content-wrap">
+                <div id="progressDiv" class="progress-div"></div>
                 <div class="height-box">
                     <p id="text-head"></p>
                     <p id="text-img"></p>
