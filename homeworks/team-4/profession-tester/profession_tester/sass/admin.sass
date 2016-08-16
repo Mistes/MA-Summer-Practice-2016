@@ -26,12 +26,13 @@
 .create-category
   .little-btn
     min-width: 260px
+    line-height: 50px
   .middle-title
-    font: 600 28px 'Open Sans'
+    font: 600 24px 'Open Sans'
     color: #222
     background: #fff
   input, select, textarea
-    font: 400 24px 'Open Sans'
+    font: 400 20px 'Open Sans'
     padding: 10px
     border: 2px solid #333
     border-radius: 10px
@@ -51,6 +52,10 @@
     width: 100%
   fieldset
     padding: 15px
+  option
+    font-size: 16px
+    @media(max-width: 991px)
+      font-size: 13px
   button
     margin: 15px
     @media (max-width: 767px)
