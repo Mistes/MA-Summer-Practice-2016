@@ -96,6 +96,10 @@ $(document).ready(function(){   //Send json add category
     var categoryKeys = {};                         
     $.getJSON('/get-keys', function(data){            //Addition category
         categoryKeys = data.keys;
+        // $.each(data.actions, function(entryIndex, entry) {
+        //     var html = '<li class="top-level">' + this.action + '</li>';
+        // });
+        // console.log(html);
         dataCategory(categoryKeys,$('.list-category'));
     });
 
@@ -110,13 +114,23 @@ $(document).ready(function(){   //Send json add category
             var nameSubcats = value.name;
 
         });
+<<<<<<< HEAD
+
+=======
             
+>>>>>>> 9f2c2382edd97c818691feab972b2929e3967126
     $('.list-subcats').append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
 
     $select.append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
+
     });
 
     };
+
+     var checkCategory =  $('#list-category');
+    if(checkCategory === selectedCategory) {
+        alert("wow");
+    }
 
     var selectedCategory;
     $(".list-category").change(function() {          /// output categories value
