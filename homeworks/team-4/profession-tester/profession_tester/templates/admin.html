@@ -4,66 +4,32 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Test</title>
+        <title>admin</title>
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css')}}">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
-        <!--<style>-->
-            <!--.loader {-->
-              <!--border: 16px solid #f3f3f3;-->
-              <!--border-radius: 50%;-->
-              <!--border-top: 16px solid #3498db;-->
-              <!--width: 120px;-->
-              <!--height: 120px;-->
-              <!-- -webkit-animation: spin 2s linear infinite;-->
-              <!--animation: spin 2s linear infinite;-->
-            <!--}-->
-            <!---->
-            <!--@-webkit-keyframes spin {-->
-              <!--0% { -webkit-transform: rotate(0deg); }-->
-              <!--100% { -webkit-transform: rotate(360deg); }-->
-            <!--}-->
-            <!---->
-            <!--@keyframes spin {-->
-              <!--0% { transform: rotate(0deg); }-->
-              <!--100% { transform: rotate(360deg); }-->
-            <!--}-->
-        <!--</style>-->
     </head>
     <body>
-        <header class="header">
+        <header class="admin-header">
             <div class="content-wrap">
-                <h1 class="logo vert-align">
-                    <img src="{{ url_for('static', filename='img/logo.png')}}" alt="">
-                </h1>
-                <div class="vert-align">
-                    <button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>
-                </div>
+                <button class="button-add-test btn-red little-btn btn-add-test" type="button">Додати тест</button>
             </div>
         </header>
-        <!--<div class="loader" id = "loader"></div>-->
-        <section class="test">
+        <section class="test-menu">
             <div class="content-wrap">
-                <div id="progressDiv" class="progress-div"></div>
-                <div class="height-box">
-                    <p id="text-head"></p>
-                    <p id="text-img"></p>
-                    <p id = "text-body"></p>
-                    <ul id="list-questions">
-
-                    </ul>
-                </div>
-                <div class="navend text-center" id="buttons">
-                  {#  <button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>#}
-                    <button class="little-btn btn-red" onclick="clickCounter(); " id="next">Далі</button>
-                </div>
-             {#  <button class="little-btn btn-white btn-test" onclick="changetest()" id="test-selection">Обрати інший тест</button>#}
+                <ul class="list-admin-tests">
+                    <li class="admin-test">
+                        <h4 class="regular-admin-txt"><a href="#">Перший тест на профорiєнтацiю</a></h4>
+                        <div class="btns">
+                            <button class="button-edit-test btn-white little-btn" type="button">Редагувати</button>
+                            <button class="button-delete-test btn-red little-btn" type="button">Видалити</button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </section>
         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
-        <div id="result"></div>
+        <script src="{{ url_for('static', filename='jquery.serialize-object.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}"></script>
     </body>
 </html>
