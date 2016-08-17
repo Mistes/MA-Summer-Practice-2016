@@ -1,81 +1,69 @@
 <!DOCTYPE html>
-<html>
-	<head>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
+        <!--<style>-->
+            <!--.loader {-->
+              <!--border: 16px solid #f3f3f3;-->
+              <!--border-radius: 50%;-->
+              <!--border-top: 16px solid #3498db;-->
+              <!--width: 120px;-->
+              <!--height: 120px;-->
+              <!-- -webkit-animation: spin 2s linear infinite;-->
+              <!--animation: spin 2s linear infinite;-->
+            <!--}-->
+            <!---->
+            <!--@-webkit-keyframes spin {-->
+              <!--0% { -webkit-transform: rotate(0deg); }-->
+              <!--100% { -webkit-transform: rotate(360deg); }-->
+            <!--}-->
+            <!---->
+            <!--@keyframes spin {-->
+              <!--0% { transform: rotate(0deg); }-->
+              <!--100% { transform: rotate(360deg); }-->
+            <!--}-->
+        <!--</style>-->
+    </head>
+    <body>
+        <header class="header">
+            <div class="content-wrap">
+                <h1 class="logo vert-align">
+                    <img src="{{ url_for('static', filename='img/logo.png')}}" alt="">
+                </h1>
+                <div class="vert-align">
+                    <button class="btn-reset btn-red" onclick="resetbutton();" id="reset">Почати спочатку</button>
+                </div>
+            </div>
+        </header>
+        <!--<div class="loader" id = "loader"></div>-->
+        <section class="test">
+            <div class="content-wrap">
+                <div id="progressDiv" class="progress-div"></div>
+                <div class="height-box">
+                    <p id="text-head"></p>
+                    <p id="text-img"></p>
+                    <p id = "text-body"></p>
+                    <ul id="list-questions">
 
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style type="text/css">
-			#form-add-category {
-				display: none;
-			}
-			.active{
-				display: inline-block;
-			}
-			.active + #form-add-category {
-				display: block;
-			}
-			.category-display{
-		    	display: none;
-			}
-		</style>
-		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-		<link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}">
-	</head>
-	<body>
-		<header>
-			<div class="content-wrap">
-				<h2 class="big-text">Назва тесту</h2>
-			</div>
-		</header>
-		<section class="create-category">
-			<div class="content-wrap">
-				<input type="text" name="name" placeholder="Введiть назву вашого тесту">
-				<select name="type" class="list-category" id="list-category">
-					<option value="">--</option>
-				</select>
-				<button type="button" class="button-add-category btn-white little-btn">Додати категорiю</button>
-				<form class="form-add-category hide" id="form-add-category" method="post" enctype='application/json'>
-					<label class="middle-title">
-						Назва категорiї
-						<input type="text" name="name" placeholder="Введiть назва категорiї.">
-					</label>
-					<label class="middle-title">
-						Назва пiдкатегорiї
-						<input type="text" name="subcats[0][name]" placeholder="Введiть назву пiдкатегорiї.">
-					</label>
-					<label class="middle-title">
-						Заголовок привiтання
-						<input type="text" name="subcats[0][header]" placeholder="Введiть заголовок привiтання.">
-					</label>
-					<label class="middle-title">
-						Текст привiтання
-						<textarea type="text" rows="5" name="subcats[0][text]" placeholder="Введiть пiдсумок тестування."></textarea>
-					</label>
-					<button class="btn-white little-btn" id="add-category" type="submit" name="add-category" data-prototype="&lt;label class=&quot;middle-title&quot;&gt; &#1053;&#1072;&#1079;&#1074;&#1072; &#1087;i&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;i&#1111; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][name]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1085;&#1072;&#1079;&#1074;&#1091; &#1087;i&#1076;&#1082;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;i&#1111;.&quot;&gt; &lt;/label&gt; &lt;label class=&quot;middle-title&quot;&gt; &#1047;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103; &lt;input type=&quot;text&quot; name=&quot;subcats[%number%][header]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1079;&#1072;&#1075;&#1086;&#1083;&#1086;&#1074;&#1086;&#1082; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103;.&quot;&gt; &lt;/label&gt; &lt;label class=&quot;middle-title&quot;&gt; &#1058;&#1077;&#1082;&#1089;&#1090; &#1087;&#1088;&#1080;&#1074;i&#1090;&#1072;&#1085;&#1085;&#1103; &lt;textarea type=&quot;text&quot; rows=&quot;5&quot; name=&quot;subcats[%number%][text]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;i&#1076;&#1089;&#1091;&#1084;&#1086;&#1082; &#1090;&#1077;&#1089;&#1090;&#1091;&#1074;&#1072;&#1085;&#1085;&#1103;.&quot;&gt;&lt;/textarea&gt; &lt;/label&gt;">Додати пiдкатегорiю</button>
-					<!--<input type="file" name="pic" accept="image/*"><Br>-->
-					<button class="btn-red little-btn" id="submit-category" type="submit" name="submit">Зберегти</button><Br>
-				</form>
-				<form id="form-add-test" method="post" enctype='application/json'>
-					<fieldset>
-						<legend class="middle-title">Запитання</legend>
-						<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
-						<label for="answer" class="middle-title find">Вiдповiдь</label>
-						<input id="answer" type="text" name="questions[0][answers][0][body]" placeholder="Введiть першу вiдповiдь">
-						<select name="questions[0][answers][0][key]" class="list-category">
-							<option value="">--</option>
-						</select>
-						<input name="is_primary" type ="hidden" class="input-is-primary">
-						<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" data-prototype="&lt;label for=&quot;answer&quot; class=&quot;middle-title find&quot;&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/label&gt; &lt;input id=&quot;answer&quot; type=&quot;text&quot; name=&quot;questions[%number%][answers][%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%][answers][%number%][key]&quot; class=&quot;list-category list-subcats&quot;&gt; &lt;option value=&quot;&quot;&gt;--&lt;/option&gt; &lt;/select&gt;">Додати вiдповiдь</button>
-					</fieldset>
-					<button type="button" name="add-question" class = "btn-white little-btn add-question" data-prototype="&lt;fieldset&gt; &lt;legend class=&quot;middle-title&quot;&gt;&#1047;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&lt;/legend&gt; &lt;input type=&quot;text&quot; name=&quot;questions[%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1077; &#1079;&#1072;&#1087;&#1080;&#1090;&#1072;&#1085;&#1085;&#1103;&quot;&gt; &lt;label for=&quot;answer&quot; class=&quot;middle-title find&quot;&gt;&#1042;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/label&gt; &lt;input id=&quot;answer&quot; type=&quot;text&quot; name=&quot;questions[%number%][answers][%number%][body]&quot; placeholder=&quot;&#1042;&#1074;&#1077;&#1076;i&#1090;&#1100; &#1087;&#1077;&#1088;&#1096;&#1091; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&quot;&gt; &lt;select name=&quot;questions[%number%][answers][%number%][key]&quot; class=&quot;list-subcats&quot;&gt;&lt;/select&gt; &lt;button type=&quot;button&quot; name=&quot;add-answer&quot; class = &quot;btn-white little-btn add-answer find&quot; data-prototype=&quot;&amp;lt;label for=&amp;quot;answer&amp;quot; class=&amp;quot;middle-title find&amp;quot;&amp;gt;&amp;#1042;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100;&amp;lt;/label&amp;gt; &amp;lt;input id=&amp;quot;answer&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;questions[%number%][answers][%number%][body]&amp;quot; placeholder=&amp;quot;&amp;#1042;&amp;#1074;&amp;#1077;&amp;#1076;i&amp;#1090;&amp;#1100; &amp;#1087;&amp;#1077;&amp;#1088;&amp;#1096;&amp;#1091; &amp;#1074;i&amp;#1076;&amp;#1087;&amp;#1086;&amp;#1074;i&amp;#1076;&amp;#1100;&amp;quot;&amp;gt; &amp;lt;select name=&amp;quot;questions[%number%][answers][%number%][key]&amp;quot; class=&amp;quot;list-subcats&amp;quot;&amp;gt;&amp;lt;/select&amp;gt;&quot;&gt;&#1044;&#1086;&#1076;&#1072;&#1090;&#1080; &#1074;i&#1076;&#1087;&#1086;&#1074;i&#1076;&#1100;&lt;/button&gt; &lt;/fieldset&gt;">Додати запитання</button>
-				</form>
-				<button type="submit-test" id="add-new-test" class="btn-red little-btn">Зберегти</button>
-			</div>
-		</section>
-		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="{{ url_for('static', filename='jquery.serialize-object.min.js')}}"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}"></script>
-	</body>
+                    </ul>
+                </div>
+                <div class="navend text-center" id="buttons">
+                  {#  <button class="little-btn btn-white" onclick="backbutton();" id="back">Назад</button>#}
+                    <button class="little-btn btn-red" onclick="clickCounter(); " id="next">Далі</button>
+                </div>
+             {#  <button class="little-btn btn-white btn-test" onclick="changetest()" id="test-selection">Обрати інший тест</button>#}
+            </div>
+        </section>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
+        <div id="result"></div>
+    </body>
 </html>

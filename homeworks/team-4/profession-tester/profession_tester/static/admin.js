@@ -1,5 +1,3 @@
-$(document).ready(function(){   //Send json add category
-
     $('#submit-category').on('click',function(e) {
         $.ajax({
             url: '/save-new-category',
@@ -67,7 +65,7 @@ $(document).ready(function(){   //Send json add category
         var a = $(a.replace(re,i));
         i++;
         $(this).before(a);
-        var categorySelect = $('.list-category',a);
+        var categorySelect = $('.list-category1',a);
         dataCategory(categoryKeys,categorySelect);
 
         return false;
@@ -80,10 +78,7 @@ $(document).ready(function(){   //Send json add category
         var a = $(a.replace(re, i));
         i++;
         $(this).before(a);
-        console.log(a);
-        console.log(categoryKeys);
         var categorySelect = $('.list-category', a);
-        console.log(categorySelect)
         dataCategory(categoryKeys,categorySelect);
 
         return false;
@@ -92,15 +87,59 @@ $(document).ready(function(){   //Send json add category
     var subCats;    
     var subcatsEnum; 
     var nameSubcats;
+  
 
-    var categoryKeys = {};                         
+    var categoryKeys = {};   
+
+
+
+
+
+function chainSelect(current){
+  var findSelected = $(current).on('change', function(){
+      var value = $(this).find(':selected').val();
+      return value;
+  });
+  return findSelected;
+}
+
+var category = chainSelect('.list-category'),
+    selectedCategory2 = parseInt(category.val());
+
+
+var categoryAPI = "/get-keys";
+var dataKeys = $.getJSON(categoryAPI, function() {
+  format: "json"
+  })
+  .fail(function() {
+    console.log( "error" );
+  });
+
+  dataKeys.done(function(data) {
+      $.each( data.keys, function( i, item ) {
+        $('.list-category').append('<option value="'+item.category_enum+'">'+item.name+'</option>');
+      });
+  });
+    
+    $(".list-category").change(function() {          /// output categories value
+        var selectedCategory = parseInt($(".list-category option:selected").val());
+        dataKeys.done(function(data2) {
+            var listSubcats = $.makeArray( data2.keys )
+            var outputSubcats = $.map( listSubcats, function( val, i ) {
+              return val;
+            });
+          
+            var final = outputSubcats[selectedCategory].subcats;
+            $('.list-category2').empty();
+            $.each( final, function( i2, item2 ) {
+              $('.list-category2').append('<option value="'+item2.category_enum+'">'+item2.name+'</option>');
+            });
+        });
+    });
+
     $.getJSON('/get-keys', function(data){            //Addition category
         categoryKeys = data.keys;
-        // $.each(data.actions, function(entryIndex, entry) {
-        //     var html = '<li class="top-level">' + this.action + '</li>';
-        // });
-        // console.log(html);
-        dataCategory(categoryKeys,$('.list-category'));
+        dataCategory(categoryKeys,$('.list-category1'));
     });
 
     var dataCategory = function(categoryKeys, $select){
@@ -114,45 +153,19 @@ $(document).ready(function(){   //Send json add category
             var nameSubcats = value.name;
 
         });
-
-    $('.list-subcats').append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
-
     $select.append('<option value="' + categoryEnum +' ">' + nameCategory + '</option>');
-
     });
-
     };
 
-     var checkCategory =  $('#list-category');
-    if(checkCategory === selectedCategory) {
-        alert("wow");
-    }
-
-    var selectedCategory;
-    $(".list-category").change(function() {          /// output categories value
-        var selectedCategory = $(".list-category option:selected").val();
-        console.log(selectedCategory);
-    });
-
-    var selectedSubcats;
-    $(".list-subcats").change(function() {          /// output categories value
-        var selectedSubcats = $(".list-subcats option:selected").val();
-        console.log(selectedSubcats);
-    });
-
     $(function(){                           // Form to add a category
-        var s = $('.button-add-category');
-        s.click(function(event) {
+        var formAddCategory = $('.button-add-category');
+        formAddCategory.click(function(event) {
             event.preventDefault()
-            s.not(this).removeClass('active');
+            formAddCategory.not(this).removeClass('active');
             $(this).toggleClass('active');
         });
     });
 
-
-}); //end document.ready
-
     function addNewTest() {              
     window.location.replace("/add-new-test") //add-category output
 }
-
