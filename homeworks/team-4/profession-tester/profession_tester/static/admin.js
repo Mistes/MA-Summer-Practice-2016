@@ -31,7 +31,8 @@
 
             success: function(result) {
 //                 console.log(json);
-                console.log(JSON.stringify($("#form-add-test").serializeObject()));                
+                console.log(JSON.stringify($("#form-add-test").serializeObject()));   
+                return false;             
 
                 console.log('success');
 
@@ -49,7 +50,7 @@
     var i = 1;   // Adding add on fields subcats and text
 
     $("#add-category").on('click', function(){
-        var a = $(this).data("prototype");
+        var a = $('#add-category-prototype').html();
         var re = /\%number\%/g;  //increase index number          
         var a = a.replace(re, i);            
         i++;   
@@ -59,8 +60,8 @@
     });
 
     var i = 1;                                 // Add question
-    $('.add-question').on('click', function(){
-        var a = $(this).data('prototype');
+    $('.add-question').on('click', function(){        
+        var a = $('#add-question-prototype').html();
         var re = /\%number\%/g;
         var a = $(a.replace(re,i));
         i++;
@@ -72,13 +73,14 @@
     });
 
     var i = 1;                               // Add answer
-    $('.add-answer').on('click', function(){
-        var a = $(this).data('prototype');
+    $(document).on('click', '.add-answer', function(){
+        var a = $('#add-answer-prototype').html();
         var re = /\%number\%/g;
         var a = $(a.replace(re, i));
         i++;
         $(this).before(a);
-        var categorySelect = $('.list-category', a);
+        var categorySelect = a.find('.list-category1');
+
         dataCategory(categoryKeys,categorySelect);
 
         return false;
@@ -92,6 +94,7 @@
     var categoryKeys = {};   
 
 
+    // #input-is-primary
 
 
 
@@ -117,7 +120,7 @@ var dataKeys = $.getJSON(categoryAPI, function() {
 
   dataKeys.done(function(data) {
       $.each( data.keys, function( i, item ) {
-        $('.list-category').append('<option value="'+item.category_enum+'">'+item.name+'</option>');
+        $('.list-category').append('<option value="'+i+'">'+item.name+'</option>');
       });
   });
     
@@ -132,7 +135,7 @@ var dataKeys = $.getJSON(categoryAPI, function() {
             var final = outputSubcats[selectedCategory].subcats;
             $('.list-category2').empty();
             $.each( final, function( i2, item2 ) {
-              $('.list-category2').append('<option value="'+item2.category_enum+'">'+item2.name+'</option>');
+              $('.list-category2').append('<option value="'+i2+'">'+item2.name+'</option>');
             });
         });
     });
@@ -141,6 +144,7 @@ var dataKeys = $.getJSON(categoryAPI, function() {
         categoryKeys = data.keys;
         dataCategory(categoryKeys,$('.list-category1'));
     });
+
 
     var dataCategory = function(categoryKeys, $select){
         $.each(categoryKeys, function(index,value) {
@@ -168,4 +172,4 @@ var dataKeys = $.getJSON(categoryAPI, function() {
 
     function addNewTest() {              
     window.location.replace("/add-new-test") //add-category output
-}
+};
