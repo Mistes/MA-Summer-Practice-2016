@@ -22,6 +22,9 @@
     });
 
     $('#add-new-test').on('click',function(e) {
+        if($( ".list-category" ).val() =="") {
+            document.getElementById("input-is-primary").value = "True";}
+        else {document.getElementById("input-is-primary").innerHTML = "False"}
         $.ajax({
             url: '/save-test',
             type: 'POST',
@@ -31,8 +34,7 @@
 
             success: function(result) {
 //                 console.log(json);
-                console.log(JSON.stringify($("#form-add-test").serializeObject()));   
-                return false;             
+                console.log(JSON.stringify($("#form-add-test").serializeObject()));
 
                 console.log('success');
 
