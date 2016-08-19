@@ -19,6 +19,15 @@
 			.category-display{
 		    	display: none;
 			}
+			.create-category fieldset {
+			    border: 3px solid #888;
+			    border-radius: 15px;
+			}
+			.btn-white {
+			    background: #fff;
+			    color: black;
+			    border: 2px solid #f04933;
+			}
 		</style>
 
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -29,39 +38,45 @@
 	<body>
 		<header class="admin-header">
 			<div class="content-wrap">
-				<h2 class="big-text">Назва тесту</h2>
+				<h2 class="big-text" >Додавання тесту</h2>
 			</div>
 		</header>
 		<section class="create-category test-menu">
 			<div class="content-wrap">
 
-				<input type="text" name="name" placeholder="Введiть назву вашого тесту">
-				<select name="type" class="list-category" id="list-category">
-					<option value="">--</option>
-				</select>
+				
 				<button type="button" class="button-add-category btn-white little-btn">Додати категорiю</button>
 				<form class="form-add-category hide" id="form-add-category" method="post" enctype='application/json'>
-					<label class="middle-title">
-						Назва категорiї
-						<input type="text" name="name" placeholder="Введiть назва категорiї.">
-					</label>
-					<label class="middle-title">
-						Назва пiдкатегорiї
-						<input type="text" name="subcats[0][name]" placeholder="Введiть назву пiдкатегорiї.">
-					</label>
-					<label class="middle-title">
-						Заголовок привiтання
-						<input type="text" name="subcats[0][header]" placeholder="Введiть заголовок привiтання.">
-					</label>
-					<label class="middle-title" id="">
-						Текст привiтання
-						<textarea type="text" rows="5" name="subcats[0][text]" placeholder="Введiть пiдсумок тестування."></textarea>
-					</label>
-					<button class="btn-white little-btn" id="add-category" type="submit" name="add-category">Додати пiдкатегорiю</button><Br>
-					<!--<input type="file" name="pic" accept="image/*"><Br>-->
-					<button class="btn-red little-btn" id="submit-category" type="submit" name="submit">Зберегти</button><Br>
+					<fieldset>
+						<legend class="middle-title">Додавання пiдкатегорiї</legend>
+						<label class="middle-title">
+							Назва категорiї
+							<input type="text" name="name" placeholder="Введiть назва категорiї.">
+						</label>
+						<label class="middle-title">
+							Назва пiдкатегорiї
+							<input type="text" name="subcats[0][name]" placeholder="Введiть назву пiдкатегорiї.">
+						</label>
+						<label class="middle-title">
+							Заголовок привiтання
+							<input type="text" name="subcats[0][header]" placeholder="Введiть заголовок привiтання.">
+						</label>
+						<label class="middle-title" id="">
+							Текст привiтання
+							<textarea type="text" rows="5" name="subcats[0][text]" placeholder="Введiть пiдсумок тестування."></textarea>
+						</label>
+						<button class="btn-white little-btn" id="add-category" type="submit" name="add-category">Додати пiдкатегорiю</button><Br>
+						<!--<input type="file" name="pic" accept="image/*"><Br>-->
+						<button class="btn-red little-btn" id="submit-category" type="submit" name="submit">Зберегти</button><Br>
+					</fieldset>
 				</form>
 				<form id="form-add-test" method="post" enctype='application/json'>
+					<label for="name-test" class="middle-title find">Назва тесту</label>
+					<input name="name" id="name-test" type="text" placeholder="Введiть назву вашого тесту">
+					<input name="is_primary" id="primarykey">
+					<select name="type" class="list-category typekey" id="list-category">
+						<option value="">--</option>
+					</select>
 					<fieldset>
 						<legend class="middle-title">Запитання</legend>
 						<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
@@ -70,9 +85,12 @@
 						<select name="questions[0][answers][0][key]" class="list-category2 list-category1">
 							<option value="">--</option>
 						</select>
-						<input name="is_primary" type ="hidden" class="input-is-primary">
+						
+                        <input name="type" type ="hidden" id="typekey">
 						<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" >Додати вiдповiдь</button>
+
 					</fieldset>
+
 					<button type="button" name="add-question" class = "btn-white little-btn add-question">Додати запитання</button>
 				</form>
 				<button type="submit-test" id="add-new-test" class="btn-red little-btn">Зберегти</button>
@@ -82,24 +100,26 @@
 		<script type="text/javascript" src="{{ url_for('static', filename='jquery.serialize-object.min.js')}}"></script>
 		<script type="text/javascript" src="{{ url_for('static', filename='admin.js')}}"></script>
 		<script type="text/html" id="add-category-prototype">
-			<label class="middle-title">
-				Назва пiдкатегорiї
-				<input type="text" name="subcats[%number%][name]" placeholder="Введiть назву пiдкатегорiї.">
-			</label>
-			<label class="middle-title">
-				Заголовок привiтання
-				<input type="text" name="subcats[%number%][header]" placeholder="Введiть заголовок привiтання.">
-			</label>
-			<label class="middle-title">
-				Текст привiтання
-				<textarea type="text" rows="5" name="subcats[%number%][text]" placeholder="Введiть пiдсумок тестування."></textarea>
-			</label>
+			<div>
+				<label class="middle-title">
+					Назва пiдкатегорiї
+					<input type="text" name="subcats[%number%][name]" placeholder="Введiть назву пiдкатегорiї.">
+				</label>
+				<label class="middle-title">
+					Заголовок привiтання
+					<input type="text" name="subcats[%number%][header]" placeholder="Введiть заголовок привiтання.">
+				</label>
+				<label class="middle-title">
+					Текст привiтання
+					<textarea type="text" rows="5" name="subcats[%number%][text]" placeholder="Введiть пiдсумок тестування."></textarea>
+				</label>
+			</div>
 		</script>
 		<script type="text/html" id="add-answer-prototype">
 			<div>
 				<label for="answer" class="middle-title find">Вiдповiдь</label>
-				<input id="answer" type="text" name="questions[%number%][answers][%number%][body]" placeholder="Введiть першу вiдповiдь">
-				<select name="questions[%number%][answers][%number%][key]" class="list-category2 list-category1">
+				<input id="answer" type="text" name="questions[%number%][answers][body]" placeholder="Введiть першу вiдповiдь">
+				<select name="questions[%number%][answers][key]" class="list-category2 list-category1">
 					<option value="">--</option>
 				</select>
 			</div>
@@ -109,12 +129,12 @@
 				<legend class="middle-title">Запитання</legend>
 				<input type="text" name="questions[%number%][body]" placeholder="Введiть перше запитання">
 				<label for="answer" class="middle-title find">Вiдповiдь</label>
-				<input id="answer" type="text" name="questions[%number%][answers][%number%][body]" placeholder="Введiть першу вiдповiдь">
-				<select name="questions[%number%][answers][%number%][key]" class="list-category2 list-category1">
+				<input id="answer" type="text" name="questions[%number%][answers][body]" placeholder="Введiть першу вiдповiдь">
+				<select name="questions[%number%][answers][key]" class="list-category2 list-category1">
 					<option value="">--</option>
 				</select>
 				<input name="is_primary" type ="hidden" id="input-is-primary">
-				<button type="button" name="add-answer[%number%]" class = "btn-white little-btn add-answer find" >Додати вiдповiдь</button>
+				<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" >Додати вiдповiдь</button>
 			</fieldset>
 		</script>
 	</body>

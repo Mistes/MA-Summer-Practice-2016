@@ -1,3 +1,4 @@
+$(document).ready(function(){
     $('#submit-category').on('click',function(e) {
         $.ajax({
             url: '/save-new-category',
@@ -22,6 +23,14 @@
     });
 
     $('#add-new-test').on('click',function(e) {
+        if($( ".list-category" ).val() =="") {
+            document.getElementById("primarykey").value = "True";
+            document.getElementById("typekey").value = -1;
+            }
+        else {
+            document.getElementById("primarykey").value = "False";
+            document.getElementById("typekey").value = $( ".list-category" ).val();
+        }
         $.ajax({
             url: '/save-test',
             type: 'POST',
@@ -30,9 +39,8 @@
             data : JSON.stringify($("#form-add-test").serializeObject()),
 
             success: function(result) {
-//                 console.log(json);
-                console.log(JSON.stringify($("#form-add-test").serializeObject()));   
-                return false;             
+                // console.log(JSON.stringify($("#form-add-test").serializeObject()));   
+                // return false;             
 
                 console.log('success');
 
@@ -60,7 +68,7 @@
     });
 
     var i = 1;                                 // Add question
-    $('.add-question').on('click', function(){        
+    $(document).on('click', '.add-question', function(){        
         var a = $('#add-question-prototype').html();
         var re = /\%number\%/g;
         var a = $(a.replace(re,i));
@@ -86,17 +94,10 @@
         return false;
     });
 
-    var subCats;    
-    var subcatsEnum; 
-    var nameSubcats;
-  
-
-    var categoryKeys = {};   
-
-
-    // #input-is-primary
-
-
+});
+    // var subCats;    
+    // var subcatsEnum; 
+    // var nameSubcats;
 
 function chainSelect(current){
   var findSelected = $(current).on('change', function(){
@@ -121,6 +122,10 @@ var dataKeys = $.getJSON(categoryAPI, function() {
   dataKeys.done(function(data) {
       $.each( data.keys, function( i, item ) {
         $('.list-category').append('<option value="'+i+'">'+item.name+'</option>');
+                        var i = item.category_enum;
+
+        $('list-category').val(i);
+
       });
   });
     
@@ -135,6 +140,7 @@ var dataKeys = $.getJSON(categoryAPI, function() {
             var final = outputSubcats[selectedCategory].subcats;
             $('.list-category2').empty();
             $.each( final, function( i2, item2 ) {
+                var i2 = item2.category_enum;
               $('.list-category2').append('<option value="'+i2+'">'+item2.name+'</option>');
             });
         });
