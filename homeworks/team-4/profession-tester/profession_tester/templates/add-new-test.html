@@ -73,26 +73,23 @@
 				<form id="form-add-test" method="post" enctype='application/json'>
 					<label for="name-test" class="middle-title find">Назва тесту</label>
 					<input name="name" id="name-test" type="text" placeholder="Введiть назву вашого тесту">
-					<input name="is_primary" id="primarykey">
+					<input name="is_primary" type="hidden" id="primarykey">
 					<select name="type" class="list-category typekey" id="list-category">
 						<option value="">--</option>
 					</select>
 					<fieldset>
 						<legend class="middle-title">Запитання</legend>
-                         <input name="name"  id="name2">
 						<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
 						<label for="answer" class="middle-title find">Вiдповiдь</label>
 						<input id="answer" type="text" name="questions[0][answers][0][body]" placeholder="Введiть першу вiдповiдь">
 						<select name="questions[0][answers][0][key]" class="list-category2 list-category1">
 							<option value="">--</option>
 						</select>
-<<<<<<< HEAD
+
 						
                         <input name="type" type ="hidden" id="typekey">
-=======
-						<input name="is_primary"  id="input-is-primary">
-                        <input name="type"  id="type">
->>>>>>> f4297031840d4fd26a221971e18659793389d3eb
+
+
 						<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" >Додати вiдповiдь</button>
 
 					</fieldset>
