@@ -39,8 +39,6 @@ $(document).ready(function(){
             data : JSON.stringify($("#form-add-test").serializeObject()),
 
             success: function(result) {
-                // console.log(JSON.stringify($("#form-add-test").serializeObject()));   
-                // return false;             
 
                 console.log('success');
 
@@ -95,9 +93,6 @@ $(document).ready(function(){
     });
 
 });
-    // var subCats;    
-    // var subcatsEnum; 
-    // var nameSubcats;
 
 function chainSelect(current){
   var findSelected = $(current).on('change', function(){
@@ -122,7 +117,6 @@ var dataKeys = $.getJSON(categoryAPI, function() {
   dataKeys.done(function(data) {
       $.each( data.keys, function( i, item ) {
         $('.list-category').append('<option value="'+i+'">'+item.name+'</option>');
- 
 
       });
   });
