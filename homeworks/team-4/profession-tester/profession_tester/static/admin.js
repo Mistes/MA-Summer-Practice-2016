@@ -1,4 +1,8 @@
+
+   var dict = {};
 $(document).ready(function(){
+
+    keysandvalues();
     $('#submit-category').on('click',function(e) {
         $.ajax({
             url: '/save-new-category',
@@ -29,7 +33,9 @@ $(document).ready(function(){
             }
         else {
             document.getElementById("primarykey").value = "False";
-            document.getElementById("typekey").value = $( ".list-category" ).val();
+
+            document.getElementById("typekey").value =dict[$(".list-category :selected" ).text()];
+
         }
         $.ajax({
             url: '/save-test',
@@ -37,6 +43,7 @@ $(document).ready(function(){
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data : JSON.stringify($("#form-add-test").serializeObject()),
+
 
             success: function(result) {
 
@@ -171,3 +178,29 @@ var dataKeys = $.getJSON(categoryAPI, function() {
     function addNewTest() {              
     window.location.replace("/add-new-test") //add-category output
 };
+
+function keysandvalues(){
+var xmlhttp = new XMLHttpRequest();
+var url = "/get-keys";
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        arra = [JSON.parse(xmlhttp.responseText)];
+        myFunction(arra);
+
+
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(arr){
+        for (b = 0; b < arr[0].keys.length; b++) {
+        dict[arr[0].keys[b].name] = arr[0].keys[b].category_enum ;
+        for (c= 0; c < arr[0].keys[b].subcats.length; c++){
+        dict[arr[0].keys[b].subcats[c].name] = arr[0].keys[b].subcats[c].category_enum;
+        }
+
+    }
+  }
+}
