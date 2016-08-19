@@ -169,7 +169,7 @@ def save_test():
 		tmp = Questions(q['body'])
 		for a in q['answers']:
 			if test['is_primary']=="True":
-				tmp.answers.append(Answers(a['body'], a['key1'], a['key2'], -1))
+				tmp.answers.append(Answers(a['body'], a['key'], -1, -1))
 			else:
 				tmp.answers.append(Answers(a['body'], -1, -1, a['key']))
 		form.questions.append(tmp)

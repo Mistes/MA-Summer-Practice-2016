@@ -79,14 +79,20 @@
 					</select>
 					<fieldset>
 						<legend class="middle-title">Запитання</legend>
+                         <input name="name"  id="name2">
 						<input type="text" name="questions[0][body]" placeholder="Введiть перше запитання">
 						<label for="answer" class="middle-title find">Вiдповiдь</label>
 						<input id="answer" type="text" name="questions[0][answers][0][body]" placeholder="Введiть першу вiдповiдь">
 						<select name="questions[0][answers][0][key]" class="list-category2 list-category1">
 							<option value="">--</option>
 						</select>
+<<<<<<< HEAD
 						
                         <input name="type" type ="hidden" id="typekey">
+=======
+						<input name="is_primary"  id="input-is-primary">
+                        <input name="type"  id="type">
+>>>>>>> f4297031840d4fd26a221971e18659793389d3eb
 						<button type="button" name="add-answer" class = "btn-white little-btn add-answer find" >Додати вiдповiдь</button>
 
 					</fieldset>

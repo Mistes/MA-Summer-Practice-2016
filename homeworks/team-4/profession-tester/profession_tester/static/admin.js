@@ -122,9 +122,7 @@ var dataKeys = $.getJSON(categoryAPI, function() {
   dataKeys.done(function(data) {
       $.each( data.keys, function( i, item ) {
         $('.list-category').append('<option value="'+i+'">'+item.name+'</option>');
-                        var i = item.category_enum;
-
-        $('list-category').val(i);
+ 
 
       });
   });
